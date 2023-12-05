@@ -1,6 +1,17 @@
-#include <iostream>
+
+#include "Game.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    //Game object initialization
+    Game game;
+
+
+    //Main Game Loop
+    while (game.isRunning()) {
+        game.update();
+        game.render();
+    }
+
+    return 0;
 }
