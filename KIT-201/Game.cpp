@@ -9,6 +9,7 @@ void Game::initWindow()
 	//Fixed Values For now
 	this->videoMode = sf::VideoMode(1280,720);
 	this->window = new sf::RenderWindow(this->videoMode,"KIT-201",sf::Style::Close | sf::Style::Titlebar);
+	this->window->setFramerateLimit(60);
 }
 
 //Constructors and Destructors:
