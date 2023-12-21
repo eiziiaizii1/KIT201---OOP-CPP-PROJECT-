@@ -7,7 +7,7 @@ void Game::initVariables()
 void Game::initWindow()
 {
 	//Fixed Values For now
-	this->videoMode = sf::VideoMode(1280,720);
+	this->videoMode = sf::VideoMode(1280,960);
 	this->window = new sf::RenderWindow(this->videoMode,"KIT-201",sf::Style::Close | sf::Style::Titlebar);
 	this->window->setFramerateLimit(60);
 }
@@ -58,11 +58,13 @@ void Game::update()
 
 void Game::render()
 {
-	this->window->clear();
+	this->window->clear(sf::Color(0, 0, 50));
 
 
 	//*****Render stuff:***** 
 	this->player.render(*this->window);
+
+	this->tileMap.render(*this->window);
 
 	this->window->display();
 }

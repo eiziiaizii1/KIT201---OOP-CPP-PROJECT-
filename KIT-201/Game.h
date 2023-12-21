@@ -7,6 +7,7 @@
 #include "SFML\System.hpp"
 #include "SFML\Audio.hpp"
 #include "Player.h"
+#include "TileMap.h"
 
 class Game
 {
@@ -18,6 +19,9 @@ private:
 
 	// Player and stuff
 	Player player;
+
+	// TileMap (temporarily in game class)
+	TileMap tileMap;
 
 	//Initializers
 	void initVariables();
