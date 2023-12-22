@@ -34,15 +34,18 @@ void Player::handleInputs()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && std::abs(this->velocity.x) < this->velocityMax.x)
 	{
+		
 		this->sprite.setScale(2.f, 2.f);
+		this->sprite.setOrigin(0.f, 0.f);
 		this->velocity.x += acceleration.x;
 		updateAnimations();
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && std::abs(this->velocity.x) < this->velocityMax.x)
 	{
 		this->sprite.setScale(-2.f, 2.f);
-		// Character covers nearly 1/3 of the rect so ve divide it by 3
-		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 3.f, 0.f);
+
+		// Character covers nearly 1/2.5 of the texture rect ,so divide it by 2.5 then to make it smoother add the 1/5 of texture rect
+		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 2.5f +( this->sprite.getGlobalBounds().width / 5), 0.f);
 
 		this->velocity.x -= acceleration.x;
 		updateAnimations();
