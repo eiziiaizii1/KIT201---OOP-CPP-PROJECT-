@@ -2,11 +2,16 @@
 #include "SFML\Graphics.hpp"
 #include <iostream>
 
+enum ANIMATION_STATES {IDLE = 0, MOVING_RIGHT, MOVING_LEFT};
+
 class Player
 {
 private:
-	sf::Texture texture;
-	sf::Sprite sprite;
+	sf::Texture textureRun;
+	sf::Sprite spriteRun;
+	sf::Texture textureIdle;
+	sf::Sprite spriteIdle;
+	sf::Sprite* currentSprite;
 
 	//Physics variables
 	sf::Vector2f position;
@@ -16,23 +21,25 @@ private:
 	sf::Vector2f acceleration;
 	sf::Vector2f drag;
 
-	int animationCounter;
+	sf::Clock animationClock;
 	sf::IntRect spriteFrame;
 	short int animationFrameCount;
-	bool goingLeft;
+	ANIMATION_STATES animationState;
 
 	void initVariables();
 	void initTexture();
 	void initSprite();
 
-	void handleInputs();
-	void move();
+	void updateAnimations();
+	void updateMovement();
+	void move(const float x_dir, const float y_dir);
+	void updatePhysics();
 public:
 	//Constructors - Dectructor
 	Player();
 	~Player();
 
-	void updateAnimations();
+	
 	void update();
 	void render(sf::RenderTarget& target);
 };

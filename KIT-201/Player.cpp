@@ -2,64 +2,83 @@
 
 void Player::initVariables()
 {
-	this->animationCounter = 0;
+	this->animationClock.restart();
 	this->animationFrameCount = 0;
+	this->animationState = ANIMATION_STATES::IDLE;
 }
 
 void Player::initTexture()
 {
-	if (!this->texture.loadFromFile("Textures/RobotRun.png"))
+	if (!this->textureRun.loadFromFile("Textures/RobotRun.png"))
 		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player texture sheet" << std::endl;
+	if (!this->textureIdle.loadFromFile("Textures/RobotIdle.png"))
+		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player texture sheet" << std::endl;
+
 }
 
 void Player::initSprite()
 {
-	this->sprite.setTexture(this->texture);	
+	this->spriteRun.setTexture(this->textureRun);	
+	this->spriteIdle.setTexture(this->textureIdle);
 
-	// respresents 1 frame in spriteSheet (specifically, running sprite sheet)
-	this->spriteFrame = sf::IntRect(0, 0, this->sprite.getGlobalBounds().width / 8.f, this->sprite.getGlobalBounds().height / 1.f);
+	// respresents 1 frame in spriteSheet, in each sheet our character covers 100x100 pixel
+	this->spriteFrame = sf::IntRect(0, 0, this->spriteRun.getGlobalBounds().width / 8.f, this->spriteRun.getGlobalBounds().height / 1.f);
 
-	//	1st row,	width:800 / 8 = 100,		height:100 / 1 = 100  
-	this->sprite.setTextureRect(this->spriteFrame);
+	this->spriteRun.setTextureRect(this->spriteFrame);
+	this->spriteIdle.setTextureRect(this->spriteFrame);
 
-	this->sprite.setScale(2.f, 2.f);
+	this->spriteRun.setScale(2.f, 2.f);
+	this->spriteIdle.setScale(2.f, 2.f);
 }
 
-void Player::handleInputs()
+void Player::updateMovement()
 {
-	if (std::abs(velocity.x) <= velocityMin.x)
-	{
-		velocity.x = 0.f;
-	}
+	this->animationState = ANIMATION_STATES::IDLE;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && std::abs(this->velocity.x) < this->velocityMax.x)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		
-		this->sprite.setScale(2.f, 2.f);
-		this->sprite.setOrigin(0.f, 0.f);
-		this->velocity.x += acceleration.x;
-		updateAnimations();
+		this->move(1.f, 0.f);
+		this->animationState = ANIMATION_STATES::MOVING_RIGHT;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && std::abs(this->velocity.x) < this->velocityMax.x)
 	{
-		this->sprite.setScale(-2.f, 2.f);
-
-		// Character covers nearly 1/2.5 of the texture rect ,so divide it by 2.5 then to make it smoother add the 1/5 of texture rect
-		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 2.5f +( this->sprite.getGlobalBounds().width / 5), 0.f);
-
-		this->velocity.x -= acceleration.x;
-		updateAnimations();
+		this->move(-1.f, 0.f);
+		this->animationState = ANIMATION_STATES::MOVING_LEFT;
 	}
-	this->velocity.x *= this->drag.x;
 }
 
-void Player::move()
+void Player::move(const float x_dir, const float y_dir)
 {
-	this->sprite.move(this->velocity);
+	this->velocity.x += x_dir * this->acceleration.x;
+
+	// limits the maximum amount of velocity
+	if (std::abs(this->velocity.x) >= this->velocityMax.x)
+	{
+		if(this->velocity.x < 0.f)
+			this->velocity.x = this->velocityMax.x * -1.f;
+		else
+			this->velocity.x = this->velocityMax.x * 1.f;
+	}
+
+}
+
+void Player::updatePhysics()
+{
+	// applies drag
+	this->velocity.x *= drag.x;
+
+	// Limits the velocity to 0.f
+	if (std::abs(this->velocity.x) <= this->velocityMin.x)
+	{
+		this->velocity.x = 0.f;
+	}
+
+	this->spriteRun.move(this->velocity);
+	this->spriteIdle.move(this->velocity);
 }
 
 Player::Player()
-	: position(0.f, 0.f), velocity(0.f, 0.f), acceleration(1.15f, 0.f), velocityMax(20.f, 10.f), velocityMin(1.f, 0.f), drag(0.9f, 0.f)
+	: position(0.f, 0.f), velocity(0.f, 0.f), acceleration(1.2f, 0.f), velocityMax(20.f, 10.f), velocityMin(1.f, 0.f), drag(0.9f, 0.f)
 {
 	initTexture();
 	initSprite();
@@ -71,29 +90,64 @@ Player::~Player()
 
 void Player::updateAnimations()
 {
-	if (animationCounter >= 5)
+	if (this->animationState == ANIMATION_STATES::IDLE)
 	{
-		if (animationFrameCount >= 7)
+		if (this->animationClock.getElapsedTime().asSeconds() > 0.2f)
 		{
-			animationFrameCount = 0;
+			if (this->spriteFrame.left > 100.f)
+			{
+				this->spriteFrame.left = 0.f;
+			}
+			this->animationClock.restart();
+			this->spriteIdle.setTextureRect(spriteFrame);
+			this->spriteFrame.left += this->spriteFrame.width;
 		}
-		
-		this->spriteFrame = sf::IntRect(spriteFrame.width * animationFrameCount, 0, spriteFrame.width, spriteFrame.height);
-		this->sprite.setTextureRect(this->spriteFrame);
-		animationFrameCount++;
-		animationCounter = 0;
+		currentSprite = &spriteIdle;
 	}
-	else
-		animationCounter++;
+	else if (this->animationState == ANIMATION_STATES::MOVING_RIGHT)
+	{
+		if (this->animationClock.getElapsedTime().asSeconds() > 0.1f)
+		{
+			if (this->spriteFrame.left > 700.f)
+			{
+				this->spriteFrame.left = 0.f;
+			}
+			this->animationClock.restart();
+			this->spriteRun.setTextureRect(spriteFrame);
+			this->spriteFrame.left += this->spriteFrame.width;
+		}
+		this->spriteRun.setScale(2.f,2.f);
+		this->spriteRun.setOrigin(0.f, 0.f);
+		currentSprite = &spriteRun;
+	}
+	else if (this->animationState == ANIMATION_STATES::MOVING_LEFT)
+	{
+		if (this->animationClock.getElapsedTime().asSeconds() > 0.1f)
+		{
+			if (this->spriteFrame.left >= 700.f)
+			{
+				this->spriteFrame.left = 0.f;
+			}
+			this->animationClock.restart();
+			this->spriteRun.setTextureRect(spriteFrame);
+			this->spriteFrame.left += this->spriteFrame.width;
+		}
+		this->spriteRun.setScale(-2.f, 2.f);
+		this->spriteRun.setOrigin(this->spriteRun.getGlobalBounds().width / 2.5f + (this->spriteRun.getGlobalBounds().width / 5), 0.f);
+		currentSprite = &spriteRun;
+	}
+
 }
 
 void Player::update()
 {
-	this->handleInputs();
-	this->move();
+	this->updateMovement();
+	this->updateAnimations();
+	this->updatePhysics();
 }
 
 void Player::render(sf::RenderTarget& target)
 {
-	target.draw(this->sprite);
+	//target.draw(*currentSprite);
+	target.draw(*this->currentSprite);
 }
