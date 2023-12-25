@@ -56,7 +56,6 @@ void Player::move(const float x_dir, const float y_dir)
 		else
 			this->velocity.x = this->velocityMax.x * 1.f;
 	}
-
 }
 
 void Player::updatePhysics()
@@ -103,6 +102,26 @@ Player::Player()
 
 Player::~Player()
 {
+}
+
+const sf::Vector2f& Player::getVelocity() 
+{
+	return this->velocity;
+}
+
+const sf::Vector2f& Player::getPosition()
+{
+	return this->sprite.getPosition();
+}
+
+void Player::setVelocity(float x, float y)
+{
+	this->velocity = sf::Vector2f(x, y);
+}
+
+void Player::setPosition(float x, float y)
+{
+	sprite.setPosition(sf::Vector2f(x,y));
 }
 
 void Player::updateAnimations()
@@ -154,6 +173,11 @@ void Player::updateAnimations()
 		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 2.5f + (this->sprite.getGlobalBounds().width / 5), 0.f);
 	}
 
+}
+
+sf::FloatRect Player::getGlobalBounds()
+{
+	return this->sprite.getGlobalBounds();
 }
 
 void Player::update()

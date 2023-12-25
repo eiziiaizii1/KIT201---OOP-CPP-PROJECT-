@@ -54,6 +54,7 @@ void Game::pollEvents()
 void Game::update()
 {
 	this->pollEvents();
+	CollisionManager::handleCollisions(this->player, this->tileMap);
 	this->player.update();
 }
 

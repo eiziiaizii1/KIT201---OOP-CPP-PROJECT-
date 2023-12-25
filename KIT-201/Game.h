@@ -8,6 +8,7 @@
 #include "SFML\Audio.hpp"
 #include "Player.h"
 #include "TileMap.h"
+#include "CollisionManager.h"
 
 class Game
 {

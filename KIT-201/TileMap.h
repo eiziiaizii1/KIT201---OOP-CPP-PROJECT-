@@ -22,6 +22,8 @@ public:
 	TileMap(std::vector<std::vector<short>>& tileMap);
 	~TileMap();
 
+	sf::FloatRect getTileGlobalBounds();
+	std::vector<std::vector<short>>& getMapVectors();
 	void update();
 	void render(sf::RenderTarget& target);
 };

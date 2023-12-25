@@ -41,6 +41,16 @@ TileMap::~TileMap()
 {
 }
 
+sf::FloatRect TileMap::getTileGlobalBounds()
+{
+	return this->blockSprite.getGlobalBounds();
+}
+
+std::vector<std::vector<short>>& TileMap::getMapVectors()
+{
+	return this->tileMap;
+}
+
 void TileMap::update()
 {
 }

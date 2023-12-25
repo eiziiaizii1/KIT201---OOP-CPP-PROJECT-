@@ -37,7 +37,13 @@ public:
 	Player();
 	~Player();
 
-	
+	const sf::Vector2f& getVelocity();
+	const sf::Vector2f& getPosition();
+
+	void setVelocity(float x, float y);
+	void setPosition(float x, float y);
+
+	sf::FloatRect getGlobalBounds();
 	void update();
 	void render(sf::RenderTarget& target);
 };
