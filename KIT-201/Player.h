@@ -8,10 +8,8 @@ class Player
 {
 private:
 	sf::Texture textureRun;
-	sf::Sprite spriteRun;
 	sf::Texture textureIdle;
-	sf::Sprite spriteIdle;
-	sf::Sprite* currentSprite;
+	sf::Sprite sprite;
 
 	//Physics variables
 	sf::Vector2f position;

@@ -18,17 +18,14 @@ void Player::initTexture()
 
 void Player::initSprite()
 {
-	this->spriteRun.setTexture(this->textureRun);	
-	this->spriteIdle.setTexture(this->textureIdle);
+	this->sprite.setTexture(this->textureIdle);
 
 	// respresents 1 frame in spriteSheet, in each sheet our character covers 100x100 pixel
-	this->spriteFrame = sf::IntRect(0, 0, this->spriteRun.getGlobalBounds().width / 8.f, this->spriteRun.getGlobalBounds().height / 1.f);
+	this->spriteFrame = sf::IntRect(0, 0, this->sprite.getGlobalBounds().width / 2.f, this->sprite.getGlobalBounds().height / 1.f);
 
-	this->spriteRun.setTextureRect(this->spriteFrame);
-	this->spriteIdle.setTextureRect(this->spriteFrame);
+	this->sprite.setTextureRect(this->spriteFrame);
 
-	this->spriteRun.setScale(2.f, 2.f);
-	this->spriteIdle.setScale(2.f, 2.f);
+	this->sprite.setScale(2.f, 2.f);
 }
 
 void Player::updateMovement()
@@ -73,8 +70,7 @@ void Player::updatePhysics()
 		this->velocity.x = 0.f;
 	}
 
-	this->spriteRun.move(this->velocity);
-	this->spriteIdle.move(this->velocity);
+	this->sprite.move(this->velocity);
 }
 
 Player::Player()
@@ -99,10 +95,10 @@ void Player::updateAnimations()
 				this->spriteFrame.left = 0.f;
 			}
 			this->animationClock.restart();
-			this->spriteIdle.setTextureRect(spriteFrame);
+			this->sprite.setTexture(textureIdle);
+			this->sprite.setTextureRect(spriteFrame);
 			this->spriteFrame.left += this->spriteFrame.width;
 		}
-		currentSprite = &spriteIdle;
 	}
 	else if (this->animationState == ANIMATION_STATES::MOVING_RIGHT)
 	{
@@ -113,12 +109,12 @@ void Player::updateAnimations()
 				this->spriteFrame.left = 0.f;
 			}
 			this->animationClock.restart();
-			this->spriteRun.setTextureRect(spriteFrame);
+			this->sprite.setTexture(textureRun);
+			this->sprite.setTextureRect(spriteFrame);
 			this->spriteFrame.left += this->spriteFrame.width;
 		}
-		this->spriteRun.setScale(2.f,2.f);
-		this->spriteRun.setOrigin(0.f, 0.f);
-		currentSprite = &spriteRun;
+		this->sprite.setScale(2.f,2.f);
+		this->sprite.setOrigin(0.f, 0.f);
 	}
 	else if (this->animationState == ANIMATION_STATES::MOVING_LEFT)
 	{
@@ -129,12 +125,12 @@ void Player::updateAnimations()
 				this->spriteFrame.left = 0.f;
 			}
 			this->animationClock.restart();
-			this->spriteRun.setTextureRect(spriteFrame);
+			this->sprite.setTexture(textureRun);
+			this->sprite.setTextureRect(spriteFrame);
 			this->spriteFrame.left += this->spriteFrame.width;
 		}
-		this->spriteRun.setScale(-2.f, 2.f);
-		this->spriteRun.setOrigin(this->spriteRun.getGlobalBounds().width / 2.5f + (this->spriteRun.getGlobalBounds().width / 5), 0.f);
-		currentSprite = &spriteRun;
+		this->sprite.setScale(-2.f, 2.f);
+		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 2.5f + (this->sprite.getGlobalBounds().width / 5), 0.f);
 	}
 
 }
@@ -149,5 +145,5 @@ void Player::update()
 void Player::render(sf::RenderTarget& target)
 {
 	//target.draw(*currentSprite);
-	target.draw(*this->currentSprite);
+	target.draw(this->sprite);
 }
