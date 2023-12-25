@@ -13,7 +13,7 @@ void TileMap::initSprites()
 
 void TileMap::initDefaultMap()
 {
-	//Defalult array size: 15 rows and 20 columns
+	//Default array size: 15 rows and 20 columns
 	short rows = 15;
 	short columns = 20;
 	tileMap.resize(rows, std::vector<short>(columns, 0)); // 0 initalized (BACKGROUND)
