@@ -27,7 +27,6 @@ Game::~Game()
 
 
 //Functions:
-
 const bool Game::isRunning() const
 {
 	return this->window->isOpen();

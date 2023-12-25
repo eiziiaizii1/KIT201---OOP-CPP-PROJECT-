@@ -23,9 +23,10 @@ void Player::initTexture()
 
 void Player::initSprite()
 {
+	//initially player is in idle animation
 	this->sprite.setTexture(this->textureIdle);
 
-	// respresents 1 frame in spriteSheet, in each sheet our character covers  pixel
+	// respresents 1 frame in spriteSheet, in each sheet our character covers  pixel (setTextureREct gets IntRect parameter)
 	this->spriteFrame = sf::IntRect(0, 0, this->sprite.getGlobalBounds().width / 2.f, this->sprite.getGlobalBounds().height / 1.f);
 
 	this->sprite.setTextureRect(this->spriteFrame);
@@ -39,12 +40,12 @@ void Player::updateMovement()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		this->move(1.f, 0.f);
+		this->move(1.f, 0.f); // moves physically
 		this->animationState = ANIMATION_STATES::MOVING_RIGHT;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && std::abs(this->velocity.x) < this->velocityMax.x)
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		this->move(-1.f, 0.f);
+		this->move(-1.f, 0.f); // moves physically
 		this->animationState = ANIMATION_STATES::MOVING_LEFT;
 	}
 }
@@ -65,7 +66,7 @@ void Player::move(const float x_dir, const float y_dir)
 
 void Player::updatePhysics()
 {
-	// applies drag
+	// applies drag, helps to slow downs to player horizontally
 	this->velocity.x *= drag.x;
 
 	// applies gravity
@@ -75,26 +76,23 @@ void Player::updatePhysics()
 	if (std::abs(this->velocity.y) > velocityMax.y)
 	{
 		if (this->velocity.y < 0.f)
-		{
 			this->velocity.y = this->velocityMax.y * -1.f;
-		}
 		else
-		{
 			this->velocity.y = this->velocityMax.y * 1.f;
-		}
 	}
 
 	// Limits the velocity to based on the minimum value
+	// As we multiply velocity.x by drag.x velocity never reaches the zero, so we must make it 0 if it becomes less then a min value
 	if (std::abs(this->velocity.x) < this->velocityMin.x)
 	{
 		this->velocity.x = 0.f;
 	}
 	if(std::abs(this->velocity.y) < this->velocityMin.y)
 	{
-		this->velocity.y = this->velocityMin.y;
+		this->velocity.y = 0.f;
 	}
 
-	// moves the sprite
+	// moves the sprite based on the velocity (it literally moves, changes the sprites position)
 	this->sprite.move(this->velocity);
 }
 
@@ -133,8 +131,11 @@ void Player::updateAnimations()
 {
 	if (this->animationState == ANIMATION_STATES::IDLE)
 	{
+		// sprite is set to next frame after 0.2 seconds
 		if (this->animationClock.getElapsedTime().asSeconds() > 0.2f)
 		{
+			// there are 2 frames in idle each first frame start is (0, 0), 2nd's start  (0, 44)
+			// we should start from beginning, if sprite is set to last frame
 			if (this->spriteFrame.left > 44.f)
 			{
 				this->spriteFrame.left = 0.f;
@@ -142,7 +143,7 @@ void Player::updateAnimations()
 			this->animationClock.restart();
 			this->sprite.setTexture(textureIdle);
 			this->sprite.setTextureRect(spriteFrame);
-			this->spriteFrame.left += this->spriteFrame.width;
+			this->spriteFrame.left += this->spriteFrame.width; //next frame
 		}
 	}
 	else if (this->animationState == ANIMATION_STATES::MOVING_RIGHT)
@@ -158,8 +159,10 @@ void Player::updateAnimations()
 			this->sprite.setTextureRect(spriteFrame);
 			this->spriteFrame.left += this->spriteFrame.width;
 		}
+		// we should scale by positive value to get rid of mirror effect
+		// and the origin changes when we scale by minus so we should set origin back to (0, 0)
 		this->sprite.setScale(2.f,2.f);
-		this->sprite.setOrigin(0.f, 0.f);
+		this->sprite.setOrigin(0.f, 0.f); 
 	}
 	else if (this->animationState == ANIMATION_STATES::MOVING_LEFT)
 	{
@@ -174,17 +177,20 @@ void Player::updateAnimations()
 			this->sprite.setTextureRect(spriteFrame);
 			this->spriteFrame.left += this->spriteFrame.width;
 		}
+		// if we scale by minus we got mirror effect, our character is not symmetrical
+		// ,so made SOME CALCULATIONs for smooth animation transition
 		this->sprite.setScale(-2.f, 2.f);
 		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 2.5f + (this->sprite.getGlobalBounds().width / 5), 0.f);
 	}
 
 }
 
-sf::FloatRect Player::getGlobalBounds()
+const sf::FloatRect& Player::getGlobalBounds()
 {
 	return this->sprite.getGlobalBounds();
 }
 
+// will be called each frame in game loop
 void Player::update()
 {
 	this->updateMovement();

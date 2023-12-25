@@ -7,6 +7,7 @@ enum ANIMATION_STATES {IDLE = 0, MOVING_RIGHT, MOVING_LEFT};
 class Player
 {
 private:
+	//Texture variables
 	sf::Texture textureRun;
 	sf::Texture textureIdle;
 	sf::Sprite sprite;
@@ -19,6 +20,7 @@ private:
 	sf::Vector2f acceleration;
 	sf::Vector2f drag; //drag.x is friction, drag.y is gravity
 
+	//Animation variables
 	sf::Clock animationClock;
 	sf::IntRect spriteFrame;
 	short int animationFrameCount;
@@ -36,14 +38,17 @@ public:
 	//Constructors - Dectructor
 	Player();
 	~Player();
-
+	
+	//Getters
 	const sf::Vector2f& getVelocity();
 	const sf::Vector2f& getPosition();
+	const sf::FloatRect& getGlobalBounds();
 
+	//Setters
 	void setVelocity(float x, float y);
 	void setPosition(float x, float y);
 
-	sf::FloatRect getGlobalBounds();
+
 	void update();
 	void render(sf::RenderTarget& target);
 };
