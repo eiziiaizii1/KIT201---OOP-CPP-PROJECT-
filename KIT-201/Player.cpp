@@ -15,9 +15,9 @@ void Player::initTexture()
 		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player texture sheet" << std::endl;*/
 
 	if (!this->textureRun.loadFromFile("Textures/run resized.png"))
-		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player texture sheet" << std::endl;
+		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player run texture sheet" << std::endl;
 	if (!this->textureIdle.loadFromFile("Textures/idle resized.png"))
-		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player texture sheet" << std::endl;
+		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player idle texture sheet" << std::endl;
 
 }
 
