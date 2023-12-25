@@ -64,17 +64,38 @@ void Player::updatePhysics()
 	// applies drag
 	this->velocity.x *= drag.x;
 
-	// Limits the velocity to 0.f
-	if (std::abs(this->velocity.x) <= this->velocityMin.x)
+	// applies gravity
+	this->velocity.y += this->drag.y;
+	
+	// Limits the velocity.y to based on the maxiumum value
+	if (std::abs(this->velocity.y) > velocityMax.y)
+	{
+		if (this->velocity.y < 0.f)
+		{
+			this->velocity.y = this->velocityMax.y * -1.f;
+		}
+		else
+		{
+			this->velocity.y = this->velocityMax.y * 1.f;
+		}
+	}
+
+	// Limits the velocity to based on the minimum value
+	if (std::abs(this->velocity.x) < this->velocityMin.x)
 	{
 		this->velocity.x = 0.f;
 	}
+	if(std::abs(this->velocity.y) < this->velocityMin.y)
+	{
+		this->velocity.y = this->velocityMin.y;
+	}
 
+	// moves the sprite
 	this->sprite.move(this->velocity);
 }
 
 Player::Player()
-	: position(0.f, 0.f), velocity(0.f, 0.f), acceleration(1.2f, 0.f), velocityMax(20.f, 10.f), velocityMin(1.f, 0.f), drag(0.9f, 0.f)
+	: position(0.f, 0.f), velocity(0.f, 0.f), acceleration(1.2f, 0.f), velocityMax(20.f, 10.f), velocityMin(1.f, 1.f), drag(0.9f, 3.f)
 {
 	initTexture();
 	initSprite();

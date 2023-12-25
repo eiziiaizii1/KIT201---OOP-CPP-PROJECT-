@@ -17,7 +17,7 @@ private:
 	sf::Vector2f velocityMax;
 	sf::Vector2f velocityMin;
 	sf::Vector2f acceleration;
-	sf::Vector2f drag;
+	sf::Vector2f drag; //drag.x is friction, drag.y is gravity
 
 	sf::Clock animationClock;
 	sf::IntRect spriteFrame;
