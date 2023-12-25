@@ -9,9 +9,14 @@ void Player::initVariables()
 
 void Player::initTexture()
 {
-	if (!this->textureRun.loadFromFile("Textures/RobotRun.png"))
+	/*if (!this->textureRun.loadFromFile("Textures/RobotRun.png"))
 		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player texture sheet" << std::endl;
 	if (!this->textureIdle.loadFromFile("Textures/RobotIdle.png"))
+		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player texture sheet" << std::endl;*/
+
+	if (!this->textureRun.loadFromFile("Textures/run resized.png"))
+		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player texture sheet" << std::endl;
+	if (!this->textureIdle.loadFromFile("Textures/idle resized.png"))
 		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player texture sheet" << std::endl;
 
 }
@@ -20,7 +25,7 @@ void Player::initSprite()
 {
 	this->sprite.setTexture(this->textureIdle);
 
-	// respresents 1 frame in spriteSheet, in each sheet our character covers 100x100 pixel
+	// respresents 1 frame in spriteSheet, in each sheet our character covers  pixel
 	this->spriteFrame = sf::IntRect(0, 0, this->sprite.getGlobalBounds().width / 2.f, this->sprite.getGlobalBounds().height / 1.f);
 
 	this->sprite.setTextureRect(this->spriteFrame);
@@ -130,7 +135,7 @@ void Player::updateAnimations()
 	{
 		if (this->animationClock.getElapsedTime().asSeconds() > 0.2f)
 		{
-			if (this->spriteFrame.left > 100.f)
+			if (this->spriteFrame.left > 44.f)
 			{
 				this->spriteFrame.left = 0.f;
 			}
@@ -144,7 +149,7 @@ void Player::updateAnimations()
 	{
 		if (this->animationClock.getElapsedTime().asSeconds() > 0.1f)
 		{
-			if (this->spriteFrame.left > 700.f)
+			if (this->spriteFrame.left > 308.f)
 			{
 				this->spriteFrame.left = 0.f;
 			}
@@ -160,7 +165,7 @@ void Player::updateAnimations()
 	{
 		if (this->animationClock.getElapsedTime().asSeconds() > 0.1f)
 		{
-			if (this->spriteFrame.left >= 700.f)
+			if (this->spriteFrame.left > 308.f)
 			{
 				this->spriteFrame.left = 0.f;
 			}
