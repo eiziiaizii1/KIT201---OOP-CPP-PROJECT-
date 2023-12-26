@@ -9,16 +9,10 @@ void Player::initVariables()
 
 void Player::initTexture()
 {
-	/*if (!this->textureRun.loadFromFile("Textures/RobotRun.png"))
-		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player texture sheet" << std::endl;
-	if (!this->textureIdle.loadFromFile("Textures/RobotIdle.png"))
-		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player texture sheet" << std::endl;*/
-
 	if (!this->textureRun.loadFromFile("Textures/run resized.png"))
 		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player run texture sheet" << std::endl;
 	if (!this->textureIdle.loadFromFile("Textures/idle resized.png"))
 		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player idle texture sheet" << std::endl;
-
 }
 
 void Player::initSprite()
@@ -26,8 +20,14 @@ void Player::initSprite()
 	//initially player is in idle animation
 	this->sprite.setTexture(this->textureIdle);
 
-	// respresents 1 frame in spriteSheet, in each sheet our character covers  pixel (setTextureREct gets IntRect parameter)
-	this->spriteFrame = sf::IntRect(0, 0, this->sprite.getGlobalBounds().width / 2.f, this->sprite.getGlobalBounds().height / 1.f);
+	// respresents 1 frame in spriteSheet, (setTextureREct gets IntRect parameter)
+	// contains the dimensions of one frame of the character (currently 44px w , 66px h)
+	this->spriteFrame = sf::IntRect(
+		0,
+		0, 
+		this->sprite.getGlobalBounds().width / 2.f, 
+		this->sprite.getGlobalBounds().height / 1.f
+	);
 
 	this->sprite.setTextureRect(this->spriteFrame);
 
@@ -134,7 +134,8 @@ void Player::updateAnimations()
 		// sprite is set to next frame after 0.2 seconds
 		if (this->animationClock.getElapsedTime().asSeconds() > 0.2f)
 		{
-			// there are 2 frames in idle each first frame start is (0, 0), 2nd's start  (0, 44)
+			// there are 2 frames in idle
+			// first frame start is (0, 0), 2nd's start  (0, 44)
 			// we should start from beginning, if sprite is set to last frame
 			if (this->spriteFrame.left > 44.f)
 			{

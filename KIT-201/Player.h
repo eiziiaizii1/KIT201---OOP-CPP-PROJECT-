@@ -21,19 +21,22 @@ private:
 	sf::Vector2f drag; //drag.x is friction, drag.y is gravity
 
 	//Animation variables
-	sf::Clock animationClock;
-	sf::IntRect spriteFrame;
-	short int animationFrameCount;
+	sf::Clock animationClock; // Handles animation timing
+	sf::IntRect spriteFrame;  // The frame that holds a rectangle that contains part of the sprite
+	short int animationFrameCount; // Holds the current frame's number
 	ANIMATION_STATES animationState;
 
+	//Initialization methods
 	void initVariables();
 	void initTexture();
 	void initSprite();
 
+	//Updating methods
 	void updateAnimations();
 	void updateMovement();
 	void move(const float x_dir, const float y_dir);
 	void updatePhysics();
+
 public:
 	//Constructors - Dectructor
 	Player();
@@ -50,6 +53,6 @@ public:
 
 
 	void update();
-	void render(sf::RenderTarget& target);
+	void render(sf::RenderTarget& target); // Renders the player at the target
 };
 

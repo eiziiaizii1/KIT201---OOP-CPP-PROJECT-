@@ -15,8 +15,8 @@ class Game
 private:
 	// main variables for game
 	sf::VideoMode videoMode; //Holds information about window height, width, etc.
-	sf::RenderWindow* window;
-	sf::Event sfmlEvent;
+	sf::RenderWindow* window; // Is the window where we will render content
+	sf::Event sfmlEvent; // Holds events
 
 	// Player and stuff
 	Player player;
