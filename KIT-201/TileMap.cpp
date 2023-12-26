@@ -19,7 +19,7 @@ void TileMap::initDefaultMap()
 	tileMap.resize(rows, std::vector<short>(columns, 0)); // 0 initalized (BACKGROUND)
 
 	tileMap = {	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},
-				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},
+				{0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},
 				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},
 				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},
 				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},
@@ -78,6 +78,7 @@ void TileMap::update()
 void TileMap::render(sf::RenderTarget& target)
 {
 	// Our tile(block) sprite is a square so each edge is equal
+	// block 's 64x64
 	float tileSize = this->blockSprite.getGlobalBounds().height;
 
 	for (short i = 0; i < this->tileMap.size(); ++i) {

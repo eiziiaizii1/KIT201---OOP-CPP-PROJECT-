@@ -151,7 +151,7 @@ void Player::updateAnimations()
 	{
 		if (this->animationClock.getElapsedTime().asSeconds() > 0.1f)
 		{
-			if (this->spriteFrame.left > 308.f)
+			if (this->spriteFrame.left > 308.f)// 44*7
 			{
 				this->spriteFrame.left = 0.f;
 			}
