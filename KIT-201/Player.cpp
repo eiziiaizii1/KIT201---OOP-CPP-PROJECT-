@@ -178,9 +178,8 @@ void Player::updateAnimations()
 			this->spriteFrame.left += this->spriteFrame.width;
 		}
 		// if we scale by minus we got mirror effect, our character is not symmetrical
-		// ,so made SOME CALCULATIONs for smooth animation transition
 		this->sprite.setScale(-2.f, 2.f);
-		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 2.5f + (this->sprite.getGlobalBounds().width / 5), 0.f);
+		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 2.f, 0.f);
 	}
 
 }

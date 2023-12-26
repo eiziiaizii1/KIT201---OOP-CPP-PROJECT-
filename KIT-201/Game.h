@@ -24,6 +24,8 @@ private:
 	// TileMap (temporarily in game class)
 	TileMap tileMap;
 
+	CollisionManager collisionManager;
+
 	//Initializers
 	void initVariables();
 	void initWindow();

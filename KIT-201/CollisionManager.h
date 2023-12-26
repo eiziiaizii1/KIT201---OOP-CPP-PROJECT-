@@ -10,6 +10,6 @@ public:
 	CollisionManager();
 	~CollisionManager();
 
-	static void handleCollisions(Player& player, TileMap& tileMap);
+	void handleCollisions(Player& player, TileMap& tileMap);
 };
 
