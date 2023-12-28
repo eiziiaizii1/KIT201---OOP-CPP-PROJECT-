@@ -18,7 +18,8 @@ protected:
     sf::Vector2f velocityMin;
     sf::Vector2f acceleration;
     sf::Vector2f drag; //drag.x is friction, drag.y is gravity
-    float moveDirectionX;
+    //float moveDirectionX;
+    sf::Vector2f moveDirection;
 
     //Animation variables
     sf::Clock animationClock;
@@ -43,7 +44,7 @@ public:
     virtual const sf::Vector2f& getVelocityMin() = 0;
     virtual const sf::Vector2f& getAcceleration() = 0;
     virtual const sf::Vector2f& getDrag() = 0;
-    virtual const float& getMoveDirectionX() = 0;
+    virtual const sf::Vector2f& getMoveDirection() = 0;
 
     virtual void setPosition(float x, float y) = 0;
     virtual void setVelocity(float x, float y) = 0;

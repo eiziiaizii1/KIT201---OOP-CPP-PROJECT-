@@ -5,7 +5,7 @@ void Player::initVariables()
 	this->animationClock.restart();
 	this->animationFrameCount = 0;
 	this->animationState = ANIMATION_STATES::IDLE;
-	this->moveDirectionX = 0.f;
+	this->isOnGround = false;
 }
 
 void Player::initTexture()
@@ -33,17 +33,29 @@ void Player::updateMovement()
 {
 	this->animationState = ANIMATION_STATES::IDLE;
 
-	this->moveDirectionX = 0.f;
+	this->moveDirection = sf::Vector2f(0.f, 1.f);
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		this->moveDirectionX = 1.f;
+		this->moveDirection.x = 1.f;
 		this->animationState = ANIMATION_STATES::MOVING_RIGHT;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		this->moveDirectionX = -1.f;
+		this->moveDirection.x = -1.f;
 		this->animationState = ANIMATION_STATES::MOVING_LEFT;
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && isOnGround == true)
+	{
+		this->moveDirection.y = -1.f;
+		std::cout << "space\n";
+		isOnGround = false;
+	}
+	else if(this->velocity.y <= 3)
+	{
+		isOnGround = true;
+	}
+	std::cout << this->velocity.y<<std::endl;
 
 	// moves the sprite based on the velocity (it literally moves, changes the sprites position on window)
 	this->sprite.move(this->velocity);
@@ -54,10 +66,11 @@ Player::Player()
 	// Initialize members inherited from Entity class
 	position = sf::Vector2f(0.f, 0.f);
 	velocity = sf::Vector2f(0.f, 0.f);
-	acceleration = sf::Vector2f(1.2f, 0.f);
+	acceleration = sf::Vector2f(1.2f, 1.f);
 	velocityMax = sf::Vector2f(20.f, 10.f);
 	velocityMin = sf::Vector2f(1.f, 1.f);
 	drag = sf::Vector2f(0.9f, 3.f);
+	this->moveDirection = sf::Vector2f(0.f,0.f);;
 
 	initTexture();
 	initSprite();
@@ -94,9 +107,9 @@ const sf::Vector2f& Player::getDrag()
 	return this->drag;
 }
 
-const float& Player::getMoveDirectionX()
+const sf::Vector2f& Player::getMoveDirection()
 {
-	return this->moveDirectionX;
+	return this->moveDirection;
 }
 
 const sf::Vector2f& Player::getPosition()

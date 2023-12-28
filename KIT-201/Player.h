@@ -3,6 +3,8 @@
 
 class Player : public Entity {
 private:
+    bool isOnGround;
+
     // Implementations of abstract methods
     void initVariables() override;
     void initTexture() override;
@@ -23,7 +25,7 @@ public:
     const sf::Vector2f& getVelocityMin() override;
     const sf::Vector2f& getAcceleration() override;
     const sf::Vector2f& getDrag() override;
-    const float& getMoveDirectionX() override;
+    const sf::Vector2f& getMoveDirection() override;
 
     void setPosition(float x, float y) override;
     void setVelocity(float x, float y) override;

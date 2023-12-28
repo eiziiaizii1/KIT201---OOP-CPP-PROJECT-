@@ -5,26 +5,26 @@ PhysicsManager::PhysicsManager()
 
 }
 
-void PhysicsManager::applyAcceleration(Player& player)
+void PhysicsManager::applyAcceleration(Entity& player)
 {
 	sf::Vector2f currentVelocity = player.getVelocity();
-	player.setVelocity(currentVelocity.x + player.getMoveDirectionX() * player.getAcceleration().x,
-		currentVelocity.y); // y = 0.f for now
+	player.setVelocity(currentVelocity.x + player.getMoveDirection().x * player.getAcceleration().x,
+		currentVelocity.y * player.getMoveDirection().y * player.getAcceleration().y);
 }
 
 // this function also applies gravity as drag.y represents gravity
-void PhysicsManager::applyDrag(Player& player)
+void PhysicsManager::applyDrag(Entity& player)
 {
 	sf::Vector2f currentVelocity = player.getVelocity();
 	player.setVelocity(currentVelocity.x * player.getDrag().x, currentVelocity.y + player.getDrag().y);
 }
 
-void PhysicsManager::applyGravity(Player& player)
+void PhysicsManager::applyGravity(Entity& player)
 {
 }
 
 // limits the maximum amount of velocity
-void PhysicsManager::limitVelocity(Player& player)
+void PhysicsManager::limitVelocity(Entity& player)
 {
 	// limits on x
 	if (std::abs(player.getVelocity().x) >= player.getVelocityMax().x)
@@ -45,7 +45,7 @@ void PhysicsManager::limitVelocity(Player& player)
 	}
 }
 
-void PhysicsManager::limitMinimumVelocity(Player& player)
+void PhysicsManager::limitMinimumVelocity(Entity& player)
 {
 	if (std::abs(player.getVelocity().x) < player.getVelocityMin().x)
 	{
@@ -53,11 +53,12 @@ void PhysicsManager::limitMinimumVelocity(Player& player)
 	}
 	if (std::abs(player.getVelocity().y) < player.getVelocityMin().y)
 	{
+		std::cout << "in if\n";
 		player.setVelocity(player.getVelocity().x, 0.f);
 	}
 }
 
-void PhysicsManager::update(Player& player)
+void PhysicsManager::update(Entity& player)
 {
 	this->applyAcceleration(player);
 	this->applyDrag(player);

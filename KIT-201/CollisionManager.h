@@ -11,6 +11,6 @@ public:
 	CollisionManager();
 	~CollisionManager();
 
-	void handleCollisions(Player& player, TileMap& tileMap);
+	void handleCollisions(Entity& player, TileMap& tileMap);
 };
 

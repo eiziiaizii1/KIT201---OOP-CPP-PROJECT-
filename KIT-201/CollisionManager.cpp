@@ -13,7 +13,7 @@ CollisionManager::~CollisionManager()
 {
 }
 
-void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
+void CollisionManager::handleCollisions(Entity& player, TileMap& tileMap)
 {
 	sf::FloatRect playerBounds = player.getGlobalBounds();
 	sf::FloatRect tileBounds = tileMap.getTileGlobalBounds();

@@ -1,8 +1,6 @@
 #pragma once
 #include "Player.h"
 
-// NOTE: After creating an enemy and entity class, all player parameters will be changed as Entity
-
 
 class PhysicsManager
 {
@@ -10,12 +8,12 @@ class PhysicsManager
 public:
 	PhysicsManager();
 
-	void applyAcceleration(Player& player);
-	void applyDrag(Player& player);
-	void applyGravity(Player& player);
-	void limitVelocity(Player& player);
-	void limitMinimumVelocity(Player& player);
+	void applyAcceleration(Entity& player);
+	void applyDrag(Entity& player);
+	void applyGravity(Entity& player);
+	void limitVelocity(Entity& player);
+	void limitMinimumVelocity(Entity& player);
 
-	void update(Player& player);
+	void update(Entity& player);
 };
 
