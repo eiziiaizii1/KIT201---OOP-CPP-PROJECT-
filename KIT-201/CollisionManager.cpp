@@ -2,7 +2,8 @@
 
 // TODO 1: IMPLEMENT THE TOP COLLISSION ON Y-AXIS (DO IT AFTER CODING PLAYER JUMP)
 // TODO 2: We can make some variables in handleCollision() method constant (for better performance)
-// MINOR BUG: Colliding with the side edges of the tile while airborne causes a glitch
+// FIXED - MINOR BUG1 : Colliding with the side edges of the tile while airborne causes a glitch
+// MINOR BUG2 : holding down to the cliff :D
 
 CollisionManager::CollisionManager()
 {
@@ -41,9 +42,10 @@ void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 		player.setPosition
 		(
 			player.getPosition().x,
-			tileBounds.height * leftTopY
+			tileBounds.height * leftBottomY - playerBounds.height
 		);
-
+		//std::cout << "left: "<<leftBottomX <<	"	right: " << rightBottomX << std::endl;
+		std::cout << "a" << std::endl;
 		player.setVelocity(player.getVelocity().x, 0.f);
 	}
 
@@ -55,7 +57,6 @@ void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 			tileBounds.width * (leftTopX+1),
 			player.getPosition().y
 		);
-
 		player.setVelocity(0, player.getVelocity().y);
 	}
 	// Lower right side collision
@@ -77,7 +78,6 @@ void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 			tileBounds.width * (leftTopX + 1),
 			player.getPosition().y
 		);
-
 		player.setVelocity(0, player.getVelocity().y);
 	}
 

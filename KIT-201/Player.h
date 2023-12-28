@@ -40,13 +40,18 @@ public:
 	~Player();
 	
 	//Getters
-	const sf::Vector2f& getVelocity();
-	const sf::Vector2f& getPosition();
 	const sf::FloatRect& getGlobalBounds();
+	const sf::Vector2f& getPosition();
+	const sf::Vector2f& getVelocity();
+	const sf::Vector2f& getVelocityMax();
+	const sf::Vector2f& getVelocityMin();
+	const sf::Vector2f& getAcceleration();
+	const sf::Vector2f& getDrag();
 
 	//Setters
-	void setVelocity(float x, float y);
 	void setPosition(float x, float y);
+	void setVelocity(float x, float y);
+	
 
 
 	void update();

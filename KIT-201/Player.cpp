@@ -112,6 +112,26 @@ const sf::Vector2f& Player::getVelocity()
 	return this->velocity;
 }
 
+const sf::Vector2f& Player::getVelocityMax()
+{
+	return this->velocityMax;
+}
+
+const sf::Vector2f& Player::getVelocityMin()
+{
+	return this->velocityMin;
+}
+
+const sf::Vector2f& Player::getAcceleration()
+{
+	return this->acceleration;
+}
+
+const sf::Vector2f& Player::getDrag()
+{
+	return this->drag;
+}
+
 const sf::Vector2f& Player::getPosition()
 {
 	return this->sprite.getPosition();
