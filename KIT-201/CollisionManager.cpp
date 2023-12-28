@@ -44,8 +44,6 @@ void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 			player.getPosition().x,
 			tileBounds.height * leftBottomY - playerBounds.height
 		);
-		//std::cout << "left: "<<leftBottomX <<	"	right: " << rightBottomX << std::endl;
-		std::cout << "a" << std::endl;
 		player.setVelocity(player.getVelocity().x, 0.f);
 	}
 
@@ -71,8 +69,9 @@ void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 	}
 
 	// Upper left side collision
-	if (leftTopX - 1 > 0 && tileMapVector[leftTopY][leftTopX] == GROUND )
+	if (leftTopX - 1 > 0 && tileMapVector[leftTopY+1][leftTopX] == GROUND )
 	{
+		std::cout << "a\n";
 		player.setPosition
 		(
 			tileBounds.width * (leftTopX + 1),

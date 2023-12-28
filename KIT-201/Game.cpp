@@ -11,7 +11,7 @@ void Game::initWindow()
 	this->videoMode = sf::VideoMode(1280,960);
 	this->window = new sf::RenderWindow(this->videoMode,"KIT-201",sf::Style::Close | sf::Style::Titlebar);
 	this->window->setFramerateLimit(30);
-	this->player.setPosition(this->window->getSize().x /2.f, 0.f);
+	//this->player.setPosition(this->window->getSize().x /2.f, 0.f);
 }
 
 //Constructors and Destructors:
@@ -54,8 +54,7 @@ void Game::pollEvents()
 void Game::update()
 {
 	this->pollEvents();
-	this->collisionManager.handleCollisions(this->player, this->tileMap);
-	this->player.update();
+	this->world.update();
 }
 
 void Game::render()
@@ -64,9 +63,7 @@ void Game::render()
 
 
 	//*****Render stuff:***** 
-	this->player.render(*this->window);
-
-	this->tileMap.render(*this->window);
+	this->world.render(*this->window);
 
 	this->window->display();
 }

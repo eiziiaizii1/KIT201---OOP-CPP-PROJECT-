@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "TileMap.h"
 #include "CollisionManager.h"
+#include "World.h"
 
 class Game
 {
@@ -18,13 +19,7 @@ private:
 	sf::RenderWindow* window;
 	sf::Event sfmlEvent;
 
-	// Player and stuff
-	Player player;
-
-	// TileMap (temporarily in game class)
-	TileMap tileMap;
-
-	CollisionManager collisionManager;
+	World world;
 
 	//Initializers
 	void initVariables();
