@@ -7,7 +7,6 @@ TileMapParser::TileMapParser(const std::string& filename) : fileStream(filename)
 }
 
 std::vector<std::vector<short>> TileMapParser::parseTileMap(short targetIndex) {
-
     std::vector<std::vector<short>> result;
     std::string line;
 
@@ -29,25 +28,21 @@ std::vector<std::vector<short>> TileMapParser::parseTileMap(short targetIndex) {
                 throw std::runtime_error("Invalid row/column format");
             }
 
-            std::getline(fileStream, line); // Read the string with space-separated short values
-            std::istringstream dataStream(line);
-            std::vector<short> rowData;
-            short value;
-            while (dataStream >> value) {
-                rowData.push_back(value);
-            }
-
-            if (static_cast<int>(rowData.size()) != rows * cols) {
-                throw std::runtime_error("Invalid data size for TileMap");
-            }
-
-            // Fill the 2D vector
+            // Read the string with space-separated short values
             for (int i = 0; i < rows; ++i) {
-                std::vector<short> row;
-                for (int j = 0; j < cols; ++j) {
-                    row.push_back(rowData[i * cols + j]);
+                std::vector<short> rowData;
+                std::getline(fileStream, line);
+                std::istringstream dataStream(line);
+                short value;
+                while (dataStream >> value) {
+                    rowData.push_back(value);
                 }
-                result.push_back(row);
+
+                if (static_cast<int>(rowData.size()) != cols) {
+                    throw std::runtime_error("Invalid data size for TileMap row");
+                }
+
+                result.push_back(rowData);
             }
             return result;
         }
@@ -61,6 +56,7 @@ std::vector<std::vector<short>> TileMapParser::parseTileMap(short targetIndex) {
 
     throw std::runtime_error("Desired index not found");
 }
+
 
 void printTileMap(const std::vector<std::vector<short>>& tileMap) {
     for (const auto& row : tileMap) {
