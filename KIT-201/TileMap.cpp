@@ -21,7 +21,7 @@ void TileMap::initDefaultMap()
 
 	//TileMapParser uses method to generate the TileMap
 	TileMapParser parser("Levels/TileMaps.txt");
-	tileMap = parser.parseTileMap(2);
+	tileMap = parser.parseTileMap(1);
 
 	/*for (int i = 12; i < rows; ++i) {
 		for (int j = 0; j < columns; ++j) {
