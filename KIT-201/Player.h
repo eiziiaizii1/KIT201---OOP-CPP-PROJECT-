@@ -19,6 +19,7 @@ private:
 	sf::Vector2f velocityMin;
 	sf::Vector2f acceleration;
 	sf::Vector2f drag; //drag.x is friction, drag.y is gravity
+	float moveDirectionX;
 
 	//Animation variables
 	sf::Clock animationClock;
@@ -32,7 +33,7 @@ private:
 
 	void updateAnimations();
 	void updateMovement();
-	void move(const float x_dir, const float y_dir);
+	void move();
 	void updatePhysics();
 public:
 	//Constructors - Dectructor
@@ -47,6 +48,7 @@ public:
 	const sf::Vector2f& getVelocityMin();
 	const sf::Vector2f& getAcceleration();
 	const sf::Vector2f& getDrag();
+	const float& getMoveDirectionX();
 
 	//Setters
 	void setPosition(float x, float y);

@@ -10,10 +10,16 @@ World::World()
 	initVariables();
 }
 
+void World::updatePhysics()
+{
+	this->physicsManager.update(this->player);
+}
+
 void World::update()
 {
 	this->player.update();
 	collisionManager.handleCollisions(this->player, this->tileMap);
+	this->physicsManager.update(this->player);
 }
 
 void World::render(sf::RenderTarget& target)

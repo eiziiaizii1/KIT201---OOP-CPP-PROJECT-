@@ -24,6 +24,7 @@ public:
 	World();
 
 
+	void updatePhysics();
 	void update();
 	void render(sf::RenderTarget& target);
 };

@@ -5,20 +5,15 @@ void Player::initVariables()
 	this->animationClock.restart();
 	this->animationFrameCount = 0;
 	this->animationState = ANIMATION_STATES::IDLE;
+	this->moveDirectionX = 0.f;
 }
 
 void Player::initTexture()
 {
-	/*if (!this->textureRun.loadFromFile("Textures/RobotRun.png"))
-		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player texture sheet" << std::endl;
-	if (!this->textureIdle.loadFromFile("Textures/RobotIdle.png"))
-		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player texture sheet" << std::endl;*/
-
 	if (!this->textureRun.loadFromFile("Textures/run resized.png"))
 		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player texture sheet" << std::endl;
 	if (!this->textureIdle.loadFromFile("Textures/idle resized.png"))
 		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player texture sheet" << std::endl;
-
 }
 
 void Player::initSprite()
@@ -38,61 +33,19 @@ void Player::updateMovement()
 {
 	this->animationState = ANIMATION_STATES::IDLE;
 
+	this->moveDirectionX = 0.f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		this->move(1.f, 0.f); // moves physically
+		this->moveDirectionX = 1.f;
 		this->animationState = ANIMATION_STATES::MOVING_RIGHT;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		this->move(-1.f, 0.f); // moves physically
+		this->moveDirectionX = -1.f;
 		this->animationState = ANIMATION_STATES::MOVING_LEFT;
 	}
-}
 
-void Player::move(const float x_dir, const float y_dir)
-{
-	this->velocity.x += x_dir * this->acceleration.x;
-
-	// limits the maximum amount of velocity
-	if (std::abs(this->velocity.x) >= this->velocityMax.x)
-	{
-		if(this->velocity.x < 0.f)
-			this->velocity.x = this->velocityMax.x * -1.f;
-		else
-			this->velocity.x = this->velocityMax.x * 1.f;
-	}
-}
-
-void Player::updatePhysics()
-{
-	// applies drag, helps to slow downs to player horizontally
-	this->velocity.x *= drag.x;
-
-	// applies gravity
-	this->velocity.y += this->drag.y;
-	
-	// Limits the velocity.y to based on the maxiumum value
-	if (std::abs(this->velocity.y) > velocityMax.y)
-	{
-		if (this->velocity.y < 0.f)
-			this->velocity.y = this->velocityMax.y * -1.f;
-		else
-			this->velocity.y = this->velocityMax.y * 1.f;
-	}
-
-	// Limits the velocity to based on the minimum value
-	// As we multiply velocity.x by drag.x velocity never reaches the zero, so we must make it 0 if it becomes less then a min value
-	if (std::abs(this->velocity.x) < this->velocityMin.x)
-	{
-		this->velocity.x = 0.f;
-	}
-	if(std::abs(this->velocity.y) < this->velocityMin.y)
-	{
-		this->velocity.y = 0.f;
-	}
-
-	// moves the sprite based on the velocity (it literally moves, changes the sprites position)
+	// moves the sprite based on the velocity (it literally moves, changes the sprites position on window)
 	this->sprite.move(this->velocity);
 }
 
@@ -130,6 +83,11 @@ const sf::Vector2f& Player::getAcceleration()
 const sf::Vector2f& Player::getDrag()
 {
 	return this->drag;
+}
+
+const float& Player::getMoveDirectionX()
+{
+	return this->moveDirectionX;
 }
 
 const sf::Vector2f& Player::getPosition()
@@ -214,11 +172,9 @@ void Player::update()
 {
 	this->updateMovement();
 	this->updateAnimations();
-	this->updatePhysics();
 }
 
 void Player::render(sf::RenderTarget& target)
 {
-	//target.draw(*currentSprite);
 	target.draw(this->sprite);
 }
