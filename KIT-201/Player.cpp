@@ -50,17 +50,26 @@ void Player::updateMovement()
 }
 
 Player::Player()
-	: position(0.f, 0.f), velocity(0.f, 0.f), acceleration(1.2f, 0.f), velocityMax(20.f, 10.f), velocityMin(1.f, 1.f), drag(0.9f, 3.f)
 {
+	// Initialize members inherited from Entity class
+	position = sf::Vector2f(0.f, 0.f);
+	velocity = sf::Vector2f(0.f, 0.f);
+	acceleration = sf::Vector2f(1.2f, 0.f);
+	velocityMax = sf::Vector2f(20.f, 10.f);
+	velocityMin = sf::Vector2f(1.f, 1.f);
+	drag = sf::Vector2f(0.9f, 3.f);
+
 	initTexture();
 	initSprite();
 }
+
+
 
 Player::~Player()
 {
 }
 
-const sf::Vector2f& Player::getVelocity() 
+const sf::Vector2f& Player::getVelocity()
 {
 	return this->velocity;
 }
@@ -102,7 +111,7 @@ void Player::setVelocity(float x, float y)
 
 void Player::setPosition(float x, float y)
 {
-	sprite.setPosition(sf::Vector2f(x,y));
+	sprite.setPosition(sf::Vector2f(x, y));
 }
 
 void Player::updateAnimations()
@@ -139,8 +148,8 @@ void Player::updateAnimations()
 		}
 		// we should scale by positive value to get rid of mirror effect
 		// and the origin changes when we scale by minus so we should set origin back to (0, 0)
-		this->sprite.setScale(2.f,2.f);
-		this->sprite.setOrigin(0.f, 0.f); 
+		this->sprite.setScale(2.f, 2.f);
+		this->sprite.setOrigin(0.f, 0.f);
 	}
 	else if (this->animationState == ANIMATION_STATES::MOVING_LEFT)
 	{
