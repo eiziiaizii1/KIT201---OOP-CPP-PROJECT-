@@ -2,14 +2,16 @@
 
 void Game::initVariables()
 {
+
 }
 
 void Game::initWindow()
 {
 	//Fixed Values For now
-	this->videoMode = sf::VideoMode(1280,720);
+	this->videoMode = sf::VideoMode(1280,960);
 	this->window = new sf::RenderWindow(this->videoMode,"KIT-201",sf::Style::Close | sf::Style::Titlebar);
-	this->window->setFramerateLimit(60);
+	this->window->setFramerateLimit(30);
+	this->player.setPosition(this->window->getSize().x /2.f, 0.f);
 }
 
 //Constructors and Destructors:
@@ -26,7 +28,6 @@ Game::~Game()
 
 
 //Functions:
-
 const bool Game::isRunning() const
 {
 	return this->window->isOpen();
@@ -53,14 +54,19 @@ void Game::pollEvents()
 void Game::update()
 {
 	this->pollEvents();
+	this->collisionManager.handleCollisions(this->player, this->tileMap);
+	this->player.update();
 }
 
 void Game::render()
 {
-	this->window->clear();
+	this->window->clear(sf::Color(0, 0, 50));
 
 
-	//Render stuff:
+	//*****Render stuff:***** 
+	this->player.render(*this->window);
+
+	this->tileMap.render(*this->window);
 
 	this->window->display();
 }
