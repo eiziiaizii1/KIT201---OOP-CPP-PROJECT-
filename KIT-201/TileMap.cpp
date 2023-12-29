@@ -47,7 +47,7 @@ TileMap::~TileMap()
 {
 }
 
-sf::FloatRect TileMap::getTileGlobalBounds()
+const sf::FloatRect& TileMap::getTileGlobalBounds() const
 {
 	return this->blockSprite.getGlobalBounds();
 }

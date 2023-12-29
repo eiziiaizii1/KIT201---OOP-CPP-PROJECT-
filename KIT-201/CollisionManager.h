@@ -6,9 +6,10 @@
 class CollisionManager
 {
 private:
-
+	sf::FloatRect tileBounds;
 public:
 	CollisionManager();
+	CollisionManager(TileMap& tileMap);
 	~CollisionManager();
 
 	void handleCollisions(Player& player, TileMap& tileMap);

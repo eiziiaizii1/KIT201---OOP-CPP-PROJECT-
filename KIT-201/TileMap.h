@@ -25,7 +25,7 @@ public:
 	~TileMap();
 
 	//Getters
-	sf::FloatRect getTileGlobalBounds();
+	const sf::FloatRect& getTileGlobalBounds() const;
 	std::vector<std::vector<short>>& getMapVectors();
 
 	void update();

@@ -5,7 +5,7 @@ void World::initVariables()
 	this->player.setPosition(1280.f/2,0.f);
 }
 
-World::World()
+World::World() : collisionManager(tileMap)
 {
 	initVariables();
 }

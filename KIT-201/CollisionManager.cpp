@@ -1,12 +1,13 @@
 #include "CollisionManager.h"
 
-//// DONE TODO 1: IMPLEMENT THE TOP COLLISSION ON Y-AXIS (DO IT AFTER CODING PLAYER JUMP)
-// TODO 2: We can make some variables in handleCollision() method constant (for better performance)
-////FIXED - MINOR BUG1: Colliding with the side edges of the tile while airborne causes a glitch
-// MINOR BUG2: holding down to the cliff :D
+////DONE TODO 1: IMPLEMENT THE TOP COLLISSION ON Y-AXIS (DO IT AFTER CODING PLAYER JUMP)
 ////FIXED !!BUG3: GAME ABORTS WHEN PLAYER GOES BEYOND THE SCREEN
 ////FIXED MINOR BUG4: UNEXPECTED and glitchy BEHAVIOR WHEN the player enters a place that is 2 blocks high 
-// MINOR BUG5: When llower, lupper, ltop happens at the same time player teleports to the lower part of the platform
+////FIXED MINOR BUG5: When llower, lupper, ltop happens at the same time player teleports to the lower part of the platform
+////FIXED MINOR BUG1: Colliding with the side edges of the tile while airborne causes a glitch
+////HALF-DONE TODO 2: We can make some variables in handleCollision() method constant, (it would be revise that after implementing other classes)
+// MINOR BUG2: holding down to the cliff :D (My the god help me I dont know how to fix that)
+// MINOR BUG6: When player is on the leftmost block's leftmost edge it falls (it is due to large player sprite width), can be fixed or minimized
 
 CollisionManager::CollisionManager()
 {
@@ -16,12 +17,16 @@ CollisionManager::~CollisionManager()
 {
 }
 
+CollisionManager::CollisionManager(TileMap& tileMap)
+{
+	this->tileBounds = tileMap.getTileGlobalBounds();
+}
+
+
 void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 {
 	sf::FloatRect playerBounds = player.getGlobalBounds();
-	sf::FloatRect tileBounds = tileMap.getTileGlobalBounds();
 	std::vector<std::vector<short>>tileMapVector = tileMap.getMapVectors();
-
 
 	// These variables specify the indices that correspond to the corners of the character sprite on the tile map vector
 	short leftTopX = floor(playerBounds.left / tileBounds.width);
@@ -36,8 +41,11 @@ void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 	short rightBottomX = rightTopX;
 	short rightBottomY = floor((playerBounds.top + playerBounds.height) / tileBounds.height);
 
-	std::cout << "Left top x: " << leftTopX  << std::endl;
-	std::cout << "Left top y: " << leftTopY << std::endl;
+	bool topCollided = false;
+
+	//std::cout << "Left top x: " << leftTopX  << std::endl;
+	//std::cout << "Left top y: " << leftTopY << std::endl;
+	std::cout << player.getVelocity().y << std::endl;
 
 	if (leftTopY < 0 || leftBottomY >= tileMapVector.size() || 
 		leftTopX< 0 || rightTopX >= tileMapVector[0].size())
@@ -59,9 +67,11 @@ void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 			player.setIsGrounded(true);
 		}
 
-		// Top Collision
-		/*if (tileMapVector[leftTopY][leftTopX] == GROUND || tileMapVector[rightTopY][rightTopX] == GROUND)
+		//// Top Collision
+		if (player.getVelocity().y < 0 && 
+			(tileMapVector[leftTopY][leftTopX] == GROUND || tileMapVector[rightTopY][rightTopX] == GROUND ))
 		{
+			topCollided = true;
 			std::cout << "TOP\n";
 			player.setPosition
 			(
@@ -69,55 +79,56 @@ void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 				tileBounds.height * (leftTopY + 1)
 			);
 			player.setVelocity(player.getVelocity().x, 0.f);
-		}*/
-
-		// Lower left side collision
-		if (tileMapVector[leftBottomY - 1][leftBottomX] == GROUND)
-		{
-			std::cout << "llower\n";
-			player.setPosition
-			(
-				tileBounds.width * (leftTopX + 1),
-				player.getPosition().y
-			);
-			player.setVelocity(0, player.getVelocity().y);
-		}
-		// Lower right side collision
-		else if (tileMapVector[rightBottomY - 1][rightBottomX] == GROUND)
-		{
-			std::cout << "rlower\n";
-			player.setPosition
-			(
-				tileBounds.width * rightTopX - playerBounds.width,
-				player.getPosition().y
-			);
-			player.setVelocity(0, player.getVelocity().y);
 		}
 
-		// Upper left side collision
-		if (tileMapVector[leftTopY + 1][leftTopX] == GROUND)
+		if (topCollided == false) 
 		{
-			std::cout << "lupper\n";
-			player.setPosition
-			(
-				tileBounds.width * (leftTopX + 1),
-				player.getPosition().y
-			);
-			player.setVelocity(0, player.getVelocity().y);
-		}
+			// Lower left side collision
+			if (player.getVelocity().x < 0.f && tileMapVector[leftBottomY - 1][leftBottomX] == GROUND)
+			{
+				std::cout << "llower\n";
+				player.setPosition
+				(
+					tileBounds.width * (leftTopX + 1),
+					player.getPosition().y
+				);
+				player.setVelocity(0, player.getVelocity().y);
+			}
+			// Lower right side collision
+			else if (player.getVelocity().x > 0.f && tileMapVector[rightBottomY - 1][rightBottomX] == GROUND)
+			{
+				std::cout << "rlower\n";
+				player.setPosition
+				(
+					tileBounds.width * rightTopX - playerBounds.width,
+					player.getPosition().y
+				);
+				player.setVelocity(0, player.getVelocity().y);
+			}
 
-		// Upper right side collision
-		else if (tileMapVector[rightTopY + 1][rightTopX] == GROUND)
-		{
-			std::cout << "rupper\n";
-			player.setPosition
-			(
-				tileBounds.width * rightTopX - playerBounds.width,
-				player.getPosition().y
-			);
-			player.setVelocity(0, player.getVelocity().y);
+			// Upper left side collision
+			if (player.getVelocity().x < 0.f && tileMapVector[leftTopY][leftTopX] == GROUND)
+			{
+				//std::cout << "lupper\n";
+				player.setPosition
+				(
+					tileBounds.width * (leftTopX + 1),
+					player.getPosition().y
+				);
+				player.setVelocity(0, player.getVelocity().y);
+			}
+
+			// Upper right side collision
+			else if (player.getVelocity().x > 0.f && tileMapVector[rightTopY][rightTopX] == GROUND)
+			{
+				//std::cout << "rupper\n";
+				player.setPosition
+				(
+					tileBounds.width * rightTopX - playerBounds.width,
+					player.getPosition().y
+				);
+				player.setVelocity(0, player.getVelocity().y);
+			}
 		}
 	}
-	
-
 }
