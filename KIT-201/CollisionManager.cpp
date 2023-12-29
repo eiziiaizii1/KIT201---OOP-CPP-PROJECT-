@@ -4,6 +4,7 @@
 // TODO 2: We can make some variables in handleCollision() method constant (for better performance)
 // FIXED - MINOR BUG1 : Colliding with the side edges of the tile while airborne causes a glitch
 // MINOR BUG2 : holding down to the cliff :D
+// !!!BUG3 : GAME ABORTS WHEN PLAYER GOES BEYOND THE SCREEN
 
 CollisionManager::CollisionManager()
 {
@@ -13,7 +14,7 @@ CollisionManager::~CollisionManager()
 {
 }
 
-void CollisionManager::handleCollisions(Entity& player, TileMap& tileMap)
+void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 {
 	sf::FloatRect playerBounds = player.getGlobalBounds();
 	sf::FloatRect tileBounds = tileMap.getTileGlobalBounds();
@@ -45,6 +46,7 @@ void CollisionManager::handleCollisions(Entity& player, TileMap& tileMap)
 			tileBounds.height * leftBottomY - playerBounds.height
 		);
 		player.setVelocity(player.getVelocity().x, 0.f);
+		player.setIsGrounded(true);
 	}
 
 	// Lower left side collision

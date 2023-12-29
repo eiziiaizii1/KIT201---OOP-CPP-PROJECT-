@@ -36,7 +36,7 @@ void PhysicsManager::limitVelocity(Entity& player)
 	}
 
 	// limits on y
-	if (std::abs(player.getVelocity().y) > player.getVelocityMax().y)
+	if (player.getVelocity().y > player.getVelocityMax().y)
 	{
 		if (player.getVelocity().y < 0.f)
 			player.setVelocity(player.getVelocity().x, player.getVelocityMax().y * -1.f);
@@ -58,10 +58,19 @@ void PhysicsManager::limitMinimumVelocity(Entity& player)
 	}
 }
 
+void PhysicsManager::handleJumping(Entity& player)
+{
+	if (player.getCanJump() == true)
+	{
+		player.setVelocity(player.getVelocity().x, -player.getJumpForce());
+	}
+}
+
 void PhysicsManager::update(Entity& player)
 {
 	this->applyAcceleration(player);
 	this->applyDrag(player);
 	this->limitVelocity(player);
 	this->limitMinimumVelocity(player);
+	this->handleJumping(player);
 }

@@ -5,7 +5,7 @@ void Player::initVariables()
 	this->animationClock.restart();
 	this->animationFrameCount = 0;
 	this->animationState = ANIMATION_STATES::IDLE;
-	this->isOnGround = false;
+	this->isGrounded = false;
 }
 
 void Player::initTexture()
@@ -45,15 +45,14 @@ void Player::updateMovement()
 		this->moveDirection.x = -1.f;
 		this->animationState = ANIMATION_STATES::MOVING_LEFT;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && isOnGround == true)
+
+	canJump = false;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && isGrounded ==true)
 	{
+		canJump = true;
 		this->moveDirection.y = -1.f;
 		std::cout << "space\n";
-		isOnGround = false;
-	}
-	else if(this->velocity.y <= 3)
-	{
-		isOnGround = true;
+		isGrounded = false;
 	}
 	std::cout << this->velocity.y<<std::endl;
 
@@ -67,10 +66,12 @@ Player::Player()
 	position = sf::Vector2f(0.f, 0.f);
 	velocity = sf::Vector2f(0.f, 0.f);
 	acceleration = sf::Vector2f(1.2f, 1.f);
-	velocityMax = sf::Vector2f(20.f, 10.f);
+	velocityMax = sf::Vector2f(20.f, 20.f);
 	velocityMin = sf::Vector2f(1.f, 1.f);
 	drag = sf::Vector2f(0.9f, 3.f);
 	this->moveDirection = sf::Vector2f(0.f,0.f);;
+	this->jumpForce = 30.f;
+	this->canJump = false;
 
 	initTexture();
 	initSprite();
@@ -112,6 +113,17 @@ const sf::Vector2f& Player::getMoveDirection()
 	return this->moveDirection;
 }
 
+const float& Player::getJumpForce()
+{
+	return jumpForce;
+}
+
+const bool& Player::getCanJump()
+{
+	// TODO: insert return statement here
+	return this->canJump;
+}
+
 const sf::Vector2f& Player::getPosition()
 {
 	return this->sprite.getPosition();
@@ -120,6 +132,11 @@ const sf::Vector2f& Player::getPosition()
 void Player::setVelocity(float x, float y)
 {
 	this->velocity = sf::Vector2f(x, y);
+}
+
+void Player::setIsGrounded(bool grounded)
+{
+	this->isGrounded = grounded;
 }
 
 void Player::setPosition(float x, float y)

@@ -3,7 +3,9 @@
 
 class Player : public Entity {
 private:
-    bool isOnGround;
+    bool isGrounded;
+    bool canJump;
+    float jumpForce;
 
     // Implementations of abstract methods
     void initVariables() override;
@@ -26,9 +28,12 @@ public:
     const sf::Vector2f& getAcceleration() override;
     const sf::Vector2f& getDrag() override;
     const sf::Vector2f& getMoveDirection() override;
+    const float& getJumpForce();
+    const bool& getCanJump();
 
     void setPosition(float x, float y) override;
     void setVelocity(float x, float y) override;
+    void setIsGrounded(bool grounded);
 
     void update() override;
     void render(sf::RenderTarget& target) override;
