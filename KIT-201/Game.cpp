@@ -11,7 +11,6 @@ void Game::initWindow()
 	this->videoMode = sf::VideoMode(1280,960);
 	this->window = new sf::RenderWindow(this->videoMode,"KIT-201",sf::Style::Close | sf::Style::Titlebar);
 	this->window->setFramerateLimit(30);
-	//this->player.setPosition(this->window->getSize().x /2.f, 0.f);
 }
 
 //Constructors and Destructors:
