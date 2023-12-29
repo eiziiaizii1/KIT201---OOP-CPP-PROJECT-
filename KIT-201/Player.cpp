@@ -10,9 +10,9 @@ void Player::initVariables()
 
 void Player::initTexture()
 {
-	if (!this->textureRun.loadFromFile("Textures/run resized.png"))
+	if (!this->textureRun.loadFromFile("Textures/RobotRun.png"))
 		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player texture sheet" << std::endl;
-	if (!this->textureIdle.loadFromFile("Textures/idle resized.png"))
+	if (!this->textureIdle.loadFromFile("Textures/RobotIdle.png"))
 		std::cout << "PLAYER::initTexture()::ERROR::couldn't load the player texture sheet" << std::endl;
 }
 
