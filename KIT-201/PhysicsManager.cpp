@@ -53,7 +53,7 @@ void PhysicsManager::limitMinimumVelocity(Entity& player)
 	}
 	if (std::abs(player.getVelocity().y) < player.getVelocityMin().y)
 	{
-		std::cout << "in if\n";
+		//std::cout << "in if\n";
 		player.setVelocity(player.getVelocity().x, 0.f);
 	}
 }

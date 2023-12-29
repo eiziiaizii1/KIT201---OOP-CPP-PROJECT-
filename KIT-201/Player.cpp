@@ -51,10 +51,10 @@ void Player::updateMovement()
 	{
 		canJump = true;
 		this->moveDirection.y = -1.f;
-		std::cout << "space\n";
+		//std::cout << "space\n";
 		isGrounded = false;
 	}
-	std::cout << this->velocity.y<<std::endl;
+	//std::cout << this->velocity.y<<std::endl;
 
 	// moves the sprite based on the velocity (it literally moves, changes the sprites position on window)
 	this->sprite.move(this->velocity);
