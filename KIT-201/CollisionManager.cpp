@@ -68,7 +68,16 @@ void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 				tileBounds.height * leftBottomY - playerBounds.height
 			);
 			player.setVelocity(player.getVelocity().x, 0.f);
+			//player.setIsGrounded(true);
+		}
+
+		if (tileMapVector[leftBottomY][(leftBottomX + rightBottomX) / 2] == GROUND)
+		{
 			player.setIsGrounded(true);
+		}
+		else
+		{
+			player.setIsGrounded(false);
 		}
 
 		// Top Collision
@@ -99,22 +108,10 @@ void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 					tileBounds.width * (leftTopX + 1),
 					player.getPosition().y
 				);
-				player.setVelocity(0, player.getVelocity().y);
+				player.setVelocity(0.f, player.getVelocity().y);
 			}
-			// Lower right side collision
-			else if (player.getVelocity().x > 0.f && tileMapVector[rightBottomY - 1][rightBottomX] == GROUND)
-			{
-				std::cout << "right lower\n";
-				player.setPosition
-				(
-					tileBounds.width * rightTopX - playerBounds.width,
-					player.getPosition().y
-				);
-				player.setVelocity(0, player.getVelocity().y);
-			}
-
 			// Upper left side collision
-			if (player.getVelocity().x < 0.f && tileMapVector[leftTopY][leftTopX] == GROUND)
+			else if (player.getVelocity().x < 0.f && tileMapVector[leftTopY][leftTopX] == GROUND)
 			{
 				std::cout << "left upper\n";
 				player.setPosition
@@ -122,9 +119,21 @@ void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 					tileBounds.width * (leftTopX + 1),
 					player.getPosition().y
 				);
-				player.setVelocity(0, player.getVelocity().y);
+				player.setVelocity(0.f, player.getVelocity().y);
 			}
 
+
+			// Lower right side collision
+			if (player.getVelocity().x > 0.f && tileMapVector[rightBottomY - 1][rightBottomX] == GROUND)
+			{
+				std::cout << "right lower\n";
+				player.setPosition
+				(
+					tileBounds.width * rightTopX - playerBounds.width,
+					player.getPosition().y
+				);
+				player.setVelocity(0.f, player.getVelocity().y);
+			}
 			// Upper right side collision
 			else if (player.getVelocity().x > 0.f && tileMapVector[rightTopY][rightTopX] == GROUND)
 			{
@@ -134,8 +143,9 @@ void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 					tileBounds.width * rightTopX - playerBounds.width,
 					player.getPosition().y
 				);
-				player.setVelocity(0, player.getVelocity().y);
+				player.setVelocity(0.f, player.getVelocity().y);
 			}
 		}
 	}
 }
+
