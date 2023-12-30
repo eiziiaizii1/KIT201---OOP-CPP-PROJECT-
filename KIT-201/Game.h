@@ -10,6 +10,8 @@
 #include "TileMap.h"
 #include "CollisionManager.h"
 #include "World.h"
+#include "State.h"
+#include "ActivePlayState.h"
 
 class Game
 {
@@ -20,6 +22,7 @@ private:
 	sf::Event sfmlEvent;
 
 	World world;
+	State& currentState;
 
 	//Initializers
 	void initVariables();
@@ -33,7 +36,7 @@ public:
 	//Getters-Accessors
 
 	//Setters-Modifiers
-
+	void setState(State& state); // Method to set the current state
 	//Functions
 	const bool isRunning() const;
 	void pollEvents();

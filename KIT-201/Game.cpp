@@ -2,7 +2,7 @@
 
 void Game::initVariables()
 {
-
+	
 }
 
 void Game::initWindow()
@@ -15,14 +15,22 @@ void Game::initWindow()
 
 //Constructors and Destructors:
 Game::Game()
-{
+	: currentState(*(new ActivePlayState(*this, world))){ //This will be MainMenuState normally
 	initVariables();
 	initWindow();
 }
 
-Game::~Game()
-{
+Game::~Game() {
+	// Clean up the state reference
+	delete& currentState;
 	delete this->window;
+}
+
+void Game::setState(State& state) {
+	// Clean up the existing state
+	delete& currentState;
+	// Set the new state
+	currentState = state;
 }
 
 
@@ -34,35 +42,18 @@ const bool Game::isRunning() const
 
 void Game::pollEvents()
 {
-	while (this->window->pollEvent(this->sfmlEvent)) {
-		switch (this->sfmlEvent.type) {
-			case sf::Event::Closed:
-				this->window->close();
-				break;
-			case sf::Event::KeyPressed:
-				if (this-> sfmlEvent.key.code == sf::Keyboard::Escape) {
-					this->window->close();
-				}
-				break;
-			default:
-				break;
-		}
-	}
+	this->currentState.pollEvents(*this->window, this->sfmlEvent);
 }
 
 void Game::update()
 {
-	this->pollEvents();
-	this->world.update();
+	this->currentState.update();
 }
 
-void Game::render()
-{
-	this->window->clear(sf::Color(0, 0, 50));
-
-
+void Game::render() {
 	//*****Render stuff:***** 
-	this->world.render(*this->window);
+	currentState.render(*this->window); // Pass window 
 
-	this->window->display();
+	//this->window->display();
 }
+
