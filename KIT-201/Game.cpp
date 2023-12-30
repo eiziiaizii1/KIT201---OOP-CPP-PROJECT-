@@ -39,11 +39,17 @@ const bool Game::isRunning() const
 {
 	return this->window->isOpen();
 }
-
+/*
 void Game::pollEvents()
 {
 	this->currentState.pollEvents(*this->window, this->sfmlEvent);
 }
+*/
+
+void Game::pollEvents() {
+	this->currentState.pollEvents(*this->window, this->sfmlEvent);
+}
+
 
 void Game::update()
 {

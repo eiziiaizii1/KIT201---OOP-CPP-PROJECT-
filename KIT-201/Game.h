@@ -12,6 +12,7 @@
 #include "World.h"
 #include "State.h"
 #include "ActivePlayState.h"
+#include "TestState.h"
 
 class Game
 {
