@@ -30,6 +30,7 @@ public:
     const sf::Vector2f& getMoveDirection() override;
     const float& getJumpForce();
     const bool& getCanJump();
+    const bool& getIsGrounded();
 
     void setPosition(float x, float y) override;
     void setVelocity(float x, float y) override;

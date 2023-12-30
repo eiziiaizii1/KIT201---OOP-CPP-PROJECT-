@@ -124,6 +124,11 @@ const bool& Player::getCanJump()
 	return this->canJump;
 }
 
+const bool& Player::getIsGrounded()
+{
+	return this->isGrounded;
+}
+
 const sf::Vector2f& Player::getPosition()
 {
 	return this->sprite.getPosition();

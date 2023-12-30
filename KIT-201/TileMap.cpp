@@ -53,7 +53,7 @@ const sf::FloatRect& TileMap::getTileGlobalBounds() const
 }
 
 // basically return 2d map vector 
-std::vector<std::vector<short>>& TileMap::getMapVectors()
+const std::vector<std::vector<short>>& TileMap::getMapVector()
 {
 	return this->tileMap;
 }

@@ -26,7 +26,7 @@ public:
 
 	//Getters
 	const sf::FloatRect& getTileGlobalBounds() const;
-	std::vector<std::vector<short>>& getMapVectors();
+	const std::vector<std::vector<short>>& getMapVector();
 
 	void update();
 	void render(sf::RenderTarget& target);
