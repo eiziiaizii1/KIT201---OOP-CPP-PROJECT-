@@ -3,12 +3,17 @@
 #include "TileMap.h"
 #include "CollisionManager.h"
 #include "PhysicsManager.h"
+#include "Bullet.h"
 
 class World
 {
 private:
-	// Player and stuff
+	// Player and Enemies
 	Player player;
+
+	// Bullet related variables
+	std::vector<Bullet*> bullets;
+	sf::Texture bulletTexture;
 
 	// TileMap 
 	TileMap tileMap;
@@ -23,7 +28,7 @@ public:
 	//Constructors
 	World();
 
-
+	void updateBullets();
 	void updatePhysics();
 	void update();
 	void render(sf::RenderTarget& target);

@@ -3,11 +3,18 @@
 void World::initVariables()
 {
 	this->player.setPosition(1280.f/2,0.f);
+
+	if(!this->bulletTexture.loadFromFile("Textures/LaserBullet.png"))
+		std::cout << "failed to load the bullet texture" << std::endl;
 }
 
 World::World() : collisionManager(tileMap)
 {
 	initVariables();
+}
+
+void World::updateBullets()
+{
 }
 
 void World::updatePhysics()
