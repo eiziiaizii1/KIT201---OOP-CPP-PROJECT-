@@ -5,23 +5,27 @@
 ////FIXED MINOR BUG4: UNEXPECTED and glitchy BEHAVIOR WHEN the player enters a place that is 2 blocks high 
 ////FIXED MINOR BUG5: When llower, lupper, ltop happens at the same time player teleports to the lower part of the platform
 ////FIXED MINOR BUG1: Colliding with the side edges of the tile while airborne causes a glitch
-////HALF-DONE TODO 2: We can make some variables in handleCollision() method constant, (it would be revise that after implementing other classes)
 ////FIXED MINOR BUG2: holding down to the cliff :D (My the god help me I dont know how to fix that)
-// MINOR BUG6: When player is on the leftmost block's leftmost edge it falls (it is due to large player sprite width), can be fixed or minimized
-////DONE TODO3: Calculate mid-bottom index seperately
-
-//--------NOTE: CHECKING ONLY BOTTOM MID FOR BOTTOM COLLISIONS SOLVES MOST OF THE PROBLEMS, but when player falls as it goes edge of the block
+////FIXED MINOR BUG6: When player is on the leftmost block's leftmost edge it falls (it is due to large player sprite width), can be fixed or minimized
+////FIXED NOTE: CHECKING ONLY BOTTOM MID FOR BOTTOM COLLISIONS SOLVES MOST OF THE PROBLEMS, but when player falls as it goes edge of the block
 
 CollisionManager::CollisionManager(TileMap& tileMap)
 {
 	this->tileBounds = tileMap.getTileGlobalBounds();
 }
 
-void CollisionManager::handleBottomCollisions(Player& player, std::vector<std::vector<short>>& tileMap,
-	short leftTopY, short leftBottomX, short leftBottomY, short rightBottomX, short rightBottomY,short midBottomX, short midBottomY)
+void CollisionManager::handleBottomCollisions(Player& player, std::vector<std::vector<short>>& tileMap, short leftTopY, short leftBottomY)
 {
+	//as we only need these variables here, we don't need to calculate them in handleCollisions() function
+	float offSet = (player.getGlobalBounds().width - tileBounds.width) / 2.f;
+
+	short leftMidBottomX = floor((player.getGlobalBounds().left + offSet) / tileBounds.width);
+	short rightMidBottomX = floor(((player.getGlobalBounds().left + player.getGlobalBounds().width - offSet)) / tileBounds.width);
+
 	// Bottom Collision
-	if (tileMap[midBottomY][midBottomX] == GROUND )
+	// entity's y index is same for all bottom parts no need to recalculate BottomY index 
+	if (tileMap[leftBottomY][leftMidBottomX] == GROUND ||
+		tileMap[leftBottomY][rightMidBottomX] == GROUND)
 	{
 		std::cout << "BOTTOM\n";
 		player.setPosition
@@ -96,7 +100,7 @@ void CollisionManager::handleRightCollisions(
 		std::cout << "right lower\n";
 		player.setPosition
 		(
-			tileBounds.width * rightTopX - player.getGlobalBounds().width,
+			tileBounds.width * rightTopX - player.getGlobalBounds().width -1.f,
 			player.getPosition().y
 		);
 		player.setVelocity(0.f, player.getVelocity().y);
@@ -107,7 +111,7 @@ void CollisionManager::handleRightCollisions(
 		std::cout << "right upper\n";
 		player.setPosition
 		(
-			tileBounds.width * rightTopX - player.getGlobalBounds().width,
+			tileBounds.width * rightTopX - player.getGlobalBounds().width -1.f,
 			player.getPosition().y
 		);
 		player.setVelocity(0.f, player.getVelocity().y);
@@ -148,7 +152,7 @@ void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 	else
 	{
 		// has a slight problem. Added more than required parameters for the future bug-fix trail
-		handleBottomCollisions(player, tileMapVector,  leftTopY, leftBottomX, leftBottomY, rightBottomX, rightBottomY, midBottomX, midBottomY);
+		handleBottomCollisions(player, tileMapVector,  leftTopY, leftBottomY);
 
 		handleTopCollisions(player, tileMapVector, topCollided, leftTopX, leftTopY, rightTopX, rightTopY, midTopX, midTopY);
 
