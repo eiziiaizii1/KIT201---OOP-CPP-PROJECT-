@@ -3,6 +3,9 @@
 
 class Player : public Entity {
 private:
+    
+    sf::View playerView;
+
     bool isGrounded;
     bool canJump;
     float jumpForce;
@@ -18,6 +21,8 @@ public:
     // Constructors - Destructor
     Player();
     ~Player();
+
+    sf::View& getPlayerView();
 
     // Implementations of remaining abstract methods
     const sf::FloatRect& getGlobalBounds() override;

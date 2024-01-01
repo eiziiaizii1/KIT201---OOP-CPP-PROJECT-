@@ -27,3 +27,7 @@ void World::render(sf::RenderTarget& target)
 	this->player.render(target);
 	this->tileMap.render(target);
 }
+
+Player& World::getPlayer() {
+	return this->player;
+}

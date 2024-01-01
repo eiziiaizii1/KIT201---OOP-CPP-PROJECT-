@@ -39,11 +39,13 @@ void Player::updateMovement()
 	{
 		this->moveDirection.x = 1.f;
 		this->animationState = ANIMATION_STATES::MOVING_RIGHT;
+		this->playerView.move(sf::Vector2f(5.f, 0.f));
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		this->moveDirection.x = -1.f;
 		this->animationState = ANIMATION_STATES::MOVING_LEFT;
+		this->playerView.move(sf::Vector2f(-5.f, 0.f));
 	}
 
 	canJump = false;
@@ -60,7 +62,7 @@ void Player::updateMovement()
 	this->sprite.move(this->velocity);
 }
 
-Player::Player()
+Player::Player() : playerView(sf::FloatRect(0, 0, 1280, 960))
 {
 	// Initialize members inherited from Entity class
 	position = sf::Vector2f(0.f, 0.f);
@@ -221,4 +223,8 @@ void Player::update()
 void Player::render(sf::RenderTarget& target)
 {
 	target.draw(this->sprite);
+}
+
+sf::View& Player::getPlayerView() {
+	return playerView;
 }
