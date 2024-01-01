@@ -3,7 +3,7 @@
 #include "TileMap.h"
 #include "CollisionManager.h"
 #include "PhysicsManager.h"
-
+#include "SoundManager.h"
 class World
 {
 private:
@@ -16,6 +16,7 @@ private:
 	//Managers
 	CollisionManager collisionManager;
 	PhysicsManager physicsManager;
+	SoundManager soundManager;
 
 	void initVariables();
 
