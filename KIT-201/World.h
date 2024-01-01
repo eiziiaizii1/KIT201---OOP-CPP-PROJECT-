@@ -5,6 +5,7 @@
 #include "PhysicsManager.h"
 #include "SoundManager.h"
 #include "Camera.h"
+#include "Bullet.h"
 
 class World
 {
@@ -12,6 +13,10 @@ private:
 	// Player and stuff
 	Player player;
 	Camera camera;
+
+	//Bullet
+	std::vector<Bullet*> bullets;
+	sf::Texture bulletTexture;
 
 	// TileMap 
 	TileMap tileMap;
