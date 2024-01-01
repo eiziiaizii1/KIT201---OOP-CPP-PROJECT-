@@ -39,13 +39,17 @@ void Player::updateMovement()
 	{
 		this->moveDirection.x = 1.f;
 		this->animationState = ANIMATION_STATES::MOVING_RIGHT;
-		this->playerView.move(sf::Vector2f(5.f, 0.f));
+		
+		
+		this->playerView.move(sf::Vector2f(10.f, 0.f));
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		this->moveDirection.x = -1.f;
 		this->animationState = ANIMATION_STATES::MOVING_LEFT;
-		this->playerView.move(sf::Vector2f(-5.f, 0.f));
+		
+
+		this->playerView.move(sf::Vector2f(-10.f, 0.f));
 	}
 
 	canJump = false;

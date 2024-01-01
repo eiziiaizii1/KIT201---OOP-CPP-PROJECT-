@@ -16,12 +16,12 @@ void TileMap::initDefaultMap()
 {
 	//Defalult array size: 15 rows and 20 columns
 	short rows = 15;
-	short columns = 20;
+	short columns = 40;
 	tileMap.resize(rows, std::vector<short>(columns, 0)); // 0 initalized (BACKGROUND)
 
 	//TileMapParser uses method to generate the TileMap
 	TileMapParser parser("Levels/TileMaps.txt");
-	tileMap = parser.parseTileMap(1);
+	tileMap = parser.parseTileMap(2);
 
 	/*for (int i = 12; i < rows; ++i) {
 		for (int j = 0; j < columns; ++j) {
