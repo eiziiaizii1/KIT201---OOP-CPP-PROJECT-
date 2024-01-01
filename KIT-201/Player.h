@@ -1,12 +1,12 @@
 #pragma once
 #include "Entity.h" // Include the base class header
-
+#include "Camera.h"
 enum horizontalCollisionSide {NONE = 0, LEFT = 1, RIGHT = 2};
 
 class Player : public Entity {
 private:
     
-    sf::View playerView;
+    Camera camera;
 
     bool isGrounded;
     bool canJump;
@@ -26,7 +26,7 @@ public:
     Player();
     ~Player();
 
-    sf::View& getPlayerView();
+    Camera& getCamera();
 
     // Implementations of remaining abstract methods
     const sf::FloatRect& getGlobalBounds() override;

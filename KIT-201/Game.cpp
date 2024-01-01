@@ -60,7 +60,7 @@ void Game::render()
 {
 
 
-	this->window->setView(this->world.getPlayer().getPlayerView());
+	this->window->setView(this->world.getPlayer().getCamera().getView());
 	this->window->clear(sf::Color(0, 0, 50));
 
 

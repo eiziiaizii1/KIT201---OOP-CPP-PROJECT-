@@ -42,7 +42,7 @@ void Player::updateMovement()
 		this->animationState = ANIMATION_STATES::MOVING_RIGHT;
 		
 		if (this->collisionSide == NONE)
-		this->playerView.move(sf::Vector2f(10.f, 0.f));
+		this->camera.getView().move(sf::Vector2f(10.f, 0.f));
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
@@ -50,7 +50,7 @@ void Player::updateMovement()
 		this->animationState = ANIMATION_STATES::MOVING_LEFT;
 		
 		if (this->collisionSide == NONE)
-		this->playerView.move(sf::Vector2f(-10.f, 0.f));
+			this->camera.getView().move(sf::Vector2f(-10.f, 0.f));
 	}
 
 	canJump = false;
@@ -67,7 +67,7 @@ void Player::updateMovement()
 	this->sprite.move(this->velocity);
 }
 
-Player::Player() : playerView(sf::FloatRect(0, 0, 1280, 960))
+Player::Player()
 {
 	// Initialize members inherited from Entity class
 	position = sf::Vector2f(0.f, 0.f);
@@ -240,6 +240,6 @@ void Player::render(sf::RenderTarget& target)
 	target.draw(this->sprite);
 }
 
-sf::View& Player::getPlayerView() {
-	return playerView;
+Camera& Player::getCamera() {
+	return camera;
 }
