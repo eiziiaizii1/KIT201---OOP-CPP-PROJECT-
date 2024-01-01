@@ -20,6 +20,9 @@ void World::update()
 	this->player.update();
 	collisionManager.handleCollisions(this->player, this->tileMap);
 	this->physicsManager.update(this->player);
+
+	// Update camera position to follow the player
+	camera.setCenter(player.getPosition());
 }
 
 void World::render(sf::RenderTarget& target)
@@ -30,4 +33,8 @@ void World::render(sf::RenderTarget& target)
 
 Player& World::getPlayer() {
 	return this->player;
+}
+
+Camera& World::getCamera() {
+	return camera;
 }

@@ -5,8 +5,6 @@ enum horizontalCollisionSide {NONE = 0, LEFT = 1, RIGHT = 2};
 
 class Player : public Entity {
 private:
-    
-    Camera camera;
 
     bool isGrounded;
     bool canJump;
@@ -26,7 +24,6 @@ public:
     Player();
     ~Player();
 
-    Camera& getCamera();
 
     // Implementations of remaining abstract methods
     const sf::FloatRect& getGlobalBounds() override;

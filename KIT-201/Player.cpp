@@ -40,17 +40,12 @@ void Player::updateMovement()
 	{
 		this->moveDirection.x = 1.f;
 		this->animationState = ANIMATION_STATES::MOVING_RIGHT;
-		
-		if (this->collisionSide == NONE)
-		this->camera.getView().move(sf::Vector2f(10.f, 0.f));
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		this->moveDirection.x = -1.f;
 		this->animationState = ANIMATION_STATES::MOVING_LEFT;
-		
-		if (this->collisionSide == NONE)
-			this->camera.getView().move(sf::Vector2f(-10.f, 0.f));
+
 	}
 
 	canJump = false;
@@ -238,8 +233,4 @@ void Player::update()
 void Player::render(sf::RenderTarget& target)
 {
 	target.draw(this->sprite);
-}
-
-Camera& Player::getCamera() {
-	return camera;
 }

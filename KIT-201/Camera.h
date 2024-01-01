@@ -10,4 +10,5 @@ public:
 	Camera();
 	~Camera();
 	sf::View& getView();
+	void setCenter(const sf::Vector2f& center);
 };

@@ -11,3 +11,7 @@ Camera::~Camera(){
 sf::View& Camera::getView() {
 	return this->camera;
 }
+
+void Camera::setCenter(const sf::Vector2f& center) {
+	this->camera.setCenter(center);
+}
