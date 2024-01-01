@@ -40,6 +40,7 @@ public:
     const float& getJumpForce();
     const bool& getCanJump();
     const bool& getIsGrounded();
+    const horizontalCollisionSide& getCollisionSide();
 
     void setPosition(float x, float y) override;
     void setVelocity(float x, float y) override;

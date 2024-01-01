@@ -136,6 +136,11 @@ const bool& Player::getIsGrounded()
 	return this->isGrounded;
 }
 
+const horizontalCollisionSide& Player::getCollisionSide()
+{
+	return this->collisionSide;
+}
+
 const sf::Vector2f& Player::getPosition()
 {
 	return this->sprite.getPosition();
