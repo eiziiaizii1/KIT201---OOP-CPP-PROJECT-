@@ -104,7 +104,7 @@ void CollisionManager::handleRightCollisions(
 		std::cout << player.getVelocity().x<<"\n";
 		player.setPosition
 		(
-			tileBounds.width * rightTopX - player.getGlobalBounds().width -1.f,
+			tileBounds.width * rightTopX - player.getGlobalBounds().width,
 			player.getPosition().y
 		);
 		player.setCollisionSide(1);
@@ -117,7 +117,7 @@ void CollisionManager::handleRightCollisions(
 		std::cout << player.getVelocity().x << "\n";
 		player.setPosition
 		(
-			tileBounds.width * rightTopX - player.getGlobalBounds().width -1.f,
+			tileBounds.width * rightTopX - player.getGlobalBounds().width,
 			player.getPosition().y
 		);
 		player.setCollisionSide(1);
