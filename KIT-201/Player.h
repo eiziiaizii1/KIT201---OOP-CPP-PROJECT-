@@ -9,10 +9,17 @@ private:
     bool canJump;
     float jumpForce;
 
+    float lookDirection;
+
+    // it would be better if we move this to some kind of AttackerEntity class which is subclass of Entity
+    bool canShoot;
+
     // Implementations of abstract methods
     void initVariables() override;
     void initTexture() override;
     void initSprite() override;
+
+    void updateShootStatus(); // UPDATES THE CANSHOOT BASED ON LEFT CLICK 
     void updateAnimations() override;
     void updateMovement() override;
 
@@ -34,6 +41,9 @@ public:
     const float& getJumpForce();
     const bool& getCanJump();
     const bool& getIsGrounded();
+
+    const bool getCanShoot();
+    const float getLookDirection();
 
     void setPosition(float x, float y) override;
     void setVelocity(float x, float y) override;

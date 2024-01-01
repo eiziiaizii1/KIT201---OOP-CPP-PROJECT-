@@ -15,7 +15,7 @@ private:
 	Camera camera;
 
 	//Bullet
-	std::vector<Bullet*> bullets;
+	std::vector<std::unique_ptr<Bullet>> bullets;
 	sf::Texture bulletTexture;
 
 	// TileMap 
@@ -27,6 +27,10 @@ private:
 	SoundManager soundManager;
 
 	void initVariables();
+	//Bullet related
+	void shootBullets();
+	void updateBullets();
+	void renderBullets(sf::RenderTarget& target);
 
 public:
 	//Constructors

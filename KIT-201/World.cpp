@@ -8,6 +8,44 @@ void World::initVariables()
 		std::cout << "failed to load the bullet texture" << std::endl;
 }
 
+void World::shootBullets()
+{
+	if (this->player.getCanShoot())
+	{
+		std::unique_ptr<Bullet> newBullet = std::make_unique<Bullet>(
+			this->bulletTexture,
+			this->player.getPosition().x,
+			this->player.getPosition().y,
+			player.getLookDirection(),
+			0.f,
+			player.getVelocity().x
+		);
+		this->bullets.push_back(std::move(newBullet));
+	}
+}
+
+void World::updateBullets()
+{
+	// Use remove_if with a lambda function to erase elements matching the condition
+	this->bullets.erase(
+		std::remove_if(this->bullets.begin(), this->bullets.end(),
+		[](const std::unique_ptr<Bullet>& bullet) 
+		{
+			// Update and check for bullet culling
+			bullet->update();
+			return (bullet->getGlobalBounds().left + bullet->getGlobalBounds().width) < 0.f ||
+				   (bullet->getGlobalBounds().left > 6400.f);
+		}), this->bullets.end());
+}
+
+void World::renderBullets(sf::RenderTarget& target)
+{
+	for (const auto& bullet : this->bullets)
+	{
+		bullet->render(target);
+	}
+}
+
 World::World() : collisionManager(tileMap)
 {
 	initVariables();
@@ -21,8 +59,10 @@ void World::updatePhysics()
 void World::update()
 {
 	this->player.update();
-	collisionManager.handleCollisions(this->player, this->tileMap);
+	this->collisionManager.handleCollisions(this->player, this->tileMap);
 	this->physicsManager.update(this->player);
+	this->shootBullets();
+	this->updateBullets();
 
 	// Update camera position to follow the player
 	camera.setCenter(player.getPosition());
@@ -30,8 +70,9 @@ void World::update()
 
 void World::render(sf::RenderTarget& target)
 {
-	this->player.render(target);
 	this->tileMap.render(target);
+	this->player.render(target);
+	this->renderBullets(target);
 }
 
 Player& World::getPlayer() {

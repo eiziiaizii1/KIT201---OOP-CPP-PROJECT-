@@ -6,6 +6,8 @@ void Player::initVariables()
 	this->animationFrameCount = 0;
 	this->animationState = ANIMATION_STATES::IDLE;
 	this->isGrounded = false;
+	this->canShoot = false;
+	this->lookDirection = 1.f;
 }
 
 void Player::initTexture()
@@ -38,13 +40,14 @@ void Player::updateMovement()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		this->moveDirection.x = 1.f;
+		this->lookDirection = 1.f;
 		this->animationState = ANIMATION_STATES::MOVING_RIGHT;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		this->moveDirection.x = -1.f;
+		this->lookDirection = 1.f;
 		this->animationState = ANIMATION_STATES::MOVING_LEFT;
-
 	}
 
 	canJump = false;
@@ -52,13 +55,25 @@ void Player::updateMovement()
 	{
 		canJump = true;
 		this->moveDirection.y = -1.f;
-		//std::cout << "space\n";
 		isGrounded = false;
 	}
-	//std::cout << this->velocity.y<<std::endl;
 
 	// moves the sprite based on the velocity (it literally moves, changes the sprites position on window)
 	this->sprite.move(this->velocity);
+}
+
+void Player::updateShootStatus()
+{
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		this->canShoot = true;
+		std::cout << "shoot\n";
+	}
+	else
+	{
+		this->canShoot = false;
+		std::cout << "not shoot\n";
+	}
 }
 
 Player::Player()
@@ -128,6 +143,16 @@ const bool& Player::getCanJump()
 const bool& Player::getIsGrounded()
 {
 	return this->isGrounded;
+}
+
+const bool Player::getCanShoot()
+{
+	return this->canShoot;
+}
+
+const float Player::getLookDirection()
+{
+	return this->lookDirection;
 }
 
 
@@ -218,6 +243,7 @@ void Player::update()
 {
 	this->updateMovement();
 	this->updateAnimations();
+	this->updateShootStatus();
 }
 
 void Player::render(sf::RenderTarget& target)
