@@ -25,7 +25,6 @@ protected:
     //Animation variables
     sf::Clock animationClock;
     sf::IntRect spriteFrame;
-    short int animationFrameCount;
     ANIMATION_STATES animationState;
 
     virtual void initVariables() = 0;

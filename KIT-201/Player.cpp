@@ -3,7 +3,7 @@
 void Player::initVariables()
 {
 	this->animationClock.restart();
-	this->animationFrameCount = 0;
+	this->shootClock.restart();
 	this->animationState = ANIMATION_STATES::IDLE;
 	this->isGrounded = false;
 	this->canShoot = false;
@@ -46,7 +46,7 @@ void Player::updateMovement()
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		this->moveDirection.x = -1.f;
-		this->lookDirection = 1.f;
+		this->lookDirection = -1.f;
 		this->animationState = ANIMATION_STATES::MOVING_LEFT;
 	}
 
@@ -64,15 +64,14 @@ void Player::updateMovement()
 
 void Player::updateShootStatus()
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && shootClock.getElapsedTime().asSeconds() > 0.4f)
 	{
 		this->canShoot = true;
-		std::cout << "shoot\n";
+		this->shootClock.restart();
 	}
 	else
 	{
 		this->canShoot = false;
-		std::cout << "not shoot\n";
 	}
 }
 
@@ -89,6 +88,7 @@ Player::Player()
 	this->jumpForce = 30.f;
 	this->canJump = false;
 
+	initVariables();
 	initTexture();
 	initSprite();
 }

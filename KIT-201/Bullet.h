@@ -1,15 +1,16 @@
 #pragma once
 #include "SFML\Graphics.hpp"
+#include "Player.h"
 
 class Bullet
 {
 private:
 	sf::Sprite sprite;
 
-	sf::Vector2f direction;
+	float direction; // direction that the bullet will move on x-axis (1.f = right, -1.f = left)
 	float movementSpeed;
 public:
-	Bullet(sf::Texture& texture, float posX, float posY, float directionX, float directionY, float movementSpeed);
+	Bullet(sf::Texture& texture, Player& player);
 	~Bullet();
 
 	//Accessors / Getters

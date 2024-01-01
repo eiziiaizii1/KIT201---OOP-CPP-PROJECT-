@@ -1,14 +1,26 @@
 #include "Bullet.h"
 
-Bullet::Bullet(sf::Texture& texture, float posX, float posY, float directionX, float directionY, float movementSpeed)
+// TODO-1: Initial bullet position adjustment
+
+Bullet::Bullet(sf::Texture& texture, Player& player)
 {
 	this->sprite.setTexture(texture);
+	this->direction = player.getLookDirection();
 
-	this->sprite.setPosition(posX, posY);
-	this->sprite.scale(0.5f, 0.4f);
-	this->direction.x = directionX;
-	this->direction.y = directionY;
-	this->movementSpeed = movementSpeed;
+	if (this->direction == 1.f)
+	{
+		this->sprite.scale(0.5f, 0.5f);
+		this->sprite.setPosition(player.getPosition().x, player.getPosition().y);
+		this->movementSpeed = player.getVelocityMax().x;
+	}
+	else
+	{
+		this->sprite.scale(-0.5f, 0.5f);
+		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 0.5f, 0.f);
+		
+		this->sprite.setPosition(player.getPosition());
+		this->movementSpeed = -player.getVelocityMax().x;
+	}
 }
 
 Bullet::~Bullet()
@@ -22,7 +34,7 @@ sf::FloatRect Bullet::getGlobalBounds() const
 
 void Bullet::update()
 {
-	this->sprite.move(this->movementSpeed * this->direction);
+	this->sprite.move(this->movementSpeed, 0.f);
 }
 
 void Bullet::render(sf::RenderTarget& target)

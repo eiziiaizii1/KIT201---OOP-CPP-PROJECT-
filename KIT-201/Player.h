@@ -11,8 +11,9 @@ private:
 
     float lookDirection;
 
-    // it would be better if we move this to some kind of AttackerEntity class which is subclass of Entity
+    // it would be better if we move shooting variables to some kind of ShooterEntity class which is subclass of Entity
     bool canShoot;
+    sf::Clock shootClock;
 
     // Implementations of abstract methods
     void initVariables() override;

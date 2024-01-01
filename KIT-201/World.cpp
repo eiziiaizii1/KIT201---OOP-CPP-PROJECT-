@@ -1,5 +1,7 @@
 #include "World.h"
 
+// TODO 1: More modular bullet culling
+
 void World::initVariables()
 {
 	this->player.setPosition(1280.f/2,0.f);
@@ -12,14 +14,7 @@ void World::shootBullets()
 {
 	if (this->player.getCanShoot())
 	{
-		std::unique_ptr<Bullet> newBullet = std::make_unique<Bullet>(
-			this->bulletTexture,
-			this->player.getPosition().x,
-			this->player.getPosition().y,
-			player.getLookDirection(),
-			0.f,
-			player.getVelocity().x
-		);
+		std::unique_ptr<Bullet> newBullet = std::make_unique<Bullet>(this->bulletTexture, this->player);
 		this->bullets.push_back(std::move(newBullet));
 	}
 }
@@ -34,7 +29,7 @@ void World::updateBullets()
 			// Update and check for bullet culling
 			bullet->update();
 			return (bullet->getGlobalBounds().left + bullet->getGlobalBounds().width) < 0.f ||
-				   (bullet->getGlobalBounds().left > 6400.f);
+				   (bullet->getGlobalBounds().left > 6400.f); // Hard coded value for now
 		}), this->bullets.end());
 }
 
