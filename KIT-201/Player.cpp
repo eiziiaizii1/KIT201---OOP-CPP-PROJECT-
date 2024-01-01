@@ -6,6 +6,7 @@ void Player::initVariables()
 	this->animationFrameCount = 0;
 	this->animationState = ANIMATION_STATES::IDLE;
 	this->isGrounded = false;
+	this->collisionSide = NONE;
 }
 
 void Player::initTexture()
@@ -148,6 +149,14 @@ void Player::setVelocity(float x, float y)
 void Player::setIsGrounded(bool grounded)
 {
 	this->isGrounded = grounded;
+}
+
+void Player::setCollisionSide(int collisionSide)
+{
+	if (collisionSide < horizontalCollisionSide::RIGHT)
+		this->collisionSide = static_cast<horizontalCollisionSide>(collisionSide);
+	else
+		std::cout << "UNDEFINED COLLISION SIDE PARAMETER\n";
 }
 
 void Player::setPosition(float x, float y)

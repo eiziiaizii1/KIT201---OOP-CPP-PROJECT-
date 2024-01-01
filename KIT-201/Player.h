@@ -1,6 +1,8 @@
 #pragma once
 #include "Entity.h" // Include the base class header
 
+enum horizontalCollisionSide {NONE = 0, LEFT, RIGHT};
+
 class Player : public Entity {
 private:
     
@@ -9,6 +11,8 @@ private:
     bool isGrounded;
     bool canJump;
     float jumpForce;
+
+    horizontalCollisionSide collisionSide;
 
     // Implementations of abstract methods
     void initVariables() override;
@@ -40,6 +44,7 @@ public:
     void setPosition(float x, float y) override;
     void setVelocity(float x, float y) override;
     void setIsGrounded(bool grounded);
+    void setCollisionSide(int collisionSide);
 
     void update() override;
     void render(sf::RenderTarget& target) override;

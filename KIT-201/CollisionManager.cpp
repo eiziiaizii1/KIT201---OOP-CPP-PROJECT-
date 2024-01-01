@@ -36,6 +36,7 @@ void CollisionManager::handleBottomCollisions(Player& player, std::vector<std::v
 		player.setVelocity(player.getVelocity().x, 0.f);
 
 		// Setting 'isGrounded' to true here will prevent the player from jumping while falling down.
+		
 		player.setIsGrounded(true);
 	}
 	else
@@ -76,6 +77,7 @@ void CollisionManager::handleLeftCollisions(
 			tileBounds.width * (leftTopX + 1),
 			player.getPosition().y
 		);
+		player.setCollisionSide(0);
 		player.setVelocity(0.f, player.getVelocity().y);
 	}
 	// Upper left side collision
@@ -87,6 +89,7 @@ void CollisionManager::handleLeftCollisions(
 			tileBounds.width * (leftTopX + 1),
 			player.getPosition().y
 		);
+		player.setCollisionSide(0);
 		player.setVelocity(0.f, player.getVelocity().y);
 	}
 }
@@ -98,22 +101,26 @@ void CollisionManager::handleRightCollisions(
 	if (tileMap[rightBottomY - 1][rightBottomX] == GROUND)
 	{
 		std::cout << "right lower\n";
+		std::cout << player.getVelocity().x<<"\n";
 		player.setPosition
 		(
 			tileBounds.width * rightTopX - player.getGlobalBounds().width -1.f,
 			player.getPosition().y
 		);
+		player.setCollisionSide(1);
 		player.setVelocity(0.f, player.getVelocity().y);
 	}
 	// Upper right side collision
 	else if (tileMap[rightTopY][rightTopX] == GROUND)
 	{
 		std::cout << "right upper\n";
+		std::cout << player.getVelocity().x << "\n";
 		player.setPosition
 		(
 			tileBounds.width * rightTopX - player.getGlobalBounds().width -1.f,
 			player.getPosition().y
 		);
+		player.setCollisionSide(1);
 		player.setVelocity(0.f, player.getVelocity().y);
 	}
 }
@@ -151,7 +158,8 @@ void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 	}
 	else
 	{
-		// has a slight problem. Added more than required parameters for the future bug-fix trail
+		player.setCollisionSide(0);
+
 		handleBottomCollisions(player, tileMapVector,  leftTopY, leftBottomY);
 
 		handleTopCollisions(player, tileMapVector, topCollided, leftTopX, leftTopY, rightTopX, rightTopY, midTopX, midTopY);
