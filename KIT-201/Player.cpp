@@ -41,7 +41,7 @@ void Player::updateMovement()
 		this->moveDirection.x = 1.f;
 		this->animationState = ANIMATION_STATES::MOVING_RIGHT;
 		
-		if (this->collisionSide != LEFT)
+		if (this->collisionSide == NONE)
 		this->playerView.move(sf::Vector2f(10.f, 0.f));
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -49,7 +49,7 @@ void Player::updateMovement()
 		this->moveDirection.x = -1.f;
 		this->animationState = ANIMATION_STATES::MOVING_LEFT;
 		
-		if (this->collisionSide != RIGHT)
+		if (this->collisionSide == NONE)
 		this->playerView.move(sf::Vector2f(-10.f, 0.f));
 	}
 
@@ -158,10 +158,7 @@ void Player::setIsGrounded(bool grounded)
 
 void Player::setCollisionSide(int collisionSide)
 {
-	if (collisionSide < horizontalCollisionSide::RIGHT)
 		this->collisionSide = static_cast<horizontalCollisionSide>(collisionSide);
-	else
-		std::cout << "UNDEFINED COLLISION SIDE PARAMETER\n";
 }
 
 void Player::setPosition(float x, float y)

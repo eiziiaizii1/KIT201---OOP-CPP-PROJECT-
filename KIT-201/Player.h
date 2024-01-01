@@ -1,7 +1,7 @@
 #pragma once
 #include "Entity.h" // Include the base class header
 
-enum horizontalCollisionSide {NONE = 0, LEFT, RIGHT};
+enum horizontalCollisionSide {NONE = 0, LEFT = 1, RIGHT = 2};
 
 class Player : public Entity {
 private:
