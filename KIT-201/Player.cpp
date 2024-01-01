@@ -6,7 +6,6 @@ void Player::initVariables()
 	this->animationFrameCount = 0;
 	this->animationState = ANIMATION_STATES::IDLE;
 	this->isGrounded = false;
-	this->collisionSide = NONE;
 }
 
 void Player::initTexture()
@@ -131,10 +130,6 @@ const bool& Player::getIsGrounded()
 	return this->isGrounded;
 }
 
-const horizontalCollisionSide& Player::getCollisionSide()
-{
-	return this->collisionSide;
-}
 
 const sf::Vector2f& Player::getPosition()
 {
@@ -149,11 +144,6 @@ void Player::setVelocity(float x, float y)
 void Player::setIsGrounded(bool grounded)
 {
 	this->isGrounded = grounded;
-}
-
-void Player::setCollisionSide(int collisionSide)
-{
-		this->collisionSide = static_cast<horizontalCollisionSide>(collisionSide);
 }
 
 void Player::setPosition(float x, float y)

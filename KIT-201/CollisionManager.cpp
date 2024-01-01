@@ -77,7 +77,6 @@ void CollisionManager::handleLeftCollisions(
 			tileBounds.width * (leftTopX + 1),
 			player.getPosition().y
 		);
-		player.setCollisionSide(1);
 		player.setVelocity(0.f, player.getVelocity().y);
 	}
 	// Upper left side collision
@@ -89,7 +88,6 @@ void CollisionManager::handleLeftCollisions(
 			tileBounds.width * (leftTopX + 1),
 			player.getPosition().y
 		);
-		player.setCollisionSide(1);
 		player.setVelocity(0.f, player.getVelocity().y);
 	}
 }
@@ -107,7 +105,6 @@ void CollisionManager::handleRightCollisions(
 			tileBounds.width * rightTopX - player.getGlobalBounds().width -1.f,
 			player.getPosition().y
 		);
-		player.setCollisionSide(2);
 		player.setVelocity(0.f, player.getVelocity().y);
 	}
 	// Upper right side collision
@@ -120,7 +117,6 @@ void CollisionManager::handleRightCollisions(
 			tileBounds.width * rightTopX - player.getGlobalBounds().width - 1.f,
 			player.getPosition().y
 		);
-		player.setCollisionSide(2);
 		player.setVelocity(0.f, player.getVelocity().y);
 	}
 }
@@ -158,7 +154,6 @@ void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 	}
 	else
 	{
-		player.setCollisionSide(0);
 
 		handleBottomCollisions(player, tileMapVector,  leftTopY, leftBottomY);
 

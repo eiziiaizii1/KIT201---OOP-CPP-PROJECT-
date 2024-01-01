@@ -1,7 +1,6 @@
 #pragma once
 #include "Entity.h" // Include the base class header
 #include "Camera.h"
-enum horizontalCollisionSide {NONE = 0, LEFT = 1, RIGHT = 2};
 
 class Player : public Entity {
 private:
@@ -9,8 +8,6 @@ private:
     bool isGrounded;
     bool canJump;
     float jumpForce;
-
-    horizontalCollisionSide collisionSide;
 
     // Implementations of abstract methods
     void initVariables() override;
@@ -37,12 +34,10 @@ public:
     const float& getJumpForce();
     const bool& getCanJump();
     const bool& getIsGrounded();
-    const horizontalCollisionSide& getCollisionSide();
 
     void setPosition(float x, float y) override;
     void setVelocity(float x, float y) override;
     void setIsGrounded(bool grounded);
-    void setCollisionSide(int collisionSide);
 
     void update() override;
     void render(sf::RenderTarget& target) override;
