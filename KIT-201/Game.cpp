@@ -15,6 +15,7 @@ void Game::initWindow()
 }
 
 //Constructors and Destructors:
+//(const sf::View& playerView) : gameView(playerView)
 Game::Game()
 {
 	initVariables();
@@ -59,6 +60,7 @@ void Game::update()
 
 void Game::render()
 {
+	this->window->setView(this->world.getPlayer().getPlayerView());
 	this->window->clear(sf::Color(0, 0, 50));
 
 

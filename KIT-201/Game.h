@@ -18,7 +18,8 @@ private:
 	sf::VideoMode videoMode; //Holds information about window height, width, etc.
 	sf::RenderWindow* window;
 	sf::Event sfmlEvent;
-
+	//sf::View gameView;
+	
 	World world;
 
 	//Initializers
@@ -26,8 +27,10 @@ private:
 	void initWindow();
 
 public:
+	
 	//Constructors and Destructors
 	Game();
+	//Game(const sf::View& playerView);
 	~Game();
 
 	//Getters-Accessors

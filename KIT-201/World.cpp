@@ -2,7 +2,7 @@
 
 void World::initVariables()
 {
-	this->player.setPosition(1280.f/2,0.f);
+	this->player.setPosition(0.f/800,0.f);
 }
 
 World::World()
@@ -26,4 +26,8 @@ void World::render(sf::RenderTarget& target)
 {
 	this->player.render(target);
 	this->tileMap.render(target);
+}
+
+Player World::getPlayer() {
+	return this->player;
 }

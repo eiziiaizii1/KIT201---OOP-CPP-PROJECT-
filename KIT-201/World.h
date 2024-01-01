@@ -23,7 +23,7 @@ public:
 	//Constructors
 	World();
 
-
+	Player getPlayer();
 	void updatePhysics();
 	void update();
 	void render(sf::RenderTarget& target);

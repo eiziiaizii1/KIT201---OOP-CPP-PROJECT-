@@ -3,6 +3,9 @@
 
 class Player : public Entity {
 private:
+    
+    sf::View playerView;
+
     bool isGrounded;
     bool canJump;
     float jumpForce;
@@ -30,6 +33,8 @@ public:
     const sf::Vector2f& getMoveDirection() override;
     const float& getJumpForce();
     const bool& getCanJump();
+
+    sf::View& getPlayerView();
 
     void setPosition(float x, float y) override;
     void setVelocity(float x, float y) override;
