@@ -1,6 +1,6 @@
 #pragma once
 #include "SFML\Graphics.hpp"
-#include "Player.h"
+#include "Entity.h"
 #include "TileMap.h"
 
 class CollisionManager

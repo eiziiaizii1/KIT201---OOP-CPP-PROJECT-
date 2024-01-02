@@ -1,5 +1,5 @@
 #pragma once
-#include "Player.h"
+#include "Entity.h"
 
 ////FIXED BUG2: WHILE FALLING DOWN YOU CAN JUMP ON AIR
 ////FIXED BUG1: JUMPING NEAR THE WALLS MAKES A SUPER JUMP

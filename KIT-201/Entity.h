@@ -12,7 +12,6 @@ protected:
     sf::Sprite sprite;
 
     //Physics variables
-    sf::Vector2f position;
     sf::Vector2f velocity;
     sf::Vector2f velocityMax;
     sf::Vector2f velocityMin;
@@ -38,21 +37,21 @@ protected:
 public:
     virtual ~Entity() {}
 
-    virtual const sf::FloatRect& getGlobalBounds() = 0;
-    virtual const sf::Vector2f& getPosition() = 0;
-    virtual const sf::Vector2f& getVelocity() = 0;
-    virtual const sf::Vector2f& getVelocityMax() = 0;
-    virtual const sf::Vector2f& getVelocityMin() = 0;
-    virtual const sf::Vector2f& getAcceleration() = 0;
-    virtual const sf::Vector2f& getDrag() = 0;
-    virtual const sf::Vector2f& getMoveDirection() = 0;
-    virtual const float& getJumpForce() = 0;
-    virtual const bool& getCanJump() = 0;
-    virtual const bool& getIsGrounded() = 0;
+    virtual const sf::FloatRect& getGlobalBounds();
+    virtual const sf::Vector2f& getPosition();
+    virtual const sf::Vector2f& getVelocity();
+    virtual const sf::Vector2f& getVelocityMax();
+    virtual const sf::Vector2f& getVelocityMin();
+    virtual const sf::Vector2f& getAcceleration();
+    virtual const sf::Vector2f& getDrag();
+    virtual const sf::Vector2f& getMoveDirection();
+    virtual const float& getJumpForce();
+    virtual const bool& getCanJump();
+    virtual const bool& getIsGrounded();
 
-    virtual void setPosition(float x, float y) = 0;
-    virtual void setVelocity(float x, float y) = 0;
-    virtual void setIsGrounded(bool grounded) = 0;
+    virtual void setPosition(float x, float y);
+    virtual void setVelocity(float x, float y);
+    virtual void setIsGrounded(bool grounded);
 
     virtual void update() = 0;
     virtual void render(sf::RenderTarget& target) = 0;

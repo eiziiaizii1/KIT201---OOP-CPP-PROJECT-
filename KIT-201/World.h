@@ -1,5 +1,5 @@
 #pragma once
-#include "Player.h"
+#include "Entity.h"
 #include "TileMap.h"
 #include "CollisionManager.h"
 #include "PhysicsManager.h"

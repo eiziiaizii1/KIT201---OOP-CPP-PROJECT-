@@ -53,9 +53,9 @@ void World::updatePhysics()
 
 void World::update()
 {
+	this->physicsManager.update(this->player);
 	this->player.update();
 	this->collisionManager.handleCollisions(this->player, this->tileMap);
-	this->physicsManager.update(this->player);
 	this->shootBullets();
 	this->updateBullets();
 

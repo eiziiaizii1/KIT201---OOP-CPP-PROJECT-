@@ -78,71 +78,22 @@ void Player::updateShootStatus()
 Player::Player()
 {
 	// Initialize members inherited from Entity class
-	position = sf::Vector2f(0.f, 0.f);
 	velocity = sf::Vector2f(0.f, 0.f);
 	acceleration = sf::Vector2f(1.2f, 1.f);
 	velocityMax = sf::Vector2f(20.f, 20.f);
 	velocityMin = sf::Vector2f(1.f, 1.f);
 	drag = sf::Vector2f(0.9f, 3.f);
-	this->moveDirection = sf::Vector2f(0.f,0.f);;
-	this->jumpForce = 30.f;
-	this->canJump = false;
+	moveDirection = sf::Vector2f(0.f,0.f);;
+	jumpForce = 30.f;
+	canJump = false;
 
 	initVariables();
 	initTexture();
 	initSprite();
 }
 
-
-
 Player::~Player()
 {
-}
-
-const sf::Vector2f& Player::getVelocity()
-{
-	return this->velocity;
-}
-
-const sf::Vector2f& Player::getVelocityMax()
-{
-	return this->velocityMax;
-}
-
-const sf::Vector2f& Player::getVelocityMin()
-{
-	return this->velocityMin;
-}
-
-const sf::Vector2f& Player::getAcceleration()
-{
-	return this->acceleration;
-}
-
-const sf::Vector2f& Player::getDrag()
-{
-	return this->drag;
-}
-
-const sf::Vector2f& Player::getMoveDirection()
-{
-	return this->moveDirection;
-}
-
-const float& Player::getJumpForce()
-{
-	return jumpForce;
-}
-
-const bool& Player::getCanJump()
-{
-	// TODO: insert return statement here
-	return this->canJump;
-}
-
-const bool& Player::getIsGrounded()
-{
-	return this->isGrounded;
 }
 
 const bool Player::getCanShoot()
@@ -153,27 +104,6 @@ const bool Player::getCanShoot()
 const float Player::getLookDirection()
 {
 	return this->lookDirection;
-}
-
-
-const sf::Vector2f& Player::getPosition()
-{
-	return this->sprite.getPosition();
-}
-
-void Player::setVelocity(float x, float y)
-{
-	this->velocity = sf::Vector2f(x, y);
-}
-
-void Player::setIsGrounded(bool grounded)
-{
-	this->isGrounded = grounded;
-}
-
-void Player::setPosition(float x, float y)
-{
-	sprite.setPosition(sf::Vector2f(x, y));
 }
 
 void Player::updateAnimations()
@@ -231,11 +161,6 @@ void Player::updateAnimations()
 		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 2.f, 0.f);
 	}
 
-}
-
-const sf::FloatRect& Player::getGlobalBounds()
-{
-	return this->sprite.getGlobalBounds();
 }
 
 // will be called each frame in game loop

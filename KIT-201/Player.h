@@ -27,7 +27,7 @@ public:
 
 
     // Implementations of remaining abstract methods
-    const sf::FloatRect& getGlobalBounds() override;
+    /*const sf::FloatRect& getGlobalBounds() override;
     const sf::Vector2f& getPosition() override;
     const sf::Vector2f& getVelocity() override;
     const sf::Vector2f& getVelocityMax() override;
@@ -37,14 +37,14 @@ public:
     const sf::Vector2f& getMoveDirection() override;
     const float& getJumpForce() override;
     const bool& getCanJump() override;
-    const bool& getIsGrounded() override;
+    const bool& getIsGrounded() override;*/
 
     const bool getCanShoot();
     const float getLookDirection();
 
-    void setPosition(float x, float y) override;
+    /*void setPosition(float x, float y) override;
     void setVelocity(float x, float y) override;
-    void setIsGrounded(bool grounded) override;
+    void setIsGrounded(bool grounded) override;*/
 
     void update() override;
     void render(sf::RenderTarget& target) override;

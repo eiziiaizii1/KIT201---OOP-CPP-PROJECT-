@@ -27,7 +27,7 @@ void CollisionManager::handleBottomCollisions(Entity& entity, std::vector<std::v
 	if (tileMap[leftBottomY][leftMidBottomX] == GROUND ||
 		tileMap[leftBottomY][rightMidBottomX] == GROUND)
 	{
-		std::cout << "BOTTOM\n";
+		//std::cout << "BOTTOM\n";
 		entity.setPosition
 		(
 			entity.getPosition().x,
@@ -36,7 +36,6 @@ void CollisionManager::handleBottomCollisions(Entity& entity, std::vector<std::v
 		entity.setVelocity(entity.getVelocity().x, 0.f);
 
 		// Setting 'isGrounded' to true here will prevent the player from jumping while falling down.
-		
 		entity.setIsGrounded(true);
 	}
 	else
@@ -55,7 +54,7 @@ void CollisionManager::handleTopCollisions(
 			tileMap[midTopY][midTopX] == GROUND))
 	{
 		topCollided = true;
-		std::cout << "TOP\n";
+		//std::cout << "TOP\n";
 		entity.setPosition
 		(
 			entity.getPosition().x,
@@ -71,7 +70,7 @@ void CollisionManager::handleLeftCollisions(
 	// Lower left side collision
 	if (tileMap[leftBottomY - 1][leftBottomX] == GROUND)
 	{
-		std::cout << "left lower\n";
+		//std::cout << "left lower\n";
 		entity.setPosition
 		(
 			tileBounds.width * (leftTopX + 1),
@@ -82,7 +81,7 @@ void CollisionManager::handleLeftCollisions(
 	// Upper left side collision
 	else if (tileMap[leftTopY][leftTopX] == GROUND)
 	{
-		std::cout << "left upper\n";
+		//std::cout << "left upper\n";
 		entity.setPosition
 		(
 			tileBounds.width * (leftTopX + 1),
@@ -98,7 +97,7 @@ void CollisionManager::handleRightCollisions(
 	// Lower right side collision
 	if (tileMap[rightBottomY - 1][rightBottomX] == GROUND)
 	{
-		std::cout << "right lower\n";
+		//std::cout << "right lower\n";
 		std::cout << entity.getVelocity().x<<"\n";
 		entity.setPosition
 		(
@@ -110,7 +109,7 @@ void CollisionManager::handleRightCollisions(
 	// Upper right side collision
 	else if (tileMap[rightTopY][rightTopX] == GROUND)
 	{
-		std::cout << "right upper\n";
+		//std::cout << "right upper\n";
 		std::cout << entity.getVelocity().x << "\n";
 		entity.setPosition
 		(

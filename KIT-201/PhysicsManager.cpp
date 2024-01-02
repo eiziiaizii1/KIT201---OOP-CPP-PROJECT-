@@ -10,6 +10,7 @@ void PhysicsManager::applyAcceleration(Entity& entity)
 	sf::Vector2f currentVelocity = entity.getVelocity();
 	entity.setVelocity(currentVelocity.x + entity.getMoveDirection().x * entity.getAcceleration().x,
 		currentVelocity.y * entity.getMoveDirection().y * entity.getAcceleration().y);
+
 }
 
 // this function also applies gravity as drag.y represents gravity
