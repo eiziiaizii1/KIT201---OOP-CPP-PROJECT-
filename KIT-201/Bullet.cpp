@@ -10,7 +10,9 @@ Bullet::Bullet(sf::Texture& texture, Player& player)
 	if (this->direction == 1.f)
 	{
 		this->sprite.scale(0.5f, 0.5f);
-		this->sprite.setPosition(player.getPosition().x, player.getPosition().y);
+		this->sprite.setPosition(
+			player.getPosition().x + player.getGlobalBounds().width/2.5f, 
+			player.getPosition().y + player.getGlobalBounds().height / 12.f);
 		this->movementSpeed = player.getVelocityMax().x;
 	}
 	else
@@ -18,7 +20,9 @@ Bullet::Bullet(sf::Texture& texture, Player& player)
 		this->sprite.scale(-0.5f, 0.5f);
 		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 0.5f, 0.f);
 		
-		this->sprite.setPosition(player.getPosition());
+		this->sprite.setPosition(
+			player.getPosition().x - player.getGlobalBounds().width / 2.5f,
+			player.getPosition().y + player.getGlobalBounds().height / 12.f);
 		this->movementSpeed = -player.getVelocityMax().x;
 	}
 }
