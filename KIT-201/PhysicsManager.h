@@ -10,13 +10,13 @@ class PhysicsManager
 public:
 	PhysicsManager();
 
-	void applyAcceleration(Entity& player);
-	void applyDrag(Entity& player);
-	void applyGravity(Entity& player);
-	void limitVelocity(Entity& player);
-	void limitMinimumVelocity(Entity& player);
-	void handleJumping(Entity& player);
+	void applyAcceleration(Entity& entity);
+	void applyDrag(Entity& entity);
+	void applyGravity(Entity& entity);
+	void limitVelocity(Entity& entity);
+	void limitMinimumVelocity(Entity& entity);
+	void handleJumping(Entity& entity);
 
-	void update(Entity& player);
+	void update(Entity& entity);
 };
 

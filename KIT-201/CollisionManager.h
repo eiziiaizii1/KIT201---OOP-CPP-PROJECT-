@@ -9,14 +9,14 @@ private:
 	sf::FloatRect tileBounds;
 
 
-	void handleBottomCollisions(Entity& player, std::vector<std::vector<short>>& tileMap, short leftTopY, short leftBottomY);
+	void handleBottomCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap, short leftTopY, short leftBottomY);
 
-	void handleTopCollisions(Entity& player, std::vector<std::vector<short>>& tileMap, bool& topCollided,
+	void handleTopCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap, bool& topCollided,
 							 short leftTopX, short leftTopY, short rightTopX, short rightTopY, short midTopX, short midTopY);
 	
-	void handleLeftCollisions(Entity& player, std::vector<std::vector<short>>& tileMap, short leftBottomX, short leftBottomY, short leftTopX, short leftTopY);
+	void handleLeftCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap, short leftBottomX, short leftBottomY, short leftTopX, short leftTopY);
 	
-	void handleRightCollisions(Entity& player, std::vector<std::vector<short>>& tileMap,
+	void handleRightCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap,
 							   short rightTopX, short rightTopY, short rightBottomX, short rightBottomY);
 
 public:
