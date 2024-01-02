@@ -5,10 +5,6 @@
 class Player : public Entity {
 private:
 
-    bool isGrounded;
-    bool canJump;
-    float jumpForce;
-
     float lookDirection;
 
     // it would be better if we move shooting variables to some kind of ShooterEntity class which is subclass of Entity
@@ -39,16 +35,16 @@ public:
     const sf::Vector2f& getAcceleration() override;
     const sf::Vector2f& getDrag() override;
     const sf::Vector2f& getMoveDirection() override;
-    const float& getJumpForce();
-    const bool& getCanJump();
-    const bool& getIsGrounded();
+    const float& getJumpForce() override;
+    const bool& getCanJump() override;
+    const bool& getIsGrounded() override;
 
     const bool getCanShoot();
     const float getLookDirection();
 
     void setPosition(float x, float y) override;
     void setVelocity(float x, float y) override;
-    void setIsGrounded(bool grounded);
+    void setIsGrounded(bool grounded) override;
 
     void update() override;
     void render(sf::RenderTarget& target) override;
