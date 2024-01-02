@@ -14,13 +14,13 @@ CollisionManager::CollisionManager(TileMap& tileMap)
 	this->tileBounds = tileMap.getTileGlobalBounds();
 }
 
-void CollisionManager::handleBottomCollisions(Player& player, std::vector<std::vector<short>>& tileMap, short leftTopY, short leftBottomY)
+void CollisionManager::handleBottomCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap, short leftTopY, short leftBottomY)
 {
 	//as we only need these variables here, we don't need to calculate them in handleCollisions() function
-	float offSet = (player.getGlobalBounds().width - tileBounds.width) / 2.f;
+	float offSet = (entity.getGlobalBounds().width - tileBounds.width) / 2.f;
 
-	short leftMidBottomX = floor((player.getGlobalBounds().left + offSet) / tileBounds.width);
-	short rightMidBottomX = floor(((player.getGlobalBounds().left + player.getGlobalBounds().width - offSet)) / tileBounds.width);
+	short leftMidBottomX = floor((entity.getGlobalBounds().left + offSet) / tileBounds.width);
+	short rightMidBottomX = floor(((entity.getGlobalBounds().left + entity.getGlobalBounds().width - offSet)) / tileBounds.width);
 
 	// Bottom Collision
 	// entity's y index is same for all bottom parts no need to recalculate BottomY index 
@@ -28,122 +28,122 @@ void CollisionManager::handleBottomCollisions(Player& player, std::vector<std::v
 		tileMap[leftBottomY][rightMidBottomX] == GROUND)
 	{
 		std::cout << "BOTTOM\n";
-		player.setPosition
+		entity.setPosition
 		(
-			player.getPosition().x,
+			entity.getPosition().x,
 			tileBounds.height * leftTopY
 		);
-		player.setVelocity(player.getVelocity().x, 0.f);
+		entity.setVelocity(entity.getVelocity().x, 0.f);
 
 		// Setting 'isGrounded' to true here will prevent the player from jumping while falling down.
 		
-		player.setIsGrounded(true);
+		entity.setIsGrounded(true);
 	}
 	else
 	{
-		player.setIsGrounded(false);
+		entity.setIsGrounded(false);
 	}
 }
 
 void CollisionManager::handleTopCollisions(
-	Player& player, std::vector<std::vector<short>>& tileMap, bool& topCollided, 
+	Entity& entity, std::vector<std::vector<short>>& tileMap, bool& topCollided,
 	short leftTopX, short leftTopY, short rightTopX, short rightTopY, short midTopX, short midTopY)
 {
-	if (player.getVelocity().y < 0 &&
+	if (entity.getVelocity().y < 0 &&
 		(tileMap[leftTopY][leftTopX] == GROUND ||
 			tileMap[rightTopY][rightTopX] == GROUND ||
 			tileMap[midTopY][midTopX] == GROUND))
 	{
 		topCollided = true;
 		std::cout << "TOP\n";
-		player.setPosition
+		entity.setPosition
 		(
-			player.getPosition().x,
+			entity.getPosition().x,
 			tileBounds.height * (leftTopY + 1)
 		);
-		player.setVelocity(player.getVelocity().x, 0.f);
+		entity.setVelocity(entity.getVelocity().x, 0.f);
 	}
 }
 
 void CollisionManager::handleLeftCollisions(
-	Player& player, std::vector<std::vector<short>>& tileMap, short leftBottomX, short leftBottomY, short leftTopX, short leftTopY)
+	Entity& entity, std::vector<std::vector<short>>& tileMap, short leftBottomX, short leftBottomY, short leftTopX, short leftTopY)
 {
 	// Lower left side collision
 	if (tileMap[leftBottomY - 1][leftBottomX] == GROUND)
 	{
 		std::cout << "left lower\n";
-		player.setPosition
+		entity.setPosition
 		(
 			tileBounds.width * (leftTopX + 1),
-			player.getPosition().y
+			entity.getPosition().y
 		);
-		player.setVelocity(0.f, player.getVelocity().y);
+		entity.setVelocity(0.f, entity.getVelocity().y);
 	}
 	// Upper left side collision
 	else if (tileMap[leftTopY][leftTopX] == GROUND)
 	{
 		std::cout << "left upper\n";
-		player.setPosition
+		entity.setPosition
 		(
 			tileBounds.width * (leftTopX + 1),
-			player.getPosition().y
+			entity.getPosition().y
 		);
-		player.setVelocity(0.f, player.getVelocity().y);
+		entity.setVelocity(0.f, entity.getVelocity().y);
 	}
 }
 
 void CollisionManager::handleRightCollisions(
-	Player& player, std::vector<std::vector<short>>& tileMap, short rightTopX, short rightTopY, short rightBottomX, short rightBottomY)
+	Entity& entity, std::vector<std::vector<short>>& tileMap, short rightTopX, short rightTopY, short rightBottomX, short rightBottomY)
 {
 	// Lower right side collision
 	if (tileMap[rightBottomY - 1][rightBottomX] == GROUND)
 	{
 		std::cout << "right lower\n";
-		std::cout << player.getVelocity().x<<"\n";
-		player.setPosition
+		std::cout << entity.getVelocity().x<<"\n";
+		entity.setPosition
 		(
-			tileBounds.width * rightTopX - player.getGlobalBounds().width -1.f,
-			player.getPosition().y
+			tileBounds.width * rightTopX - entity.getGlobalBounds().width -1.f,
+			entity.getPosition().y
 		);
-		player.setVelocity(0.f, player.getVelocity().y);
+		entity.setVelocity(0.f, entity.getVelocity().y);
 	}
 	// Upper right side collision
 	else if (tileMap[rightTopY][rightTopX] == GROUND)
 	{
 		std::cout << "right upper\n";
-		std::cout << player.getVelocity().x << "\n";
-		player.setPosition
+		std::cout << entity.getVelocity().x << "\n";
+		entity.setPosition
 		(
-			tileBounds.width * rightTopX - player.getGlobalBounds().width - 1.f,
-			player.getPosition().y
+			tileBounds.width * rightTopX - entity.getGlobalBounds().width - 1.f,
+			entity.getPosition().y
 		);
-		player.setVelocity(0.f, player.getVelocity().y);
+		entity.setVelocity(0.f, entity.getVelocity().y);
 	}
 }
 
 
-void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
+void CollisionManager::handleCollisions(Entity& entity, TileMap& tileMap)
 {
 	std::vector<std::vector<short>>tileMapVector = tileMap.getMapVector();
 
 	// These variables specify the indices that correspond to the corners of the character sprite on the tile map vector
-	short leftTopX = floor(player.getGlobalBounds().left / tileBounds.width);
-	short leftTopY = floor(player.getGlobalBounds().top/ tileBounds.height);
+	short leftTopX = floor(entity.getGlobalBounds().left / tileBounds.width);
+	short leftTopY = floor(entity.getGlobalBounds().top/ tileBounds.height);
 	
 	short leftBottomX = leftTopX;
-	short leftBottomY = floor((player.getGlobalBounds().top + player.getGlobalBounds().height) / tileBounds.height);
+	short leftBottomY = floor((entity.getGlobalBounds().top + entity.getGlobalBounds().height) / tileBounds.height);
 
-	short rightTopX = floor((player.getGlobalBounds().left + player.getGlobalBounds().width) / tileBounds.width);
+	short rightTopX = floor((entity.getGlobalBounds().left + entity.getGlobalBounds().width) / tileBounds.width);
 	short rightTopY = leftTopY;
 
 	short rightBottomX = rightTopX;
-	short rightBottomY = floor((player.getGlobalBounds().top + player.getGlobalBounds().height) / tileBounds.height);
+	short rightBottomY = floor((entity.getGlobalBounds().top + entity.getGlobalBounds().height) / tileBounds.height);
 
-	short midTopX = floor((player.getGlobalBounds().left + player.getGlobalBounds().width+ player.getGlobalBounds().left) / 2.f / tileBounds.width);
-	short midTopY = floor(player.getGlobalBounds().top / tileBounds.height);
+	short midTopX = floor((entity.getGlobalBounds().left + entity.getGlobalBounds().width+ entity.getGlobalBounds().left) / 2.f / tileBounds.width);
+	short midTopY = floor(entity.getGlobalBounds().top / tileBounds.height);
 
-	short midBottomX = floor((player.getGlobalBounds().left + player.getGlobalBounds().width + player.getGlobalBounds().left) / 2.f / tileBounds.width);
-	short midBottomY = floor((player.getGlobalBounds().top + player.getGlobalBounds().height) / tileBounds.height);
+	short midBottomX = floor((entity.getGlobalBounds().left + entity.getGlobalBounds().width + entity.getGlobalBounds().left) / 2.f / tileBounds.width);
+	short midBottomY = floor((entity.getGlobalBounds().top + entity.getGlobalBounds().height) / tileBounds.height);
 
 	bool topCollided = false;
 
@@ -155,15 +155,15 @@ void CollisionManager::handleCollisions(Player& player, TileMap& tileMap)
 	else
 	{
 
-		handleBottomCollisions(player, tileMapVector,  leftTopY, leftBottomY);
+		handleBottomCollisions(entity, tileMapVector,  leftTopY, leftBottomY);
 
-		handleTopCollisions(player, tileMapVector, topCollided, leftTopX, leftTopY, rightTopX, rightTopY, midTopX, midTopY);
+		handleTopCollisions(entity, tileMapVector, topCollided, leftTopX, leftTopY, rightTopX, rightTopY, midTopX, midTopY);
 
 		if (topCollided == false) 
 		{
-			this->handleLeftCollisions(player, tileMapVector, leftBottomX, leftBottomY, leftTopX, leftTopY);
+			this->handleLeftCollisions(entity, tileMapVector, leftBottomX, leftBottomY, leftTopX, leftTopY);
 
-			this->handleRightCollisions(player, tileMapVector, rightTopX, rightTopY, rightBottomX, rightBottomY);
+			this->handleRightCollisions(entity, tileMapVector, rightTopX, rightTopY, rightBottomX, rightBottomY);
 		}
 	}
 }

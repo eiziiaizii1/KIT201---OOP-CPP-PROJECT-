@@ -21,6 +21,7 @@ protected:
     sf::Vector2f moveDirection;
     float jumpForce;
     bool canJump;
+    bool isGrounded;
 
     //Animation variables
     sf::Clock animationClock;
@@ -47,9 +48,11 @@ public:
     virtual const sf::Vector2f& getMoveDirection() = 0;
     virtual const float& getJumpForce() = 0;
     virtual const bool& getCanJump() = 0;
+    virtual const bool& getIsGrounded() = 0;
 
     virtual void setPosition(float x, float y) = 0;
     virtual void setVelocity(float x, float y) = 0;
+    virtual void setIsGrounded(bool grounded) = 0;
 
     virtual void update() = 0;
     virtual void render(sf::RenderTarget& target) = 0;
