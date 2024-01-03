@@ -10,35 +10,26 @@
 #include "TileMap.h"
 #include "CollisionManager.h"
 #include "World.h"
+#include "StateManager.h"
 
-class Game
-{
+class Game {
 private:
-	// main variables for game
-	sf::VideoMode videoMode; //Holds information about window height, width, etc.
-	sf::RenderWindow* window;
-	sf::Event sfmlEvent;
+    sf::VideoMode videoMode;
+    sf::RenderWindow* window;
+    sf::Event sfmlEvent;
 
-	World world;
+    StateManager stateManager; // Include StateManager in Game
 
-	//Initializers
-	void initVariables();
-	void initWindow();
+    void initVariables();
+    void initWindow();
 
 public:
-	//Constructors and Destructors
-	Game();
-	~Game();
+    Game();
+    ~Game();
 
-	//Getters-Accessors
-
-	//Setters-Modifiers
-
-	//Functions
-	const bool isRunning() const;
-	void pollEvents();
-	void update();
-	void render();
-
+    const bool isRunning() const;
+    void pollEvents();
+    void update();
+    void render();
 };
 

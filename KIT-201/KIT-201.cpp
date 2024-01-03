@@ -9,6 +9,7 @@ int main()
 
     //Main Game Loop
     while (game.isRunning()) {
+        game.pollEvents();
         game.update();
         game.render();
     }

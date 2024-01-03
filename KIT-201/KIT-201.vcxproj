@@ -144,6 +144,7 @@
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="TileMapParser.cpp" />
     <ClCompile Include="World.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="StateManager.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="TileMapParser.h" />
     <ClInclude Include="World.h" />

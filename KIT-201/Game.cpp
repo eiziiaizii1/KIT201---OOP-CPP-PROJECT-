@@ -1,72 +1,35 @@
 #include "Game.h"
 
-void Game::initVariables()
-{
+void Game::initVariables() {}
 
+void Game::initWindow() {
+    videoMode = sf::VideoMode(1280, 960);
+    window = new sf::RenderWindow(videoMode, "KIT-201", sf::Style::Close | sf::Style::Titlebar);
+    window->setFramerateLimit(30);
 }
 
-void Game::initWindow()
-{
-	//Fixed Values For now
-	this->videoMode = sf::VideoMode(1280,960);
-	this->window = new sf::RenderWindow(this->videoMode,"KIT-201",sf::Style::Close | sf::Style::Titlebar);
-	this->window->setFramerateLimit(30);
+Game::Game() {
+    initVariables();
+    initWindow();
 }
 
-//Constructors and Destructors:
-Game::Game()
-{
-	initVariables();
-	initWindow();
+Game::~Game() {
+    delete window;
 }
 
-Game::~Game()
-{
-	delete this->window;
+const bool Game::isRunning() const {
+    return window->isOpen();
 }
 
-
-//Functions:
-const bool Game::isRunning() const
-{
-	return this->window->isOpen();
+void Game::pollEvents() {
+    stateManager.handleEvents(*window); // Delegate event handling to StateManager
 }
 
-void Game::pollEvents()
-{
-	while (this->window->pollEvent(this->sfmlEvent)) {
-		switch (this->sfmlEvent.type) {
-			case sf::Event::Closed:
-				this->window->close();
-				break;
-			case sf::Event::KeyPressed:
-				if (this-> sfmlEvent.key.code == sf::Keyboard::Escape) {
-					this->window->close();
-				}
-				break;
-			default:
-				break;
-		}
-	}
+void Game::update() {
+    stateManager.update(); // Delegate update to StateManager
 }
 
-void Game::update()
-{
-	this->pollEvents();
-	this->world.update();
+void Game::render() {
+    stateManager.render(*window); // Delegate rendering to StateManager
 }
 
-void Game::render()
-{
-
-
-	//this->window->setView(this->world.getPlayer().getCamera().getView());
-	this->window->setView(this->world.getCamera().getView());
-	this->window->clear(sf::Color(0, 0, 50));
-
-
-	//*****Render stuff:***** 
-	this->world.render(*this->window);
-
-	this->window->display();
-}
