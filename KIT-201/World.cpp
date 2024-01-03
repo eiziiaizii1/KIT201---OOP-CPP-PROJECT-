@@ -4,17 +4,45 @@
 
 void World::initVariables()
 {
-	this->player.setPosition(1280.f/2,0.f);
+	//this->player.setPosition(1280.f/2,0.f);
 
 	if (!this->bulletTexture.loadFromFile("Textures/LaserBullet.png"))
 		std::cout << "failed to load the bullet texture" << std::endl;
 }
 
+void World::initEntities()
+{
+	entities.push_back(std::make_unique<Player>());
+	entities.push_back(std::make_unique<Enemy>());
+	entities.push_back(std::make_unique<Enemy>());
+
+	entities[1]->setPosition(740.f,2.f);
+}
+
+void World::updateEntities()
+{
+	for (auto& entity: entities)
+	{
+		entity->update();
+	}
+}
+
+void World::renderEntities(sf::RenderTarget& target)
+{
+	for (auto& entity : entities)
+	{
+		entity->render(target);
+	}
+}
+
 void World::shootBullets()
 {
-	if (this->player.getCanShoot())
-	{
-		std::unique_ptr<Bullet> newBullet = std::make_unique<Bullet>(this->bulletTexture, this->player);
+	// Only player can shoot so we need to cast it to player
+	Player* playerEntity = dynamic_cast<Player*>(entities[0].get());
+
+	// Makes sure that it is player and then it checks canShoot
+	if (playerEntity && playerEntity->getCanShoot()) {
+		std::unique_ptr<Bullet> newBullet = std::make_unique<Bullet>(this->bulletTexture, *playerEntity);
 		this->bullets.push_back(std::move(newBullet));
 	}
 }
@@ -44,36 +72,47 @@ void World::renderBullets(sf::RenderTarget& target)
 World::World() : collisionManager(tileMap)
 {
 	initVariables();
+	initEntities();
+}
+
+void World::updateCollisions()
+{
+	for (auto& entity : entities)
+	{
+		collisionManager.handleCollisions(*entity, this->tileMap);
+	}
 }
 
 void World::updatePhysics()
 {
-	this->physicsManager.update(this->player);
+	for (auto& entity : entities)
+	{
+		physicsManager.update(*entity);
+	}
 }
 
 void World::update()
 {
-	this->physicsManager.update(this->player);
-	this->player.update();
-	this->collisionManager.handleCollisions(this->player, this->tileMap);
+	updatePhysics();
+	updateEntities();
+	updateCollisions();
 	this->shootBullets();
 	this->updateBullets();
-	this->enemy.update();
 
 	// Update camera position to follow the player
-	camera.setCenter(player.getPosition());
+	camera.setCenter(entities[0]->getPosition());
 }
 
 void World::render(sf::RenderTarget& target)
 {
-	this->tileMap.render(target);
-	this->player.render(target);
-	this->renderBullets(target);
-	this->enemy.render(target);
+	tileMap.render(target);
+	renderBullets(target);
+
+	renderEntities(target);
 }
 
 Player& World::getPlayer() {
-	return this->player;
+	return dynamic_cast<Player&>(*entities[0]);
 }
 
 Camera& World::getCamera() {

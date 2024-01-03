@@ -3,12 +3,13 @@
 void Enemy::initVariables()
 {
 	animationClock.restart();
+	turnBackCounter = 0;
 	animationState = ANIMATION_STATES::IDLE;
 }
 
 void Enemy::initTexture()
 {
-	if (textureIdle.loadFromFile("Textures/Enemy1Idle.png"))
+	if (!textureIdle.loadFromFile("Textures/Enemy1Idle.png"))
 		std::cout << "ERROR:: CANNOT LOAD THE ENEMT1 TEXTURE\n";
 }
 
@@ -23,25 +24,23 @@ void Enemy::initSprite()
 
 void Enemy::updateAnimations()
 {
-	if (animationClock.getElapsedTime().asSeconds() > 0.2f)
-	{
-		if (animationState == ANIMATION_STATES::IDLE)
-		{
-			if (this->spriteFrame.left > 276.f)
-			{
+	if (animationClock.getElapsedTime().asSeconds() > 0.2f) {
+		if (animationState == ANIMATION_STATES::IDLE) {
+			if (this->spriteFrame.left > 276.f) {
 				this->spriteFrame.left = 0.f;
 			}
+			
 			animationClock.restart();
 			sprite.setTexture(textureIdle);
 			sprite.setTextureRect(spriteFrame);
-			spriteFrame.left += spriteFrame.width;
+			spriteFrame.left += spriteFrame.width;;
 		}
 	}
 }
 
 void Enemy::updateMovement()
 {
-
+	sprite.move(velocity);
 }
 
 
@@ -50,12 +49,12 @@ Enemy::Enemy()
 	// Initialize members inherited from Entity class
 	// This is a stationary enemy
 	velocity = sf::Vector2f(0.f, 0.f);
-	acceleration = sf::Vector2f(0.f, 1.f);
+	acceleration = sf::Vector2f(1.2f, 1.f);
 	velocityMax = sf::Vector2f(0.f, 20.f);
 	velocityMin = sf::Vector2f(1.f, 1.f);
 	drag = sf::Vector2f(0.9f, 3.f);
-	moveDirection = sf::Vector2f(0.f, 0.f);;
-	jumpForce = 0.f;
+	moveDirection = sf::Vector2f(0.f, 1.f);;
+	jumpForce = 30.f;
 	canJump = false;
 	isGrounded = false;
 
@@ -68,6 +67,7 @@ Enemy::Enemy()
 void Enemy::update()
 {
 	updateAnimations();
+	updateMovement();
 }
 
 void Enemy::render(sf::RenderTarget& target)

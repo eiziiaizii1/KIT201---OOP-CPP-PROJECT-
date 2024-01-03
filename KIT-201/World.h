@@ -11,11 +11,15 @@ class World
 {
 private:
 	// Player and stuff
-	Player player;
+	//Player player;
 	Camera camera;
 	
-	//Enemy
-	Enemy enemy;
+	//Entities
+	//Enemy enemy;
+
+
+	// index 0 represents player, other indices represent enemies
+	std::vector<std::unique_ptr<Entity>> entities;
 
 	//Bullet
 	std::vector<std::unique_ptr<Bullet>> bullets;
@@ -30,10 +34,15 @@ private:
 	
 
 	void initVariables();
+	void initEntities();
+	void updateEntities();
+
 	//Bullet related
 	void shootBullets();
 	void updateBullets();
 	void renderBullets(sf::RenderTarget& target);
+
+	void renderEntities(sf::RenderTarget& target);
 
 public:
 	//Constructors
@@ -42,6 +51,7 @@ public:
 	Player& getPlayer();
 	Camera& getCamera();
 
+	void updateCollisions();
 	void updatePhysics();
 	void update();
 	void render(sf::RenderTarget& target);
