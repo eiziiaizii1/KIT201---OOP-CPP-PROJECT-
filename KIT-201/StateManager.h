@@ -11,7 +11,6 @@ class StateManager {
 private:
     GameState currentState;
     World world;
-
     // Add other necessary variables or methods here
 
 public:
@@ -22,4 +21,6 @@ public:
 
     void handleEvents(sf::RenderWindow& window);
     void switchState();
+    GameState& getCurrentState();
+    
 };

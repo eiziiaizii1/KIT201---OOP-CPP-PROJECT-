@@ -5,6 +5,8 @@ StateManager::StateManager() : currentState(GameState::Play), world() {
 }
 
 void StateManager::update() {
+    
+    
     if (currentState == GameState::Play) {
         // Update the world when in play state
         world.update();
@@ -54,4 +56,8 @@ void StateManager::switchState() {
     else {
         currentState = GameState::Play;
     }
+}
+
+GameState& StateManager::getCurrentState() {
+    return this->currentState;
 }

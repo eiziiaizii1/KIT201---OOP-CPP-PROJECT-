@@ -8,7 +8,7 @@ void Game::initWindow() {
     window->setFramerateLimit(30);
 }
 
-Game::Game() {
+Game::Game(): soundManager() {
     initVariables();
     initWindow();
 }
@@ -26,7 +26,9 @@ void Game::pollEvents() {
 }
 
 void Game::update() {
-    stateManager.update(); // Delegate update to StateManager
+    
+   stateManager.update(); // Delegate update to StateManager
+   this->soundManager.updateMusic(this->stateManager.getCurrentState()); // update music every time
 }
 
 void Game::render() {

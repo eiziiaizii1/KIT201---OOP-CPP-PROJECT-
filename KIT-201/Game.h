@@ -11,6 +11,7 @@
 #include "CollisionManager.h"
 #include "World.h"
 #include "StateManager.h"
+#include "SoundManager.h"
 
 class Game {
 private:
@@ -19,6 +20,8 @@ private:
     sf::Event sfmlEvent;
 
     StateManager stateManager; // Include StateManager in Game
+    SoundManager soundManager;
+
 
     void initVariables();
     void initWindow();

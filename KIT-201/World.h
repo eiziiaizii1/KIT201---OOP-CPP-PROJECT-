@@ -3,7 +3,6 @@
 #include "TileMap.h"
 #include "CollisionManager.h"
 #include "PhysicsManager.h"
-#include "SoundManager.h"
 #include "Camera.h"
 #include "Bullet.h"
 
@@ -24,7 +23,7 @@ private:
 	//Managers
 	CollisionManager collisionManager;
 	PhysicsManager physicsManager;
-	SoundManager soundManager;
+	
 
 	void initVariables();
 	//Bullet related
