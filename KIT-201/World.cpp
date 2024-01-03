@@ -18,6 +18,10 @@ void World::initEntities()
 
 	entities[1]->setPosition(740.f,2.f);
 	entities[2]->setPosition(800.f, 2.f);
+
+	std::cout << entities[0]->isEnemy() << std::endl;
+	std::cout << entities[1]->isEnemy() << std::endl;
+	std::cout << entities[2]->isEnemy() << std::endl;
 }
 
 void World::updateEntities()
@@ -94,15 +98,35 @@ void World::updatePhysics()
 
 void World::update()
 {
-	collisionManager.handleBulletEnemyCollisions(bullets, entities);
+
+	for (int i = 1u; i < this->entities.size(); i++)
+	{
+		for (int k = 0u; k < this->bullets.size(); k++)
+		{
+			if (bullets[k]->getGlobalBounds().left < entities[i]->getGlobalBounds().left + entities[i]->getGlobalBounds().width &&
+				bullets[k]->getGlobalBounds().left + bullets[k]->getGlobalBounds().width > entities[i]->getGlobalBounds().left &&
+				bullets[k]->getGlobalBounds().top < entities[i]->getGlobalBounds().top + entities[i]->getGlobalBounds().height &&
+				bullets[k]->getGlobalBounds().top + bullets[k]->getGlobalBounds().height > entities[i]->getGlobalBounds().top)
+			{
+				// Remove the bullet from the vector
+				bullets.erase(bullets.begin() + k);
+				k--;
+				break; // Exit the inner loop after collision is handled for this entity
+			}
+		}
+	}
+
+	//collisionManager.handleBulletEnemyCollisions(bullets,entities);
 
 	updatePhysics();
+
 	updateEntities();
+
 	updateCollisions();
+	
 	shootBullets();
+
 	updateBullets();
-
-
 	
 	// Update camera position to follow the player
 	camera.setCenter(entities[0]->getPosition());

@@ -15,8 +15,8 @@ CollisionManager::CollisionManager(TileMap& tileMap)
 }
 
 void CollisionManager::handleBulletEnemyCollisions(std::vector<std::unique_ptr<Bullet>>& bullets, std::vector<std::unique_ptr<Entity>>& entities) {
-	for (const auto& bullet : bullets) {
-		for (const auto& entity : entities) {
+	for (auto& bullet : bullets) {
+		for (auto& entity : entities) {
 			if (entity->isEnemy()) {
 				// Check collision betweaen bullet and enemy
 				if (bullet->getGlobalBounds().intersects(entity->getGlobalBounds())) {
@@ -28,7 +28,6 @@ void CollisionManager::handleBulletEnemyCollisions(std::vector<std::unique_ptr<B
 			}
 		}
 	}
-
 	// Erase bullets marked for destruction
 	bullets.erase(std::remove_if(bullets.begin(), bullets.end(), [](const std::unique_ptr<Bullet>& bullet) {
 		return bullet->getToBeDestroyed();

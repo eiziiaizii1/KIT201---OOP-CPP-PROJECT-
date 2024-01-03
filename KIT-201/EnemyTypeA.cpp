@@ -8,6 +8,7 @@ void EnemyTypeA::initVariables()
 	damage = 10;
 	animationState = ANIMATION_STATES::IDLE;
 	turnBackCounter = 0;
+	damage = 10;
 }
 
 void EnemyTypeA::initTexture()
@@ -71,6 +72,7 @@ EnemyTypeA::EnemyTypeA()
 	initTexture();
 	initSprite();
 }
+
 
 void EnemyTypeA::dealDamage(int damage, Bullet& player)
 {
