@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "Enemy.h"
 #include "TileMap.h"
 #include "CollisionManager.h"
 #include "PhysicsManager.h"
@@ -13,6 +14,9 @@ private:
 	// Player and stuff
 	Player player;
 	Camera camera;
+	
+	//Enemy
+	Enemy enemy;
 
 	//Bullet
 	std::vector<std::unique_ptr<Bullet>> bullets;

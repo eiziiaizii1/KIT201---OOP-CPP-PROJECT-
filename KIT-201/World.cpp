@@ -58,6 +58,7 @@ void World::update()
 	this->collisionManager.handleCollisions(this->player, this->tileMap);
 	this->shootBullets();
 	this->updateBullets();
+	this->enemy.update();
 
 	// Update camera position to follow the player
 	camera.setCenter(player.getPosition());
@@ -68,6 +69,7 @@ void World::render(sf::RenderTarget& target)
 	this->tileMap.render(target);
 	this->player.render(target);
 	this->renderBullets(target);
+	this->enemy.render(target);
 }
 
 Player& World::getPlayer() {
