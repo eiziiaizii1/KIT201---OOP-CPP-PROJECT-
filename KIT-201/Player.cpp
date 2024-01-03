@@ -108,6 +108,11 @@ const float Player::getLookDirection()
 	return this->lookDirection;
 }
 
+const bool Player::isEnemy()
+{
+	return false;
+}
+
 void Player::updateAnimations()
 {
 	if (this->animationState == ANIMATION_STATES::IDLE)

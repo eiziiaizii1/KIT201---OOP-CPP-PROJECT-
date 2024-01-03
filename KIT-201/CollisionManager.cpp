@@ -14,6 +14,27 @@ CollisionManager::CollisionManager(TileMap& tileMap)
 	this->tileBounds = tileMap.getTileGlobalBounds();
 }
 
+void CollisionManager::handleBulletEnemyCollisions(std::vector<std::unique_ptr<Bullet>>& bullets, std::vector<std::unique_ptr<Entity>>& entities) {
+	for (const auto& bullet : bullets) {
+		for (const auto& entity : entities) {
+			if (entity->isEnemy()) {
+				// Check collision betweaen bullet and enemy
+				if (bullet->getGlobalBounds().intersects(entity->getGlobalBounds())) {
+					// Handle bullet-enemy collision
+					bullet->setToBeDestroyed(true);
+					entity->takeDamage(bullet->getDamage());
+					break;
+				}
+			}
+		}
+	}
+
+	// Erase bullets marked for destruction
+	bullets.erase(std::remove_if(bullets.begin(), bullets.end(), [](const std::unique_ptr<Bullet>& bullet) {
+		return bullet->getToBeDestroyed();
+		}), bullets.end());
+}
+
 
 void CollisionManager::handleBottomCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap, short leftTopY, short leftBottomY)
 {

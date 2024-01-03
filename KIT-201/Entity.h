@@ -54,9 +54,13 @@ public:
     virtual const bool& getIsGrounded();
     virtual const bool getIsDead();
 
+    virtual const bool isEnemy() =0;
+
     virtual void setPosition(float x, float y);
     virtual void setVelocity(float x, float y);
     virtual void setIsGrounded(bool grounded);
+
+    virtual void takeDamage(int damage);
 
     virtual void update() = 0;
     virtual void render(sf::RenderTarget& target) = 0;

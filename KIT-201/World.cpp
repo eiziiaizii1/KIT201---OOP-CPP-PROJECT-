@@ -94,12 +94,16 @@ void World::updatePhysics()
 
 void World::update()
 {
+	collisionManager.handleBulletEnemyCollisions(bullets, entities);
+
 	updatePhysics();
 	updateEntities();
 	updateCollisions();
 	shootBullets();
 	updateBullets();
 
+
+	
 	// Update camera position to follow the player
 	camera.setCenter(entities[0]->getPosition());
 }

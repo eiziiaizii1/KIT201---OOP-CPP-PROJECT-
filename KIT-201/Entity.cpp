@@ -70,6 +70,11 @@ const bool Entity::getIsDead()
 	return isDead;
 }
 
+//const bool Entity::isEnemy()
+//{
+//	return false;
+//}
+
 void Entity::setPosition(float x, float y)
 {
 	sprite.setPosition(sf::Vector2f(x, y));
@@ -83,4 +88,9 @@ void Entity::setVelocity(float x, float y)
 void Entity::setIsGrounded(bool grounded)
 {
 	isGrounded = grounded;
+}
+
+void Entity::takeDamage(int damage)
+{
+	health -= damage;
 }

@@ -6,6 +6,8 @@ Bullet::Bullet(sf::Texture& texture, Player& player)
 {
 	this->sprite.setTexture(texture);
 	this->direction = player.getLookDirection();
+	this->toBeDestroyed = false;
+	this->damage = 10;
 
 	if (this->direction == 1.f)
 	{
@@ -31,9 +33,24 @@ Bullet::~Bullet()
 {
 }
 
-sf::FloatRect Bullet::getGlobalBounds() const
+const sf::FloatRect& Bullet::getGlobalBounds()
 {
 	return this->sprite.getGlobalBounds();
+}
+
+const int Bullet::getDamage()
+{
+	return this->damage;
+}
+
+const bool Bullet::getToBeDestroyed()
+{
+	return this->toBeDestroyed;
+}
+
+void Bullet::setToBeDestroyed(bool destroyStatus)
+{
+	this->toBeDestroyed = destroyStatus;
 }
 
 void Bullet::update()
