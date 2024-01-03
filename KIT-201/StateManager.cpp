@@ -12,20 +12,14 @@ void StateManager::update() {
 }
 
 void StateManager::render(sf::RenderWindow& window) {
-    if (currentState == GameState::Play) {
-        // Render the world when in play state
         window.setView(world.getCamera().getView());
         window.clear(sf::Color(0, 0, 50));
         world.render(window);
         window.display();
-    }
-    else if (currentState == GameState::Pause) {
-        // Render the pause screen when in pause state
-        window.clear(sf::Color::Black);
-        // Render white rectangle and other elements for pause screen
-        // ...
-        window.display();
-    }
+
+     //if (currentState == GameState::Pause) {
+
+    //}
 }
 
 void StateManager::handleEvents(sf::RenderWindow& window) {
