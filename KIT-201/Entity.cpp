@@ -65,6 +65,11 @@ const bool& Entity::getIsGrounded()
 	return isGrounded;
 }
 
+const bool Entity::getIsDead()
+{
+	return isDead;
+}
+
 void Entity::setPosition(float x, float y)
 {
 	sprite.setPosition(sf::Vector2f(x, y));

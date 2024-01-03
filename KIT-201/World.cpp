@@ -13,10 +13,11 @@ void World::initVariables()
 void World::initEntities()
 {
 	entities.push_back(std::make_unique<Player>());
-	entities.push_back(std::make_unique<Enemy>());
-	entities.push_back(std::make_unique<Enemy>());
+	entities.push_back(std::make_unique<EnemyTypeA>());
+	entities.push_back(std::make_unique<EnemyTypeA>());
 
 	entities[1]->setPosition(740.f,2.f);
+	entities[2]->setPosition(800.f, 2.f);
 }
 
 void World::updateEntities()
@@ -96,8 +97,8 @@ void World::update()
 	updatePhysics();
 	updateEntities();
 	updateCollisions();
-	this->shootBullets();
-	this->updateBullets();
+	shootBullets();
+	updateBullets();
 
 	// Update camera position to follow the player
 	camera.setCenter(entities[0]->getPosition());

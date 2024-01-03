@@ -1,23 +1,17 @@
 #pragma once
 #include "Entity.h"
+#include "Bullet.h"
+
 class Enemy :
     public Entity
 {
+protected:
+    short turnBackCounter;
+    int damage;
+
+    virtual void dealDamage(int damage, Bullet& player)=0;
+    virtual void takeDamage(int damage)=0;
 private:
 
-    short turnBackCounter;
-
-    void initVariables() override;
-    void initTexture() override;
-    void initSprite() override;
-
-    void updateAnimations() override;
-    void updateMovement() override;
-
-public:
-    Enemy();
-
-    void update();
-    void render(sf::RenderTarget& target);
 };
 

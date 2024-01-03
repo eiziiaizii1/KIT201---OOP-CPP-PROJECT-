@@ -13,7 +13,7 @@ protected:
 
     //Health, damage, etc.
     int health;
-    int damage;
+    bool isDead = false;
 
     //Physics variables
     sf::Vector2f velocity;
@@ -52,6 +52,7 @@ public:
     virtual const float& getJumpForce();
     virtual const bool& getCanJump();
     virtual const bool& getIsGrounded();
+    virtual const bool getIsDead();
 
     virtual void setPosition(float x, float y);
     virtual void setVelocity(float x, float y);

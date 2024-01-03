@@ -6,12 +6,11 @@
 #include "PhysicsManager.h"
 #include "Camera.h"
 #include "Bullet.h"
+#include "EnemyTypeA.h"
 
 class World
 {
 private:
-	// Player and stuff
-	//Player player;
 	Camera camera;
 	
 	//Entities

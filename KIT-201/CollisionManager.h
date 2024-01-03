@@ -2,6 +2,8 @@
 #include "SFML\Graphics.hpp"
 #include "Entity.h"
 #include "TileMap.h"
+#include "Bullet.h"
+#include "Enemy.h"
 
 class CollisionManager
 {
@@ -21,7 +23,6 @@ private:
 
 public:
 	CollisionManager(TileMap& tileMap);
-
 
 	void handleCollisions(Entity& player, TileMap& tileMap);
 };

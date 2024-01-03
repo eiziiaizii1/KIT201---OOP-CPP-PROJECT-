@@ -8,7 +8,6 @@ void Player::initVariables()
 	this->canShoot = false;
 
 	health = 100;
-	damage = 10;
 }
 
 void Player::initTexture()

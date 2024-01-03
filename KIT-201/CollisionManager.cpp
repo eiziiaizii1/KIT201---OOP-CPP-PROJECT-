@@ -14,6 +14,7 @@ CollisionManager::CollisionManager(TileMap& tileMap)
 	this->tileBounds = tileMap.getTileGlobalBounds();
 }
 
+
 void CollisionManager::handleBottomCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap, short leftTopY, short leftBottomY)
 {
 	//as we only need these variables here, we don't need to calculate them in handleCollisions() function
