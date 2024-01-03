@@ -4,6 +4,8 @@ void Enemy::initVariables()
 {
 	animationClock.restart();
 	turnBackCounter = 0;
+	health = 30;
+	damage = 10;
 	animationState = ANIMATION_STATES::IDLE;
 }
 

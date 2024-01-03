@@ -5,9 +5,10 @@ void Player::initVariables()
 	this->animationClock.restart();
 	this->shootClock.restart();
 	this->animationState = ANIMATION_STATES::IDLE;
-	this->isGrounded = false;
 	this->canShoot = false;
-	this->lookDirection = 1.f;
+
+	health = 100;
+	damage = 10;
 }
 
 void Player::initTexture()
@@ -85,7 +86,9 @@ Player::Player()
 	drag = sf::Vector2f(0.9f, 3.f);
 	moveDirection = sf::Vector2f(0.f,0.f);;
 	jumpForce = 30.f;
+	lookDirection = 1.f;
 	canJump = false;
+	isGrounded = false;
 
 	initVariables();
 	initTexture();

@@ -11,6 +11,10 @@ protected:
     sf::Texture textureIdle;
     sf::Sprite sprite;
 
+    //Health, damage, etc.
+    int health;
+    int damage;
+
     //Physics variables
     sf::Vector2f velocity;
     sf::Vector2f velocityMax;
