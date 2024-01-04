@@ -88,19 +88,26 @@ void EnemyTypeB::updateMovement()
 {
 	this->animationState = ANIMATION_STATES::IDLE;
 
-	this->moveDirection = sf::Vector2f(1.f, 1.f);
+	this->moveDirection = sf::Vector2f(0.f, 1.f);
 
 	if (moveClock.getElapsedTime().asSeconds() <= 1.f)
 	{
 		this->moveDirection.x = 1.f;
+		setVelocity(getVelocity().x , getVelocity().y);
 		this->animationState = ANIMATION_STATES::MOVING_RIGHT;
 	}
 	else if (moveClock.getElapsedTime().asSeconds() <= 2.f)
 	{
 		this->moveDirection.x = -1.f;
+		setVelocity(getVelocity().x, getVelocity().y);
 		this->animationState = ANIMATION_STATES::MOVING_LEFT;
+	}
+	else if (moveClock.getElapsedTime().asSeconds() >= 3.f)
+	{
 		moveClock.restart();
 	}
+
+
 
 	// moves the sprite based on the velocity (it literally moves, changes the sprites position on window)
 	sprite.move(velocity);
@@ -114,7 +121,7 @@ EnemyTypeB::EnemyTypeB()
 	acceleration = sf::Vector2f(1.2f, 1.f);
 	velocityMax = sf::Vector2f(20.f, 20.f);
 	velocityMin = sf::Vector2f(1.f, 1.f);
-	drag = sf::Vector2f(0.9f, 2.f);
+	drag = sf::Vector2f(0.9f, 3.f);
 	moveDirection = sf::Vector2f(0.f, 0.f);;
 	jumpForce = 0.f;
 
@@ -128,6 +135,6 @@ EnemyTypeB::EnemyTypeB()
 
 void EnemyTypeB::update()
 {
-	updateMovement();
 	updateAnimations();
+	updateMovement();
 }
