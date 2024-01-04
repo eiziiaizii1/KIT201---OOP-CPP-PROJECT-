@@ -11,7 +11,6 @@
 
 CollisionManager::CollisionManager(TileMap& tileMap)
 {
-	this->tileBounds = tileMap.getTileGlobalBounds();
 }
 
 void CollisionManager::handleBottomCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap, short leftTopY, short leftBottomY)
@@ -144,8 +143,8 @@ void CollisionManager::handleCollisions(Entity& entity, TileMap& tileMap)
 	short midBottomX = floor((entity.getGlobalBounds().left + entity.getGlobalBounds().width + entity.getGlobalBounds().left) / 2.f / tileBounds.width);
 	short midBottomY = floor((entity.getGlobalBounds().top + entity.getGlobalBounds().height) / tileBounds.height);
 
-	bool topCollided = false;
 
+	bool topCollided = false;
 	if (leftTopY < 0 || leftBottomY >= tileMapVector.size() || 
 		leftTopX < 0 || rightTopX >= tileMapVector[0].size())
 	{
@@ -160,10 +159,15 @@ void CollisionManager::handleCollisions(Entity& entity, TileMap& tileMap)
 
 		if (topCollided == false) 
 		{
-			this->handleLeftCollisions(entity, tileMapVector, leftBottomX, leftBottomY, leftTopX, leftTopY);
+			handleLeftCollisions(entity, tileMapVector, leftBottomX, leftBottomY, leftTopX, leftTopY);
 
-			this->handleRightCollisions(entity, tileMapVector, rightTopX, rightTopY, rightBottomX, rightBottomY);
+			handleRightCollisions(entity, tileMapVector, rightTopX, rightTopY, rightBottomX, rightBottomY);
 		}
+	}
+
+	if (!entity.isEnemy() && entity.getPosition().y > tileMapVector.size() * tileBounds.height)
+	{
+		entity.setPosition(100.f, 100.f);
 	}
 }
 

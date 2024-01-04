@@ -28,9 +28,7 @@ private:
 	TileMap tileMap;
 
 	//Managers
-	CollisionManager collisionManager;
-	PhysicsManager physicsManager;
-	
+	//CollisionManager collisionManager;
 
 	void initVariables();
 	void initEntities();

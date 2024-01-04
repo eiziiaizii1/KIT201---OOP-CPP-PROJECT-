@@ -4,19 +4,19 @@
 ////FIXED BUG2: WHILE FALLING DOWN YOU CAN JUMP ON AIR
 ////FIXED BUG1: JUMPING NEAR THE WALLS MAKES A SUPER JUMP
 
-class PhysicsManager
+static class PhysicsManager
 {
 
 public:
 	PhysicsManager();
 
-	void applyAcceleration(Entity& entity);
-	void applyDrag(Entity& entity);
-	void applyGravity(Entity& entity);
-	void limitVelocity(Entity& entity);
-	void limitMinimumVelocity(Entity& entity);
-	void handleJumping(Entity& entity);
+	static void applyAcceleration(Entity& entity);
+	static void applyDrag(Entity& entity);
+	static void applyGravity(Entity& entity);
+	static void limitVelocity(Entity& entity);
+	static void limitMinimumVelocity(Entity& entity);
+	static void handleJumping(Entity& entity);
 
-	void update(Entity& entity);
+	static void update(Entity& entity);
 };
 

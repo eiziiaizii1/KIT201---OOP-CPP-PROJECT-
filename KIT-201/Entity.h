@@ -55,8 +55,6 @@ public:
     virtual const bool getIsDead();
     virtual const int getHealth();
 
-    
-
     virtual const bool isEnemy() =0;
 
     virtual void setPosition(float x, float y);
@@ -70,6 +68,3 @@ public:
     virtual void update() = 0;
     virtual void render(sf::RenderTarget& target) = 0;
 };
-
-
-

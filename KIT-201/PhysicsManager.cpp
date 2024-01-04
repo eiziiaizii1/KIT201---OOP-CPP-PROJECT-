@@ -69,9 +69,9 @@ void PhysicsManager::handleJumping(Entity& entity)
 
 void PhysicsManager::update(Entity& entity)
 {
-	this->applyAcceleration(entity);
-	this->applyDrag(entity);
-	this->limitVelocity(entity);
-	this->limitMinimumVelocity(entity);
-	this->handleJumping(entity);
+	applyAcceleration(entity);
+	applyDrag(entity);
+	limitVelocity(entity);
+	limitMinimumVelocity(entity);
+	handleJumping(entity);
 }

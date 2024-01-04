@@ -5,20 +5,20 @@
 #include "Bullet.h"
 #include "Enemy.h"
 
-class CollisionManager
+const sf::FloatRect tileBounds = sf::FloatRect(0.f, 0.f, 64.f, 64.f);
+
+static class CollisionManager
 {
 private:
-	sf::FloatRect tileBounds;
 
+	static void handleBottomCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap, short leftTopY, short leftBottomY);
 
-	void handleBottomCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap, short leftTopY, short leftBottomY);
-
-	void handleTopCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap, bool& topCollided,
+	static void handleTopCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap, bool& topCollided,
 							 short leftTopX, short leftTopY, short rightTopX, short rightTopY, short midTopX, short midTopY);
 	
-	void handleLeftCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap, short leftBottomX, short leftBottomY, short leftTopX, short leftTopY);
+	static void handleLeftCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap, short leftBottomX, short leftBottomY, short leftTopX, short leftTopY);
 	
-	void handleRightCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap,
+	static void handleRightCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap,
 							   short rightTopX, short rightTopY, short rightBottomX, short rightBottomY);
 
 public:
@@ -26,8 +26,8 @@ public:
 
 	//void handleBulletEnemyCollisions (std::vector<std::unique_ptr<Bullet>>& bullets, std::vector<std::unique_ptr<Enemy>>& enemies);
 
-	void handleCollisions(std::vector<std::unique_ptr<Bullet>>& bullets, std::vector<std::unique_ptr<Entity>>& entities);
+	static void handleCollisions(std::vector<std::unique_ptr<Bullet>>& bullets, std::vector<std::unique_ptr<Entity>>& entities);
 
-	void handleCollisions(Entity& player, TileMap& tileMap);
+	static void handleCollisions(Entity& player, TileMap& tileMap);
 };
 

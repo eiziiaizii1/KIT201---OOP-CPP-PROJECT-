@@ -74,7 +74,7 @@ void World::renderBullets(sf::RenderTarget& target)
 	}
 }
 
-World::World() : collisionManager(tileMap)
+World::World()
 {
 	initVariables();
 	initEntities();
@@ -84,17 +84,17 @@ void World::updateCollisions()
 {
 	for (auto& entity : entities)
 	{
-		collisionManager.handleCollisions(*entity, this->tileMap);
+		CollisionManager::handleCollisions(*entity, this->tileMap);
 	}
 
-	collisionManager.handleCollisions(bullets,entities);
+	CollisionManager::handleCollisions(bullets,entities);
 }
 
 void World::updatePhysics()
 {
 	for (auto& entity : entities)
 	{
-		physicsManager.update(*entity);
+		PhysicsManager::update(*entity);
 	}
 }
 
