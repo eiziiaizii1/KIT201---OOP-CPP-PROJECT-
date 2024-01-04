@@ -2,7 +2,7 @@
 #include "SoundManager.h"
 #include <iostream>
 SoundManager::SoundManager() {
-	this->setMusic("Sound/Music/Level1Music.ogg"); // default music for now
+	this->setMusic("Sound/Music/Level2Music.ogg"); // default music for now
 	this->music.setVolume(5.f);
 	this->music.play();
 	this->musicStatus = this->music.getStatus();
@@ -107,3 +107,74 @@ void SoundManager::updateMusic(GameState& currentState) {
 
 	}
 }
+
+void SoundManager::updateSoundEffect(GameState& currentState,Player& player) {
+
+	
+
+	if (currentState == GameState::Play) {
+		
+		if (player.getCanJump()) {
+			if (!this->buffer.loadFromFile("Sound/SoundEffects/jump.wav"))
+				std::cout << "Error while setting music" << std::endl;
+			this->soundEffect.setBuffer(buffer);
+			this->soundEffect.play();
+		}
+		if (player.getCanShoot()) {
+			if (!this->buffer.loadFromFile("Sound/SoundEffects/shoot.wav"))
+				std::cout << "Error while setting music" << std::endl;
+			this->soundEffect.setBuffer(buffer);
+			this->soundEffect.play();
+		}
+
+	}
+
+	else if (currentState == GameState::Pause) {
+		
+		if (!this->buffer.loadFromFile("Sound/SoundEffects/pause.wav"))
+			std::cout << "Error while setting music" << std::endl;
+		this->soundEffect.setBuffer(buffer);
+		this->soundEffect.play();
+
+	}
+
+	
+
+	
+}
+
+/*void SoundManager::playSoundEffect(const SoundEffectsLibrary& selectedSoundEffect, GameState& currentState, Player& player) {
+
+	switch (selectedSoundEffect) {
+
+		case SoundEffectsLibrary::SHOOT:
+
+			if (!this->buffer.loadFromFile("Sound/SoundEffects/shoot.wav"))
+				std::cout << "Error while setting music" << std::endl;
+			break;
+		
+		case SoundEffectsLibrary::JUMP:
+
+			if (!this->buffer.loadFromFile("Sound/SoundEffects/jump.wav"))
+				std::cout << "Error while setting music" << std::endl;
+			break;
+
+		case SoundEffectsLibrary::FALL:
+
+			if (!this->buffer.loadFromFile("Sound/SoundEffects/fall.wav"))
+				std::cout << "Error while setting music" << std::endl;
+			break;
+	}
+
+	this->soundEffect.setBuffer(buffer);
+	this->soundEffect.play();
+}
+*/
+/*SoundManager& SoundManager::getSoundManager() {
+	return this;
+}*/
+/*void SoundManager::playSoundEffect(const SoundEffectsLibrary& selectedSoundEffect, SoundManager& soundManager) {
+	soundManager.setSoundEffect(selectedSoundEffect);
+	soundManager.soundEffect.setBuffer(soundManager)
+}
+*/

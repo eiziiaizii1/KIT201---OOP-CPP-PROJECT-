@@ -29,6 +29,7 @@ void Game::update() {
     
    stateManager.update(); // Delegate update to StateManager
    this->soundManager.updateMusic(this->stateManager.getCurrentState()); // update music every time
+   this->soundManager.updateSoundEffect(this->stateManager.getCurrentState(),this->stateManager.getWorld().getPlayer()); //updateSoundEffect
 }
 
 void Game::render() {
