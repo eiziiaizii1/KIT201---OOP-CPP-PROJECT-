@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Bullet.h"
 #include "EnemyTypeA.h"
+#include "EnemyTypeB.h"
 
 class World
 {

@@ -12,7 +12,7 @@ void EnemyTypeA::initVariables()
 
 void EnemyTypeA::initTexture()
 {
-	if (!textureIdle.loadFromFile("Textures/Enemy1Idle.png"))
+	if (!textureIdle.loadFromFile("Textures/EnemyA_Idle.png"))
 		std::cout << "ERROR:: CANNOT LOAD THE ENEMT1 TEXTURE\n";
 }
 

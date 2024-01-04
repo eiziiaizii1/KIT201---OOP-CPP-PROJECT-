@@ -15,13 +15,11 @@ void World::initEntities()
 	entities.push_back(std::make_unique<Player>());
 	entities.push_back(std::make_unique<EnemyTypeA>());
 	entities.push_back(std::make_unique<EnemyTypeA>());
+	entities.push_back(std::make_unique<EnemyTypeB>());
 
 	entities[1]->setPosition(740.f,2.f);
 	entities[2]->setPosition(800.f, 2.f);
-
-	std::cout << entities[0]->isEnemy() << std::endl;
-	std::cout << entities[1]->isEnemy() << std::endl;
-	std::cout << entities[2]->isEnemy() << std::endl;
+	entities[3]->setPosition(1000.f, 2.f);
 }
 
 void World::updateEntities()

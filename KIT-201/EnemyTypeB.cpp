@@ -14,8 +14,11 @@ void EnemyTypeB::initVariables()
 
 void EnemyTypeB::initTexture()
 {
-	if (!textureIdle.loadFromFile(""))
-		std::cout << "ERROR:: CANNOT LOAD THE ENEMY-B TEXTURE\n";
+	if (!textureIdle.loadFromFile("Textures/EnemyB_Idle.png"))
+		std::cout << "ERROR:: CANNOT LOAD THE ENEMY-B IDLE TEXTURE\n";
+	if (!textureIdle.loadFromFile("Textures/EnemyB_Run.png"))
+		std::cout << "ERROR:: CANNOT LOAD THE ENEMY-B RUN TEXTURE\n";
+
 }
 
 void EnemyTypeB::initSprite()
@@ -43,7 +46,7 @@ void EnemyTypeB::updateMovement()
 EnemyTypeB::EnemyTypeB()
 {
 	// Initialize members inherited from Entity class
-	// This is a stationary enemy
+	// This is a moving enemy
 	velocity = sf::Vector2f(0.f, 0.f);
 	acceleration = sf::Vector2f(1.2f, 1.f);
 	velocityMax = sf::Vector2f(20.f, 20.f);

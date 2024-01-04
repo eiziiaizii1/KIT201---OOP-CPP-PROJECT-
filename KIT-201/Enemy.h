@@ -10,7 +10,6 @@ protected:
 
 public:
 
-    virtual void takeDamage(int damage)=0;
     virtual const bool isEnemy();
 private:
 

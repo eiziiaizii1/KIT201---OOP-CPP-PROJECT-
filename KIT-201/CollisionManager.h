@@ -8,7 +8,7 @@
 
 const sf::FloatRect tileBounds = sf::FloatRect(0.f, 0.f, 64.f, 64.f);
 
-static class CollisionManager
+class CollisionManager
 {
 private:
 
