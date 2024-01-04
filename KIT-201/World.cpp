@@ -115,6 +115,7 @@ void World::updateCollisions()
 	}
 
 	CollisionManager::handleCollisions(bullets,entities);
+	CollisionManager::handleCollisions(entities);
 }
 
 void World::updatePhysics()
