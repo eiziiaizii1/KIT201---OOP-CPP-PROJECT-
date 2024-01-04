@@ -1,5 +1,46 @@
 #include "StateManager.h"
+#include "PlayState.h"
 
+StateManager::StateManager() : currentState(GameState::Play) {
+    this->initStates();
+}
+
+void StateManager::update() {
+    if (!states.empty()) {
+        states[static_cast<size_t>(currentState)]->update();
+    }
+}
+
+void StateManager::render(sf::RenderWindow& window) {
+    if (!states.empty()) {
+        states[static_cast<size_t>(currentState)]->render(window);
+    }
+}
+
+void StateManager::pollEvents(sf::RenderWindow& window) {
+    if (!states.empty()) {
+        states[static_cast<size_t>(currentState)]->pollEvents(window);
+    }
+}
+
+void StateManager::initStates() {
+    states.emplace_back(std::make_unique<PlayState>(this->world));
+}
+
+void StateManager::changeState(GameState newState) {
+    currentState = newState;
+}
+
+GameState StateManager::getCurrentState() {
+    return this->currentState;
+}
+
+World& StateManager::getWorld() {
+    return this->world;
+}
+
+
+/*
 StateManager::StateManager() : currentState(GameState::Play), world() {
     // Initialize other necessary variables or methods here
 }
@@ -64,3 +105,4 @@ GameState& StateManager::getCurrentState() {
 World& StateManager::getWorld() {
     return this->world;
 }
+*/

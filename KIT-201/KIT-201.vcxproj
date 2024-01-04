@@ -145,7 +145,9 @@
     <ClCompile Include="KIT-201.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="State.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="TileMapParser.cpp" />
@@ -161,7 +163,9 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayState.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="TileMapParser.h" />

@@ -22,14 +22,15 @@ const bool Game::isRunning() const {
 }
 
 void Game::pollEvents() {
-    stateManager.handleEvents(*window); // Delegate event handling to StateManager
+    stateManager.pollEvents(*window); // Delegate event handling to StateManager
 }
 
 void Game::update() {
     
    stateManager.update(); // Delegate update to StateManager
-   this->soundManager.updateMusic(this->stateManager.getCurrentState()); // update music every time
-   this->soundManager.updateSoundEffect(this->stateManager.getCurrentState(),this->stateManager.getWorld().getPlayer()); //updateSoundEffect
+   auto currentState = this->stateManager.getCurrentState();
+   this->soundManager.updateMusic(currentState); // update music every time
+   this->soundManager.updateSoundEffect(currentState,this->stateManager.getWorld().getPlayer()); //updateSoundEffect
 }
 
 void Game::render() {
