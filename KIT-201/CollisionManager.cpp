@@ -191,7 +191,7 @@ void CollisionManager::handleCollisions(std::vector<std::unique_ptr<Bullet>>& bu
 					entities[i]->setIsHit(true);
 					// Add small force when bullets hit
 					bullets[k]->getPosition().x <= entities[i]->getPosition().x ?
-						PhysicsManager::addForce(*entities[i], 2.f, -5.f) : PhysicsManager::addForce(*entities[i], -2.f, -5.f);
+						PhysicsManager::addForce(*entities[i], 2.f, -10.f) : PhysicsManager::addForce(*entities[i], -2.f, -10.f);
 					bullets.erase(bullets.begin() + k);
 
 					std::cout << "Enemy health:" << entities[i]->getHealth() << std::endl;
