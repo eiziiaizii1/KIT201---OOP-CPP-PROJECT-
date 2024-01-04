@@ -176,5 +176,7 @@ void Player::update()
 	this->updateMovement();
 	this->updateAnimations();
 	this->updateShootStatus();
+
+	isHit = false;
 }
 

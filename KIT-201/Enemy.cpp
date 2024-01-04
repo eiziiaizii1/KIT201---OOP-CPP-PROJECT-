@@ -5,3 +5,4 @@ const bool Enemy::isEnemy()
 {
 	return true;
 }
+

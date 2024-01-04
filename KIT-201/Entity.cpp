@@ -75,6 +75,11 @@ const int Entity::getHealth()
 	return health;
 }
 
+const bool Entity::getIsHit()
+{
+	return isHit;
+}
+
 void Entity::setPosition(float x, float y)
 {
 	sprite.setPosition(sf::Vector2f(x, y));
@@ -93,6 +98,11 @@ void Entity::setIsGrounded(bool grounded)
 void Entity::setDead()
 {
 	isDead = true;
+}
+
+void Entity::setIsHit(bool hitStatus)
+{
+	isHit = hitStatus;
 }
 
 void Entity::takeDamage(int damage)

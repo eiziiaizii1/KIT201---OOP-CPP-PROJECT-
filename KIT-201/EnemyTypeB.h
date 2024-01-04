@@ -4,9 +4,9 @@ class EnemyTypeB :
     public Enemy
 {
 private:
-    
-    // example: player goes to right while timer is less then a specific amount then go left etc.
     sf::Clock moveClock;
+    sf::IntRect spriteFrameRun;
+
 
     void initVariables() override;
     void initTexture() override;
