@@ -5,7 +5,7 @@ class EnemyTypeB :
 {
 private:
     sf::Clock moveClock;
-    sf::IntRect spriteFrameRun;
+    sf::IntRect spriteFrameRun; // has diferent sizes of texture sheets, so I had to add another spriteFrame
 
 
     void initVariables() override;

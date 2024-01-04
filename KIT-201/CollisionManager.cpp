@@ -207,3 +207,23 @@ void CollisionManager::handleCollisions(std::vector<std::unique_ptr<Bullet>>& bu
 		}
 	}
 }
+
+void CollisionManager::handleCollisions(std::vector<std::unique_ptr<Entity>>& entities)
+{
+	for (int i = 1; i< entities.size(); i++)
+	{
+		if (entities[0]->isEnemy() == false &&
+			entities[0]->getGlobalBounds().left < entities[i]->getGlobalBounds().left + entities[i]->getGlobalBounds().width &&
+			entities[0]->getGlobalBounds().left + entities[0]->getGlobalBounds().width > entities[i]->getGlobalBounds().left &&
+			entities[0]->getGlobalBounds().top < entities[i]->getGlobalBounds().top + entities[i]->getGlobalBounds().height &&
+			entities[0]->getGlobalBounds().top + entities[0]->getGlobalBounds().height > entities[i]->getGlobalBounds().top)
+		{
+			entities[0]->getPosition().x <= entities[i]->getPosition().x ?
+				PhysicsManager::addForce(*entities[0], (entities[i]->getVelocity().x - 10.f), 0.f)
+			  : PhysicsManager::addForce(*entities[0], (entities[i]->getVelocity().x +10.f), 0.f);
+
+			entities[0]->takeDamage(5.f);
+			std::cout << "Player health: "<< entities[0]->getHealth() << "\n";
+		}
+	}
+}

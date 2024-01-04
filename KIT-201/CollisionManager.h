@@ -29,6 +29,8 @@ public:
 
 	static void handleCollisions(std::vector<std::unique_ptr<Bullet>>& bullets, std::vector<std::unique_ptr<Entity>>& entities);
 
-	static void handleCollisions(Entity& player, TileMap& tileMap);
+	static void handleCollisions(std::vector<std::unique_ptr<Entity>>& entities);
+
+	static void handleCollisions(Entity& entity, TileMap& tileMap);
 };
 
