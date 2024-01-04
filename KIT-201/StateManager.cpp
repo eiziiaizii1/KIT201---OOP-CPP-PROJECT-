@@ -27,6 +27,7 @@ void StateManager::render(sf::RenderWindow& window) {
 void StateManager::handleEvents(sf::RenderWindow& window) {
     sf::Event sfmlEvent;
     while (window.pollEvent(sfmlEvent)) {
+
         switch (sfmlEvent.type) {
         case sf::Event::Closed:
             window.close();
@@ -60,4 +61,7 @@ void StateManager::switchState() {
 
 GameState& StateManager::getCurrentState() {
     return this->currentState;
+}
+World& StateManager::getWorld() {
+    return this->world;
 }

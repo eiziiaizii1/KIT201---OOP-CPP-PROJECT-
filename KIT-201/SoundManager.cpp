@@ -2,7 +2,15 @@
 #include "SoundManager.h"
 #include <iostream>
 SoundManager::SoundManager() {
-	this->setMusic("Sound/Music/Level1Music.ogg"); // default music for now
+	
+	if (!this->bufferJump.loadFromFile("Sound/SoundEffects/jump.wav")) //preload sound effects
+		std::cout << "Error while setting music" << std::endl;
+	if (!this->bufferShoot.loadFromFile("Sound/SoundEffects/shoot.wav"))
+		std::cout << "Error while setting music" << std::endl;
+	if (!this->bufferPause.loadFromFile("Sound/SoundEffects/pause.wav"))
+		std::cout << "Error while setting music" << std::endl;
+	
+	this->setMusic("Sound/Music/Level2Music.ogg"); // default music for now
 	this->music.setVolume(5.f);
 	this->music.play();
 	this->musicStatus = this->music.getStatus();
@@ -107,3 +115,43 @@ void SoundManager::updateMusic(GameState& currentState) {
 
 	}
 }
+
+void SoundManager::updateSoundEffect(StateManager& stageManager) {
+
+	if (stageManager.getCurrentState() == GameState::Play) {
+		
+		if (stageManager.getWorld().getPlayer().getCanJump()) {
+			
+			this->soundEffect.setBuffer(bufferJump);
+			this->soundEffect.play();
+		}
+		if (stageManager.getWorld().getPlayer().getCanShoot()) {
+			
+			this->soundEffect.setBuffer(bufferShoot);
+			this->soundEffect.play();
+		}
+
+	}
+
+
+
+	/*else if (stageManager.getCurrentState() == GameState::Play && stageManager.getStateChange()) {
+
+		this->soundEffect.setBuffer(bufferPause);
+		this->soundEffect.play();
+
+	}
+
+	else if (stageManager.getCurrentState() == GameState::Pause) {
+		
+		
+		this->soundEffect.setBuffer(bufferPause);
+		this->soundEffect.play();
+
+	}*/
+
+	
+
+	
+}
+
