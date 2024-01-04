@@ -1,12 +1,14 @@
 #pragma once
 #include "SFML\Audio.hpp"
 #include "StateManager.h"
+#include "Entity.h"
 #include <string.h>
 
 enum class SoundEffectsLibrary {
 	JUMP,
 	FALL,
-	SHOOT
+	SHOOT,
+	GETHIT
 };
 
 class SoundManager {
@@ -23,10 +25,11 @@ private:
 	sf::SoundBuffer bufferJump;
 	sf::SoundBuffer bufferShoot;
 	sf::SoundBuffer bufferPause;
+	sf::SoundBuffer bufferGetHit;
 	sf::Sound soundEffect;
 	//void setSoundEffect(const SoundEffectsLibrary& selectedSoundEffect);
 	
-	
+	bool checkAllIfHit(std::vector<std::unique_ptr<Entity>>& entityVector);
 
 public:
 	
