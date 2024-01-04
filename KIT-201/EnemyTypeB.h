@@ -4,7 +4,8 @@ class EnemyTypeB :
     public Enemy
 {
 private:
-    short turnBackCounter;
+    sf::Clock moveClock;
+
 
     void initVariables() override;
     void initTexture() override;
