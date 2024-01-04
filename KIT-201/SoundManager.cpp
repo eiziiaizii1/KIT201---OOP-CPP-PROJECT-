@@ -9,6 +9,8 @@ SoundManager::SoundManager() {
 		std::cout << "Error while setting music" << std::endl;
 	if (!this->bufferPause.loadFromFile("Sound/SoundEffects/pause.wav"))
 		std::cout << "Error while setting music" << std::endl;
+	if (!this->bufferGetHit.loadFromFile("Sound/SoundEffects/getHit.wav"))
+		std::cout << "Error while setting music" << std::endl;
 	
 	this->setMusic("Sound/Music/Level2Music.ogg"); // default music for now
 	this->music.setVolume(5.f);
@@ -130,28 +132,24 @@ void SoundManager::updateSoundEffect(StateManager& stageManager) {
 			this->soundEffect.setBuffer(bufferShoot);
 			this->soundEffect.play();
 		}
+		if (this->checkAllIfHit(stageManager.getWorld().getEntities())) {
 
+			this->soundEffect.setBuffer(bufferGetHit);
+			this->soundEffect.play();
+		}
 	}
 
-
-
-	/*else if (stageManager.getCurrentState() == GameState::Play && stageManager.getStateChange()) {
-
-		this->soundEffect.setBuffer(bufferPause);
-		this->soundEffect.play();
-
-	}
-
-	else if (stageManager.getCurrentState() == GameState::Pause) {
-		
-		
-		this->soundEffect.setBuffer(bufferPause);
-		this->soundEffect.play();
-
-	}*/
-
-	
-
-	
 }
 
+bool SoundManager::checkAllIfHit(std::vector<std::unique_ptr<Entity>>& entitiesVector) {
+
+	bool isHit = false;
+
+	for (int i = 1; i < entitiesVector.size(); i++) {
+
+		if (entitiesVector[i].get()->getIsHit() || entitiesVector[i].get()->getIsDead())
+			isHit = true;
+
+	}
+	return isHit;
+}

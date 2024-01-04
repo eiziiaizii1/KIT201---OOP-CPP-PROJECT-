@@ -161,3 +161,7 @@ Player& World::getPlayer() {
 Camera& World::getCamera() {
 	return camera;
 }
+
+std::vector<std::unique_ptr<Entity>>& World::getEntities() {
+	return this->entities;
+}

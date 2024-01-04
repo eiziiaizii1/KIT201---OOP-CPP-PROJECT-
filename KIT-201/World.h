@@ -51,5 +51,6 @@ public:
 	void updatePhysics();
 	void update();
 	void render(sf::RenderTarget& target);
+	std::vector<std::unique_ptr<Entity>>& getEntities();
 };
 
