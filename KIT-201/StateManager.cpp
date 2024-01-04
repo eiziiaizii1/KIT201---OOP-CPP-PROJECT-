@@ -61,3 +61,6 @@ void StateManager::switchState() {
 GameState& StateManager::getCurrentState() {
     return this->currentState;
 }
+World& StateManager::getWorld() {
+    return this->world;
+}

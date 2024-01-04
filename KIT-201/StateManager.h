@@ -22,5 +22,6 @@ public:
     void handleEvents(sf::RenderWindow& window);
     void switchState();
     GameState& getCurrentState();
+    World& getWorld();
     
 };
