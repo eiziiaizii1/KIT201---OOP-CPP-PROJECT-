@@ -4,7 +4,9 @@ class EnemyTypeB :
     public Enemy
 {
 private:
-    short turnBackCounter;
+    
+    // example: player goes to right while timer is less then a specific amount then go left etc.
+    sf::Clock moveClock;
 
     void initVariables() override;
     void initTexture() override;

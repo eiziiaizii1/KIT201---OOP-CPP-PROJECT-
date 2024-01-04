@@ -173,9 +173,9 @@ void CollisionManager::handleCollisions(Entity& entity, TileMap& tileMap)
 
 void CollisionManager::handleCollisions(std::vector<std::unique_ptr<Bullet>>& bullets, std::vector<std::unique_ptr<Entity>>& entities) {
 	
-	for (int i = 1u; i < entities.size(); i++)
+	for (int i = 1; i < entities.size(); i++)
 	{
-		for (int k = 0u; k < bullets.size(); k++)
+		for (int k = 0; k < bullets.size(); k++)
 		{
 			// SFML::Intersects() function returns unexpected value, so I had to calculate intersection manually
 			if (bullets[k]->getGlobalBounds().left < entities[i]->getGlobalBounds().left + entities[i]->getGlobalBounds().width &&
