@@ -10,16 +10,45 @@ void World::initVariables()
 		std::cout << "failed to load the bullet texture" << std::endl;
 }
 
+// adds entities to the entities vector then spawns them accorindg to their equivalent tile map locations
+// !! IF THERE IS NO PLAYER CAUSES ERROR (probably about other classes, which asumes that player is at *entities[0])
 void World::initEntities()
 {
-	entities.push_back(std::make_unique<Player>());
-	entities.push_back(std::make_unique<EnemyTypeA>());
-	entities.push_back(std::make_unique<EnemyTypeA>());
-	entities.push_back(std::make_unique<EnemyTypeB>());
+	// Assign singular tile size to float variable (all tiles are square, so width = height)
+	float tileSize = tileMap.getTileGlobalBounds().width;
+	const std::vector<std::vector<short>>& tileMapVector = tileMap.getMapVector();
+	int entityCount = 0;
 
-	entities[1]->setPosition(740.f,2.f);
-	entities[2]->setPosition(800.f, 2.f);
-	entities[3]->setPosition(1000.f, 2.f);
+	for (int i = 0; i < tileMapVector.size(); ++i) {
+		for (int j = 0; j < tileMapVector[i].size(); ++j) {
+
+			if (tileMapVector[i][j] == PLAYER)
+			{
+				float spawnPosY = i * tileSize;
+				float spawnPosX = j * tileSize;
+
+				entities.push_back(std::make_unique<Player>());
+				entities[entityCount++]->setPosition(spawnPosX, spawnPosY);
+			}
+
+			else if (tileMapVector[i][j] == ENEMY_A)
+			{
+				float spawnPosY = i * tileSize;
+				float spawnPosX = j * tileSize;
+
+				entities.push_back(std::make_unique<EnemyTypeA>());
+				entities[entityCount++]->setPosition(spawnPosX, spawnPosY);
+			}
+			else if (tileMapVector[i][j] == ENEMY_B)
+			{
+				float spawnPosY = i * tileSize;
+				float spawnPosX = j * tileSize;
+
+				entities.push_back(std::make_unique<EnemyTypeB>());
+				entities[entityCount++]->setPosition(spawnPosX, spawnPosY);
+			}
+		}
+	}
 }
 
 void World::updateEntities()

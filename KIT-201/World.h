@@ -28,12 +28,10 @@ private:
 	// TileMap 
 	TileMap tileMap;
 
-	//Managers
-	//CollisionManager collisionManager;
-
 	void initVariables();
 	void initEntities();
 	void updateEntities();
+
 
 	//Bullet related
 	void shootBullets();

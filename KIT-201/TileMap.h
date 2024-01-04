@@ -4,7 +4,7 @@
 #include <vector>
 
 // Tile type determined by the enumaration
-enum TileType {BACKGROUND = 0, GROUND = 1 };
+enum TileType { BACKGROUND = 0, GROUND = 1, ENEMY_A = 2, ENEMY_B = 3, PLAYER = 4 };
 
 class TileMap
 {
