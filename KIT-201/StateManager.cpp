@@ -32,9 +32,11 @@ void StateManager::render(sf::RenderWindow& window) {
             pauseOverlay.setPosition(viewCenter - sf::Vector2f(windowSize.x / 2.0f, windowSize.y / 2.0f));
             target.draw(pauseOverlay);
 
-            sf::Font font; // Load your font
-            font.loadFromFile("Fonts/VT323.ttf"); // Load your font file
+            // Loads the Pause Font
+            sf::Font font; 
+            font.loadFromFile("Fonts/VT323.ttf"); 
 
+            // Sets the appearance of the text
             sf::Text pausedText;
             pausedText.setFont(font);
             pausedText.setString("PAUSED");
@@ -42,13 +44,10 @@ void StateManager::render(sf::RenderWindow& window) {
             pausedText.setFillColor(sf::Color::White);
             pausedText.setStyle(sf::Text::Bold);
 
-            // Center the 'PAUSED' text accurately on the current screen's center
+            // Centers the overlay and text using the local bounds currently displayed on the screen
             sf::FloatRect textRect = pausedText.getLocalBounds();
-            pausedText.setOrigin(textRect.left + textRect.width / 2.0f,
-                textRect.top + textRect.height / 2.0f);
-
-            pausedText.setPosition(viewCenter.x  + textRect.left,
-                viewCenter.y - textRect.height / 2.0f + textRect.top);
+            pausedText.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+            pausedText.setPosition(viewCenter.x  + textRect.left, viewCenter.y - textRect.height / 2.0f + textRect.top);
 
             target.draw(pausedText);
         }
