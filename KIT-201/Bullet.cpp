@@ -48,6 +48,11 @@ const bool Bullet::getToBeDestroyed()
 	return this->toBeDestroyed;
 }
 
+const sf::Vector2f& Bullet::getPosition()
+{
+	return sprite.getPosition();
+}
+
 void Bullet::setToBeDestroyed(bool destroyStatus)
 {
 	this->toBeDestroyed = destroyStatus;

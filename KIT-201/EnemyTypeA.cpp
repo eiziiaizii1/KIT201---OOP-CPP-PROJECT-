@@ -8,12 +8,11 @@ void EnemyTypeA::initVariables()
 	damage = 10;
 	animationState = ANIMATION_STATES::IDLE;
 	turnBackCounter = 0;
-	damage = 10;
 }
 
 void EnemyTypeA::initTexture()
 {
-	if (!textureIdle.loadFromFile("Textures/Enemy1Idle.png"))
+	if (!textureIdle.loadFromFile("Textures/EnemyA_Idle.png"))
 		std::cout << "ERROR:: CANNOT LOAD THE ENEMT1 TEXTURE\n";
 }
 
@@ -59,11 +58,12 @@ EnemyTypeA::EnemyTypeA()
 	// This is a stationary enemy
 	velocity = sf::Vector2f(0.f, 0.f);
 	acceleration = sf::Vector2f(1.2f, 1.f);
-	velocityMax = sf::Vector2f(0.f, 20.f);
+	velocityMax = sf::Vector2f(20.f, 20.f);
 	velocityMin = sf::Vector2f(1.f, 1.f);
-	drag = sf::Vector2f(0.9f, 3.f);
-	moveDirection = sf::Vector2f(0.f, 1.f);;
-	jumpForce = 30.f;
+	drag = sf::Vector2f(0.9f, 1.f);
+	moveDirection = sf::Vector2f(0.f, 0.f);;
+	jumpForce = 0.f;
+	
 	canJump = false;
 	isGrounded = false;
 
@@ -72,20 +72,8 @@ EnemyTypeA::EnemyTypeA()
 	initSprite();
 }
 
-
-void EnemyTypeA::takeDamage(int damage) 
-{
-	health -= damage;
-}
-
-
 void EnemyTypeA::update()
 {
 	updateAnimations();
 	updateMovement();
-}
-
-void EnemyTypeA::render(sf::RenderTarget& target)
-{
-	target.draw(sprite);
 }

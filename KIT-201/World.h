@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Bullet.h"
 #include "EnemyTypeA.h"
+#include "EnemyTypeB.h"
 
 class World
 {
@@ -27,12 +28,10 @@ private:
 	// TileMap 
 	TileMap tileMap;
 
-	//Managers
-	//CollisionManager collisionManager;
-
 	void initVariables();
 	void initEntities();
 	void updateEntities();
+
 
 	//Bullet related
 	void shootBullets();

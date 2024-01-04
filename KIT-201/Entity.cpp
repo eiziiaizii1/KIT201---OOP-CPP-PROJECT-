@@ -104,3 +104,8 @@ void Entity::dealDamage(int damage, Entity& entity)
 {
 	entity.takeDamage(damage);
 }
+
+void Entity::render(sf::RenderTarget& target)
+{
+	target.draw(sprite);
+}

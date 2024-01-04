@@ -28,9 +28,14 @@ void Game::pollEvents() {
 void Game::update() {
     
    stateManager.update(); // Delegate update to StateManager
+<<<<<<< HEAD
    auto currentState = this->stateManager.getCurrentState();
    this->soundManager.updateMusic(currentState); // update music every time
    this->soundManager.updateSoundEffect(currentState,this->stateManager.getWorld().getPlayer()); //updateSoundEffect
+=======
+   this->soundManager.updateMusic(this->stateManager.getCurrentState()); // update music every time
+   this->soundManager.updateSoundEffect(this->stateManager); //updateSoundEffect
+>>>>>>> origin/AÖ-v1.7-copy-to-be-merged
 }
 
 void Game::render() {

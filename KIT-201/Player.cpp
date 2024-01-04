@@ -178,7 +178,3 @@ void Player::update()
 	this->updateShootStatus();
 }
 
-void Player::render(sf::RenderTarget& target)
-{
-	target.draw(this->sprite);
-}

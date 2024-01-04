@@ -67,8 +67,8 @@ void TileMap::render(sf::RenderTarget& target)
 	// Our tile(block) sprite is a square so each edge is equal
 	float tileSize = this->blockSprite.getGlobalBounds().height;
 
-	for (short i = 0; i < this->tileMap.size(); ++i) {
-		for (short j = 0; j < this->tileMap[i].size(); ++j) {
+	for (int i = 0; i < this->tileMap.size(); ++i) {
+		for (int j = 0; j < this->tileMap[i].size(); ++j) {
 			if (tileMap[i][j] == GROUND)
 			{
 				float renderPosY = i * tileSize;

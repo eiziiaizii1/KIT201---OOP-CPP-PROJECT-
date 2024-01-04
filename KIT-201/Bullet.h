@@ -19,6 +19,7 @@ public:
 	const sf::FloatRect& getGlobalBounds();
 	const int getDamage();
 	const bool getToBeDestroyed();
+	const sf::Vector2f& getPosition();
 
 	// Setters
 	void setToBeDestroyed(bool destroyStatus);

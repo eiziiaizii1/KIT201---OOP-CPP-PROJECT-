@@ -67,6 +67,11 @@ void PhysicsManager::handleJumping(Entity& entity)
 	}
 }
 
+void PhysicsManager::addForce(Entity& entity, float amountX, float amountY)
+{
+	entity.setVelocity(entity.getVelocity().x + amountX, entity.getVelocity().y + amountY);
+}
+
 void PhysicsManager::update(Entity& entity)
 {
 	applyAcceleration(entity);
