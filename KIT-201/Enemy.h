@@ -11,7 +11,5 @@ protected:
 public:
 
     virtual const bool isEnemy();
-private:
-
 };
 

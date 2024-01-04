@@ -5,6 +5,7 @@ class EnemyTypeB :
 {
 private:
     sf::Clock moveClock;
+    sf::IntRect spriteFrameRun;
 
 
     void initVariables() override;

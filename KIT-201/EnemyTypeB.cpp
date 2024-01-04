@@ -23,7 +23,6 @@ void EnemyTypeB::initTexture()
 void EnemyTypeB::initSprite()
 {
 	sprite.setTexture(textureIdle);
-	// change divison
 	spriteFrame = sf::IntRect(0, 0, this->sprite.getGlobalBounds().width / 6.f, this->sprite.getGlobalBounds().height / 1.f);
 	sprite.setScale(2.f, 2.f);
 }
@@ -47,41 +46,41 @@ void EnemyTypeB::updateAnimations()
 			this->spriteFrame.left += this->spriteFrame.width; //next frame
 		}
 	}
-	//else if (this->animationState == ANIMATION_STATES::MOVING_RIGHT)
-	//{
-	//	if (this->animationClock.getElapsedTime().asSeconds() > 0.1f)
-	//	{
-	//		if (this->spriteFrame.left > 240.f)
-	//		{
-	//			this->spriteFrame.left = 0.f;
-	//		}
-	//		this->animationClock.restart();
-	//		this->sprite.setTexture(textureRun);
-	//		this->sprite.setTextureRect(spriteFrame);
-	//		this->spriteFrame.left += this->spriteFrame.width;
-	//	}
-	//	// we should scale by positive value to get rid of mirror effect
-	//	// and the origin changes when we scale by minus so we should set origin back to (0, 0)
-	//	this->sprite.setScale(2.f, 2.f);
-	//	this->sprite.setOrigin(0.f, 0.f);
-	//}
-	//else if (this->animationState == ANIMATION_STATES::MOVING_LEFT)
-	//{
-	//	if (this->animationClock.getElapsedTime().asSeconds() > 0.1f)
-	//	{
-	//		if (this->spriteFrame.left > 240.f)
-	//		{
-	//			this->spriteFrame.left = 0.f;
-	//		}
-	//		this->animationClock.restart();
-	//		this->sprite.setTexture(textureRun);
-	//		this->sprite.setTextureRect(spriteFrame);
-	//		this->spriteFrame.left += this->spriteFrame.width;
-	//	}
-	//	// if we scale by minus we got mirror effect, our character is not symmetrical
-	//	this->sprite.setScale(-2.f, 2.f);
-	//	this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 2.f, 0.f);
-	//}
+	else if (this->animationState == ANIMATION_STATES::MOVING_RIGHT)
+	{
+		if (this->animationClock.getElapsedTime().asSeconds() > 0.1f)
+		{
+			if (this->spriteFrame.left > 240.f)
+			{
+				this->spriteFrame.left = 0.f;
+			}
+			this->animationClock.restart();
+			this->sprite.setTexture(textureRun);
+			this->sprite.setTextureRect(spriteFrame);
+			this->spriteFrame.left += this->spriteFrame.width;
+		}
+		// we should scale by positive value to get rid of mirror effect
+		// and the origin changes when we scale by minus so we should set origin back to (0, 0)
+		this->sprite.setScale(2.f, 2.f);
+		this->sprite.setOrigin(0.f, 0.f);
+	}
+	else if (this->animationState == ANIMATION_STATES::MOVING_LEFT)
+	{
+		if (this->animationClock.getElapsedTime().asSeconds() > 0.1f)
+		{
+			if (this->spriteFrame.left > 240.f)
+			{
+				this->spriteFrame.left = 0.f;
+			}
+			this->animationClock.restart();
+			this->sprite.setTexture(textureRun);
+			this->sprite.setTextureRect(spriteFrame);
+			this->spriteFrame.left += this->spriteFrame.width;
+		}
+		// if we scale by minus we got mirror effect, our character is not symmetrical
+		this->sprite.setScale(-2.f, 2.f);
+		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 2.f, 0.f);
+	}
 }
 
 void EnemyTypeB::updateMovement()
@@ -142,4 +141,6 @@ void EnemyTypeB::update()
 {
 	updateAnimations();
 	updateMovement();
+
+	isHit = false;
 }

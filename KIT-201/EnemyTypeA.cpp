@@ -76,4 +76,6 @@ void EnemyTypeA::update()
 {
 	updateAnimations();
 	updateMovement();
+
+	isHit = false;
 }
