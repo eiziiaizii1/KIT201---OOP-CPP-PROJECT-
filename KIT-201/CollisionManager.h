@@ -4,6 +4,7 @@
 #include "TileMap.h"
 #include "Bullet.h"
 #include "Enemy.h"
+#include "PhysicsManager.h"
 
 const sf::FloatRect tileBounds = sf::FloatRect(0.f, 0.f, 64.f, 64.f);
 

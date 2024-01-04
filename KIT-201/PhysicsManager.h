@@ -16,6 +16,8 @@ public:
 	static void limitVelocity(Entity& entity);
 	static void limitMinimumVelocity(Entity& entity);
 	static void handleJumping(Entity& entity);
+	static void addForce(Entity& entity, float amountX, float amountY);
+
 
 	static void update(Entity& entity);
 };

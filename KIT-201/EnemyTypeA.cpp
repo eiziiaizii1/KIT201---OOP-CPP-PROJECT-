@@ -59,7 +59,7 @@ EnemyTypeA::EnemyTypeA()
 	// This is a stationary enemy
 	velocity = sf::Vector2f(0.f, 0.f);
 	acceleration = sf::Vector2f(1.2f, 1.f);
-	velocityMax = sf::Vector2f(0.f, 20.f);
+	velocityMax = sf::Vector2f(20.f, 20.f);
 	velocityMin = sf::Vector2f(1.f, 1.f);
 	drag = sf::Vector2f(0.9f, 3.f);
 	moveDirection = sf::Vector2f(0.f, 1.f);;
