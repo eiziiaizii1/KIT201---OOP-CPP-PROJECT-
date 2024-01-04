@@ -1,7 +1,6 @@
 #pragma once
 #include "Enemy.h"
-
-class EnemyTypeA :
+class EnemyTypeB :
     public Enemy
 {
 private:
@@ -15,7 +14,7 @@ private:
     void updateMovement() override;
 
 public:
-    EnemyTypeA();
+    EnemyTypeB();
 
     //void dealDamage(int damage, Bullet& player) override;
 

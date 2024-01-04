@@ -31,6 +31,5 @@ public:
     const bool isEnemy() override;
 
     void update() override;
-    void render(sf::RenderTarget& target) override;
 };
 

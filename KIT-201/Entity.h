@@ -66,5 +66,5 @@ public:
     virtual void dealDamage(int damage, Entity& entity); // check out later (parameter correction?) 
 
     virtual void update() = 0;
-    virtual void render(sf::RenderTarget& target) = 0;
+    virtual void render(sf::RenderTarget& target);
 };

@@ -30,7 +30,7 @@ void CollisionManager::handleBottomCollisions(Entity& entity, std::vector<std::v
 		entity.setPosition
 		(
 			entity.getPosition().x,
-			tileBounds.height * leftTopY
+			(tileBounds.height * leftBottomY) - entity.getGlobalBounds().height
 		);
 		entity.setVelocity(entity.getVelocity().x, 0.f);
 
@@ -191,7 +191,7 @@ void CollisionManager::handleCollisions(std::vector<std::unique_ptr<Bullet>>& bu
 					
 					// Add small force when bullets hit
 					bullets[k]->getPosition().x <= entities[i]->getPosition().x ?
-						PhysicsManager::addForce(*entities[i], 2.f, 0.f) : PhysicsManager::addForce(*entities[i], -2.f, 0.f);
+						PhysicsManager::addForce(*entities[i], 2.f, -5.f) : PhysicsManager::addForce(*entities[i], -2.f, -5.f);
 					
 					bullets.erase(bullets.begin() + k);
 
