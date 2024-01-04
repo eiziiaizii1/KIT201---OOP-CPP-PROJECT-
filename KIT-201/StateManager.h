@@ -4,7 +4,8 @@
 
 enum class GameState {
     Play,
-    Pause
+    Pause,
+    Menu
 };
 
 class StateManager {
@@ -19,7 +20,7 @@ public:
     void update();
     void render(sf::RenderWindow& window);
 
-    void handleEvents(sf::RenderWindow& window);
+    void pollEvents(sf::RenderWindow& window);
     void switchState();
     GameState& getCurrentState();
     World& getWorld();
