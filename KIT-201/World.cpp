@@ -86,6 +86,8 @@ void World::updateCollisions()
 	{
 		collisionManager.handleCollisions(*entity, this->tileMap);
 	}
+
+	collisionManager.handleCollisions(bullets,entities);
 }
 
 void World::updatePhysics()
@@ -99,22 +101,7 @@ void World::updatePhysics()
 void World::update()
 {
 
-	for (int i = 1u; i < this->entities.size(); i++)
-	{
-		for (int k = 0u; k < this->bullets.size(); k++)
-		{
-			if (bullets[k]->getGlobalBounds().left < entities[i]->getGlobalBounds().left + entities[i]->getGlobalBounds().width &&
-				bullets[k]->getGlobalBounds().left + bullets[k]->getGlobalBounds().width > entities[i]->getGlobalBounds().left &&
-				bullets[k]->getGlobalBounds().top < entities[i]->getGlobalBounds().top + entities[i]->getGlobalBounds().height &&
-				bullets[k]->getGlobalBounds().top + bullets[k]->getGlobalBounds().height > entities[i]->getGlobalBounds().top)
-			{
-				// Remove the bullet from the vector
-				bullets.erase(bullets.begin() + k);
-				k--;
-				break; // Exit the inner loop after collision is handled for this entity
-			}
-		}
-	}
+	
 
 	//collisionManager.handleBulletEnemyCollisions(bullets,entities);
 

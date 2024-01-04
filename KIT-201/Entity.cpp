@@ -70,10 +70,10 @@ const bool Entity::getIsDead()
 	return isDead;
 }
 
-//const bool Entity::isEnemy()
-//{
-//	return false;
-//}
+const int Entity::getHealth()
+{
+	return health;
+}
 
 void Entity::setPosition(float x, float y)
 {
@@ -90,7 +90,17 @@ void Entity::setIsGrounded(bool grounded)
 	isGrounded = grounded;
 }
 
+void Entity::setDead()
+{
+	isDead = true;
+}
+
 void Entity::takeDamage(int damage)
 {
 	health -= damage;
+}
+
+void Entity::dealDamage(int damage, Entity& entity)
+{
+	entity.takeDamage(damage);
 }

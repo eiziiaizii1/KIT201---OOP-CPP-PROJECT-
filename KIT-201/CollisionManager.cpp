@@ -14,27 +14,6 @@ CollisionManager::CollisionManager(TileMap& tileMap)
 	this->tileBounds = tileMap.getTileGlobalBounds();
 }
 
-void CollisionManager::handleBulletEnemyCollisions(std::vector<std::unique_ptr<Bullet>>& bullets, std::vector<std::unique_ptr<Entity>>& entities) {
-	for (auto& bullet : bullets) {
-		for (auto& entity : entities) {
-			if (entity->isEnemy()) {
-				// Check collision betweaen bullet and enemy
-				if (bullet->getGlobalBounds().intersects(entity->getGlobalBounds())) {
-					// Handle bullet-enemy collision
-					bullet->setToBeDestroyed(true);
-					entity->takeDamage(bullet->getDamage());
-					break;
-				}
-			}
-		}
-	}
-	// Erase bullets marked for destruction
-	bullets.erase(std::remove_if(bullets.begin(), bullets.end(), [](const std::unique_ptr<Bullet>& bullet) {
-		return bullet->getToBeDestroyed();
-		}), bullets.end());
-}
-
-
 void CollisionManager::handleBottomCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap, short leftTopY, short leftBottomY)
 {
 	//as we only need these variables here, we don't need to calculate them in handleCollisions() function
@@ -188,3 +167,35 @@ void CollisionManager::handleCollisions(Entity& entity, TileMap& tileMap)
 	}
 }
 
+void CollisionManager::handleCollisions(std::vector<std::unique_ptr<Bullet>>& bullets, std::vector<std::unique_ptr<Entity>>& entities) {
+	
+	for (int i = 1u; i < entities.size(); i++)
+	{
+		for (int k = 0u; k < bullets.size(); k++)
+		{
+			// SFML::Intersects() function returns unexpected value, so I had to calculate intersection manually
+			if (bullets[k]->getGlobalBounds().left < entities[i]->getGlobalBounds().left + entities[i]->getGlobalBounds().width &&
+				bullets[k]->getGlobalBounds().left + bullets[k]->getGlobalBounds().width > entities[i]->getGlobalBounds().left &&
+				bullets[k]->getGlobalBounds().top < entities[i]->getGlobalBounds().top + entities[i]->getGlobalBounds().height &&
+				bullets[k]->getGlobalBounds().top + bullets[k]->getGlobalBounds().height > entities[i]->getGlobalBounds().top)
+			{
+				// Makes sure that entity is enemy and enemy is not dead
+				// Then deals damage to enemy, if its healt reaches to 0 destroyes it
+				if (entities[i]->isEnemy() && entities[i]->getIsDead() == false)
+				{
+					entities[i]->takeDamage(bullets[k]->getDamage());
+					bullets.erase(bullets.begin() + k);
+
+					std::cout << "Enemy health:" << entities[i]->getHealth() << std::endl;
+					if (entities[i]->getHealth()<=0)
+					{
+						entities[i]->setDead();
+						entities.erase(entities.begin() + i);
+						break;
+					}
+				}
+				break;
+			}
+		}
+	}
+}

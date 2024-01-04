@@ -40,8 +40,7 @@ void EnemyTypeA::updateAnimations()
 	if (turnBackCounter >= 100) {
 		// Flip the sprite horizontally
 		sprite.setScale(-sprite.getScale().x, sprite.getScale().y);
-		this->sprite.setOrigin(sprite.getGlobalBounds().width / 4.f , 0.f);
-
+		this->sprite.setOrigin(sprite.getGlobalBounds().width / 6.f , 0.f);
 		// Reset the counter
 		turnBackCounter = 0;
 	}
@@ -73,11 +72,6 @@ EnemyTypeA::EnemyTypeA()
 	initSprite();
 }
 
-
-void EnemyTypeA::dealDamage(int damage, Bullet& player)
-{
-	
-}
 
 void EnemyTypeA::takeDamage(int damage) 
 {

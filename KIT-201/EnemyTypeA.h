@@ -4,6 +4,8 @@
 class EnemyTypeA :
     public Enemy
 {
+    short turnBackCounter;
+
     void initVariables() override;
     void initTexture() override;
     void initSprite() override;
@@ -14,7 +16,7 @@ class EnemyTypeA :
 public:
     EnemyTypeA();
 
-    void dealDamage(int damage, Bullet& player) override;
+    //void dealDamage(int damage, Bullet& player) override;
     void takeDamage(int damage) override;
 
     void update();

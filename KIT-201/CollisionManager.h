@@ -26,7 +26,7 @@ public:
 
 	//void handleBulletEnemyCollisions (std::vector<std::unique_ptr<Bullet>>& bullets, std::vector<std::unique_ptr<Enemy>>& enemies);
 
-	void handleBulletEnemyCollisions(std::vector<std::unique_ptr<Bullet>>& bullets, std::vector<std::unique_ptr<Entity>>& entities);
+	void handleCollisions(std::vector<std::unique_ptr<Bullet>>& bullets, std::vector<std::unique_ptr<Entity>>& entities);
 
 	void handleCollisions(Entity& player, TileMap& tileMap);
 };

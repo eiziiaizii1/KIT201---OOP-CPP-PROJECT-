@@ -13,7 +13,7 @@ protected:
 
     //Health, damage, etc.
     int health;
-    bool isDead = false;
+    bool isDead= false;
 
     //Physics variables
     sf::Vector2f velocity;
@@ -53,14 +53,19 @@ public:
     virtual const bool& getCanJump();
     virtual const bool& getIsGrounded();
     virtual const bool getIsDead();
+    virtual const int getHealth();
+
+    
 
     virtual const bool isEnemy() =0;
 
     virtual void setPosition(float x, float y);
     virtual void setVelocity(float x, float y);
     virtual void setIsGrounded(bool grounded);
+    virtual void setDead();
 
     virtual void takeDamage(int damage);
+    virtual void dealDamage(int damage, Entity& entity); // check out later (parameter correction?) 
 
     virtual void update() = 0;
     virtual void render(sf::RenderTarget& target) = 0;
