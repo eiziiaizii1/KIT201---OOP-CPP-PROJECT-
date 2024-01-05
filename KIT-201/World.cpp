@@ -18,6 +18,7 @@ void World::initEntities()
 	float tileSize = tileMap.getTileGlobalBounds().width;
 	const std::vector<std::vector<short>>& tileMapVector = tileMap.getMapVector();
 	int entityCount = 0;
+	int indexOfPlayer = 0;
 
 	for (int i = 0; i < tileMapVector.size(); ++i) {
 		for (int j = 0; j < tileMapVector[i].size(); ++j) {
@@ -28,6 +29,7 @@ void World::initEntities()
 				float spawnPosX = j * tileSize;
 
 				entities.push_back(std::make_unique<Player>());
+				indexOfPlayer = entityCount;
 				entities[entityCount++]->setPosition(spawnPosX, spawnPosY);
 			}
 
@@ -49,6 +51,12 @@ void World::initEntities()
 			}
 		}
 	}
+
+	// To make sure that Player is at index 0
+	if (indexOfPlayer != 0)
+	{
+		std::swap(entities[0], entities[indexOfPlayer]);
+	}	
 }
 
 void World::updateEntities()

@@ -22,7 +22,7 @@ const bool Game::isRunning() const {
 }
 
 void Game::pollEvents() {
-    stateManager.handleEvents(*window); // Delegate event handling to StateManager
+    stateManager.pollEvents(*window); // Delegate event handling to StateManager
 }
 
 void Game::update() {
