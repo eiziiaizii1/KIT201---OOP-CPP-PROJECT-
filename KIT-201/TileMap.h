@@ -3,32 +3,73 @@
 #include <iostream>
 #include <vector>
 
-// Tile type determined by the enumaration
-enum TileType { BACKGROUND = 0, GROUND = 1, ENEMY_A = 2, ENEMY_B = 3, PLAYER = 4 };
+/**
+ * @brief Enumeration representing different types of tiles.
+ */
+enum TileType {
+    BACKGROUND = 0, /**< Background tile. */
+    GROUND = 1, /**< Ground tile. */
+    ENEMY_A = 2, /**< Enemy type A tile. */
+    ENEMY_B = 3, /**< Enemy type B tile. */
+    PLAYER = 4 /**< Player tile. */
+};
 
+/**
+ * @brief Represents a tile map consisting of different types of tiles.
+ */
 class TileMap
 {
 private:
-	//There is only 1 sprite, if the tile value is equal to GROUND it will render that specific tile as sprite texture 
-	sf::Texture blockTexture;
-	sf::Sprite blockSprite;
+    sf::Texture blockTexture; /**< Texture for the tiles. */
+    sf::Sprite blockSprite; /**< Sprite for rendering tiles. */
 
-	std::vector<std::vector<short>> tileMap;
+    std::vector<std::vector<short>> tileMap; /**< 2D vector storing tile values. */
 
-	// init functions are for constructor
-	void initTextures();
-	void initSprites();
-	void initDefaultMap(); // default map is for testing
+    // Private methods for initialization
+    void initTextures(); /**< Initializes textures. */
+    void initSprites(); /**< Initializes sprites. */
+    void initDefaultMap(); /**< Initializes default map (for testing). */
+
 public:
-	TileMap();
-	TileMap(std::vector<std::vector<short>>& tileMap);
-	~TileMap();
+    /**
+     * @brief Default constructor for TileMap.
+     */
+    TileMap();
 
-	//Getters
-	const sf::FloatRect& getTileGlobalBounds() const;
-	const std::vector<std::vector<short>>& getMapVector();
+    /**
+     * @brief Constructor that takes an existing tile map.
+     * @param tileMap The tile map to initialize from.
+     */
+    TileMap(std::vector<std::vector<short>>& tileMap);
 
-	void update();
-	void render(sf::RenderTarget& target);
+    /**
+     * @brief Destructor for TileMap.
+     */
+    ~TileMap();
+
+    // Getters
+
+    /**
+     * @brief Retrieves the global bounds of a tile.
+     * @return The global bounds of a tile.
+     */
+    const sf::FloatRect& getTileGlobalBounds() const;
+
+    /**
+     * @brief Retrieves the map vector containing tile values.
+     * @return The vector containing tile values.
+     */
+    const std::vector<std::vector<short>>& getMapVector();
+
+    /**
+     * @brief Updates the tile map.
+     */
+    void update();
+
+    /**
+     * @brief Renders the tile map onto a render target.
+     * @param target The render target to draw the tile map on.
+     */
+    void render(sf::RenderTarget& target);
 };
 

@@ -13,26 +13,58 @@
 #include "StateManager.h"
 #include "SoundManager.h"
 
+/**
+ * @brief Represents the main game class managing the game loop and components.
+ */
 class Game {
 private:
-    sf::VideoMode videoMode;
-    sf::RenderWindow* window;
-    sf::Event sfmlEvent;
+    sf::VideoMode videoMode; /**< Video mode of the game window. */
+    sf::RenderWindow* window; /**< Pointer to the game window. */
+    sf::Event sfmlEvent; /**< Event object handling SFML events. */
 
-    StateManager stateManager; // Include StateManager in Game
-    SoundManager soundManager;
+    StateManager stateManager; /**< Manages different game states. */
+    SoundManager soundManager; /**< Manages game audio. */
 
-
+    /**
+     * @brief Initializes member variables.
+     */
     void initVariables();
+
+    /**
+     * @brief Initializes the game window.
+     */
     void initWindow();
 
 public:
+    /**
+     * @brief Default constructor for Game class.
+     */
     Game();
+
+    /**
+     * @brief Destructor for Game class.
+     */
     ~Game();
 
+    /**
+     * @brief Checks if the game is running.
+     * @return true if the game is running, false otherwise.
+     */
     const bool isRunning() const;
+
+    /**
+     * @brief Handles SFML events.
+     */
     void pollEvents();
+
+    /**
+     * @brief Updates the game logic.
+     */
     void update();
+
+    /**
+     * @brief Renders game elements onto the window.
+     */
     void render();
 };
 
