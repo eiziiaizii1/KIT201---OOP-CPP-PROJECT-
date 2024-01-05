@@ -75,6 +75,11 @@ const int Entity::getHealth()
 	return health;
 }
 
+const int Entity::getMaxHealth()
+{
+	return maxHealth;
+}
+
 const bool Entity::getIsHit()
 {
 	return isHit;
@@ -108,11 +113,6 @@ void Entity::setIsHit(bool hitStatus)
 void Entity::takeDamage(int damage)
 {
 	health -= damage;
-}
-
-void Entity::dealDamage(int damage, Entity& entity)
-{
-	entity.takeDamage(damage);
 }
 
 void Entity::render(sf::RenderTarget& target)

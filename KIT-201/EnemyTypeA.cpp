@@ -4,7 +4,8 @@ void EnemyTypeA::initVariables()
 {
 	animationClock.restart();
 	turnBackCounter = 0;
-	health = 30;
+	maxHealth = 40;
+	health = maxHealth;
 	damage = 10;
 	animationState = ANIMATION_STATES::IDLE;
 	turnBackCounter = 0;

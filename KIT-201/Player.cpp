@@ -7,7 +7,8 @@ void Player::initVariables()
 	this->animationState = ANIMATION_STATES::IDLE;
 	this->canShoot = false;
 
-	health = 100;
+	maxHealth = 100;
+	health = maxHealth;
 }
 
 void Player::initTexture()
@@ -84,7 +85,7 @@ Player::Player()
 	velocityMin = sf::Vector2f(1.f, 1.f);
 	drag = sf::Vector2f(0.9f, 3.f);
 	moveDirection = sf::Vector2f(0.f,0.f);;
-	jumpForce = 30.f;
+	jumpForce = 33.f;
 	lookDirection = 1.f;
 	canJump = false;
 	isGrounded = false;

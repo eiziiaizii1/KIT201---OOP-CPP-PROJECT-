@@ -11,5 +11,6 @@ protected:
 public:
 
     virtual const bool isEnemy();
+    virtual const bool getDamage();
 };
 

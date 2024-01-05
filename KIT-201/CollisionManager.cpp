@@ -173,9 +173,9 @@ void CollisionManager::handleCollisions(Entity& entity, TileMap& tileMap)
 
 void CollisionManager::handleCollisions(std::vector<std::unique_ptr<Bullet>>& bullets, std::vector<std::unique_ptr<Entity>>& entities) {
 	
-	for (int i = 1u; i < entities.size(); i++)
+	for (int i = 1; i < entities.size(); i++)
 	{
-		for (int k = 0u; k < bullets.size(); k++)
+		for (int k = 0; k < bullets.size(); k++)
 		{
 			// SFML::Intersects() function returns unexpected value, so I had to calculate intersection manually
 			if (bullets[k]->getGlobalBounds().left < entities[i]->getGlobalBounds().left + entities[i]->getGlobalBounds().width &&
@@ -212,18 +212,20 @@ void CollisionManager::handleCollisions(std::vector<std::unique_ptr<Entity>>& en
 {
 	for (int i = 1; i< entities.size(); i++)
 	{
-		if (entities[0]->isEnemy() == false &&
+		if (entities[0]->isEnemy() == false && entities[i]->isEnemy() == true &&
 			entities[0]->getGlobalBounds().left < entities[i]->getGlobalBounds().left + entities[i]->getGlobalBounds().width &&
 			entities[0]->getGlobalBounds().left + entities[0]->getGlobalBounds().width > entities[i]->getGlobalBounds().left &&
 			entities[0]->getGlobalBounds().top < entities[i]->getGlobalBounds().top + entities[i]->getGlobalBounds().height &&
 			entities[0]->getGlobalBounds().top + entities[0]->getGlobalBounds().height > entities[i]->getGlobalBounds().top)
 		{
+
+
 			entities[0]->getPosition().x <= entities[i]->getPosition().x ?
 				PhysicsManager::addForce(*entities[0], (entities[i]->getVelocity().x - 10.f), 0.f)
 			  : PhysicsManager::addForce(*entities[0], (entities[i]->getVelocity().x +10.f), 0.f);
 
-			entities[0]->takeDamage(5.f);
-			std::cout << "Player health: "<< entities[0]->getHealth() << "\n";
+			entities[0]->takeDamage(10.f);
+			std::cout << "Player health: "<< entities[0]->getHealth() << "/" << entities[0]->getMaxHealth() << "\n";
 		}
 	}
 }

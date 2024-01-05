@@ -6,8 +6,9 @@ void EnemyTypeB::initVariables()
 {
 	animationClock.restart();
 	moveClock.restart();
-	health = 50;
-	damage = 10;
+	maxHealth = 60;
+	health = maxHealth;
+	damage = 5;
 	animationState = ANIMATION_STATES::IDLE;
 }
 

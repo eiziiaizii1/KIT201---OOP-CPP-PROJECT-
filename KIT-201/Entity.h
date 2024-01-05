@@ -13,6 +13,7 @@ protected:
 
     //Health, damage, etc.
     int health;
+    int maxHealth;
     bool isDead= false;
     bool isHit = false;
 
@@ -54,8 +55,9 @@ public:
     virtual const bool& getCanJump();
     virtual const bool& getIsGrounded();
     virtual const bool getIsDead();
-    virtual const int getHealth();
     virtual const bool getIsHit();
+    virtual const int getHealth();
+    virtual const int getMaxHealth();
 
     virtual const bool isEnemy() =0;
 
@@ -66,7 +68,6 @@ public:
     virtual void setIsHit(bool hitStatus);
 
     virtual void takeDamage(int damage);
-    virtual void dealDamage(int damage, Entity& entity); // check out later (parameter correction?) 
 
     virtual void update() = 0;
     virtual void render(sf::RenderTarget& target);

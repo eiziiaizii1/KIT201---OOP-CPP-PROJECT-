@@ -128,11 +128,6 @@ void World::updatePhysics()
 
 void World::update()
 {
-
-	
-
-	//collisionManager.handleBulletEnemyCollisions(bullets,entities);
-
 	updatePhysics();
 
 	updateEntities();
