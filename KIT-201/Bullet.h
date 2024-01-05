@@ -4,7 +4,7 @@
 #include "Player.h"
 
 /**
- * @brief Represents a bullet entity.
+ * @brief Represents a bullet.
  */
 class Bullet {
 private:

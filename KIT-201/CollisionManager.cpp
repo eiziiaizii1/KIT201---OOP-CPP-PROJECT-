@@ -18,8 +18,8 @@ void CollisionManager::handleBottomCollisions(Entity& entity, std::vector<std::v
 	//as we only need these variables here, we don't need to calculate them in handleCollisions() function
 	float offSet = (entity.getGlobalBounds().width - tileBounds.width) / 2.f;
 
-	short leftMidBottomX = floor((entity.getGlobalBounds().left + offSet) / tileBounds.width);
-	short rightMidBottomX = floor(((entity.getGlobalBounds().left + entity.getGlobalBounds().width - offSet)) / tileBounds.width);
+	short leftMidBottomX = static_cast<short>(floor((entity.getGlobalBounds().left + offSet) / tileBounds.width));
+	short rightMidBottomX =static_cast<short>( floor(((entity.getGlobalBounds().left + entity.getGlobalBounds().width - offSet)) / tileBounds.width));
 
 	// Bottom Collision
 	// entity's y index is same for all bottom parts no need to recalculate BottomY index 
@@ -121,23 +121,23 @@ void CollisionManager::handleCollisions(Entity& entity, TileMap& tileMap)
 	std::vector<std::vector<short>>tileMapVector = tileMap.getMapVector();
 
 	// These variables specify the indices that correspond to the corners of the character sprite on the tile map vector
-	short leftTopX = floor(entity.getGlobalBounds().left / tileBounds.width);
-	short leftTopY = floor(entity.getGlobalBounds().top/ tileBounds.height);
-	
-	short leftBottomX = leftTopX;
-	short leftBottomY = floor((entity.getGlobalBounds().top + entity.getGlobalBounds().height) / tileBounds.height);
+	short leftTopX = static_cast<short>(floor(entity.getGlobalBounds().left / tileBounds.width));
+	short leftTopY = static_cast<short>(floor(entity.getGlobalBounds().top/ tileBounds.height));
 
-	short rightTopX = floor((entity.getGlobalBounds().left + entity.getGlobalBounds().width) / tileBounds.width);
+	short leftBottomX = leftTopX;
+	short leftBottomY = static_cast<short>(floor((entity.getGlobalBounds().top + entity.getGlobalBounds().height) / tileBounds.height));
+
+	short rightTopX = static_cast<short>(floor((entity.getGlobalBounds().left + entity.getGlobalBounds().width) / tileBounds.width));
 	short rightTopY = leftTopY;
 
 	short rightBottomX = rightTopX;
-	short rightBottomY = floor((entity.getGlobalBounds().top + entity.getGlobalBounds().height) / tileBounds.height);
+	short rightBottomY = static_cast<short>(floor((entity.getGlobalBounds().top + entity.getGlobalBounds().height) / tileBounds.height));
 
-	short midTopX = floor((entity.getGlobalBounds().left + entity.getGlobalBounds().width+ entity.getGlobalBounds().left) / 2.f / tileBounds.width);
-	short midTopY = floor(entity.getGlobalBounds().top / tileBounds.height);
+	short midTopX = static_cast<short>(floor((entity.getGlobalBounds().left + entity.getGlobalBounds().width+ entity.getGlobalBounds().left) / 2.f / tileBounds.width));
+	short midTopY = static_cast<short>(floor(entity.getGlobalBounds().top / tileBounds.height));
 
-	short midBottomX = floor((entity.getGlobalBounds().left + entity.getGlobalBounds().width + entity.getGlobalBounds().left) / 2.f / tileBounds.width);
-	short midBottomY = floor((entity.getGlobalBounds().top + entity.getGlobalBounds().height) / tileBounds.height);
+	short midBottomX = static_cast<short>(floor((entity.getGlobalBounds().left + entity.getGlobalBounds().width + entity.getGlobalBounds().left) / 2.f / tileBounds.width));
+	short midBottomY = static_cast<short>(floor((entity.getGlobalBounds().top + entity.getGlobalBounds().height) / tileBounds.height));
 
 
 	bool topCollided = false;
@@ -215,7 +215,7 @@ void CollisionManager::handleCollisions(std::vector<std::unique_ptr<Entity>>& en
 				PhysicsManager::addForce(*entities[0], (entities[i]->getVelocity().x - 10.f), 0.f)
 			  : PhysicsManager::addForce(*entities[0], (entities[i]->getVelocity().x +10.f), 0.f);
 
-			entities[0]->takeDamage(10.f);
+			entities[0]->takeDamage(10);
 			std::cout << "Player health: "<< entities[0]->getHealth() << "/" << entities[0]->getMaxHealth() << "\n";
 		}
 	}

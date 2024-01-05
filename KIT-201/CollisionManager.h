@@ -24,13 +24,14 @@ private:
 
 public:
 	CollisionManager(TileMap& tileMap);
-
-	//void handleBulletEnemyCollisions (std::vector<std::unique_ptr<Bullet>>& bullets, std::vector<std::unique_ptr<Enemy>>& enemies);
-
+	
+	// Handles collisions between bullets and entities
 	static void handleCollisions(std::vector<std::unique_ptr<Bullet>>& bullets, std::vector<std::unique_ptr<Entity>>& entities);
 
+	// Handles collisions between player and entities
 	static void handleCollisions(std::vector<std::unique_ptr<Entity>>& entities);
 
+	// Handles collisions between tile map and entities
 	static void handleCollisions(Entity& entity, TileMap& tileMap);
 };
 
