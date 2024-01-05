@@ -9,48 +9,102 @@
 #include "EnemyTypeA.h"
 #include "EnemyTypeB.h"
 
-class World
-{
+/**
+ * The World class manages the game world and entities within it.
+ */
+class World {
 private:
-	Camera camera;
-	
-	//Entities
-	//Enemy enemy;
+    Camera camera;
 
+    // Collection of entities
+    // Index 0 represents the player, other indices represent enemies
+    std::vector<std::unique_ptr<Entity>> entities;
 
-	// index 0 represents player, other indices represent enemies
-	std::vector<std::unique_ptr<Entity>> entities;
+    // Collection of bullets
+    std::vector<std::unique_ptr<Bullet>> bullets;
+    sf::Texture bulletTexture;
 
-	//Bullet
-	std::vector<std::unique_ptr<Bullet>> bullets;
-	sf::Texture bulletTexture;
+    TileMap tileMap;
 
-	// TileMap 
-	TileMap tileMap;
+    /**
+     * Initializes internal variables.
+     */
+    void initVariables();
 
-	void initVariables();
-	void initEntities();
-	void updateEntities();
+    /**
+     * Initializes the entities in the world.
+     */
+    void initEntities();
 
+    /**
+     * Updates the entities in the world.
+     */
+    void updateEntities();
 
-	//Bullet related
-	void shootBullets();
-	void updateBullets();
-	void renderBullets(sf::RenderTarget& target);
+    /**
+     * Handles shooting bullets.
+     */
+    void shootBullets();
 
-	void renderEntities(sf::RenderTarget& target);
+    /**
+     * Updates the bullets.
+     */
+    void updateBullets();
+
+    /**
+     * Renders the bullets on the target.
+     * @param target The rendering target.
+     */
+    void renderBullets(sf::RenderTarget& target);
+
+    /**
+     * Renders the entities on the target.
+     * @param target The rendering target.
+     */
+    void renderEntities(sf::RenderTarget& target);
 
 public:
-	//Constructors
-	World();
+    // Constructors
+    World();
 
-	Player& getPlayer();
-	Camera& getCamera();
+    /**
+     * Retrieves a reference to the player entity.
+     * @return A reference to the player entity.
+     */
+    Player& getPlayer();
 
-	void updateCollisions();
-	void updatePhysics();
-	void update();
-	void render(sf::RenderTarget& target);
-	std::vector<std::unique_ptr<Entity>>& getEntities();
+    /**
+     * Retrieves a reference to the camera.
+     * @return A reference to the camera.
+     */
+    Camera& getCamera();
+
+    /**
+     * Updates collision handling for entities.
+     */
+    void updateCollisions();
+
+    /**
+     * Updates physics in the world.
+     */
+    void updatePhysics();
+
+    /**
+     * Updates the world.
+     */
+    void update();
+
+    /**
+     * Renders the world on the target.
+     * @param target The rendering target.
+     */
+    void render(sf::RenderTarget& target);
+
+    /**
+     * Retrieves the collection of entities.
+     * @return A reference to the collection of entities.
+     */
+    std::vector<std::unique_ptr<Entity>>& getEntities();
 };
+
 

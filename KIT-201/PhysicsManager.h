@@ -1,24 +1,74 @@
 #pragma once
+
 #include "Entity.h"
 
-////FIXED BUG2: WHILE FALLING DOWN YOU CAN JUMP ON AIR
-////FIXED BUG1: JUMPING NEAR THE WALLS MAKES A SUPER JUMP
-
+/**
+ * @brief Manages physics-related operations for entities.
+ */
 class PhysicsManager
 {
-
 public:
-	PhysicsManager();
+    /**
+     * @brief Constructs a PhysicsManager object.
+     */
+    PhysicsManager();
 
-	static void applyAcceleration(Entity& entity);
-	static void applyDrag(Entity& entity);
-	static void applyGravity(Entity& entity);
-	static void limitVelocity(Entity& entity);
-	static void limitMinimumVelocity(Entity& entity);
-	static void handleJumping(Entity& entity);
-	static void addForce(Entity& entity, float amountX, float amountY);
+    /**
+     * @brief Applies acceleration to the entity.
+     *
+     * @param entity The entity to apply acceleration to.
+     */
+    static void applyAcceleration(Entity& entity);
 
+    /**
+     * @brief Applies drag to the entity.
+     *
+     * @param entity The entity to apply drag to.
+     */
+    static void applyDrag(Entity& entity);
 
-	static void update(Entity& entity);
+    /**
+     * @brief Applies gravity to the entity.
+     *
+     * @param entity The entity to apply gravity to.
+     */
+    static void applyGravity(Entity& entity);
+
+    /**
+     * @brief Limits the velocity of the entity.
+     *
+     * @param entity The entity to limit the velocity of.
+     */
+    static void limitVelocity(Entity& entity);
+
+    /**
+     * @brief Limits the minimum velocity of the entity.
+     *
+     * @param entity The entity to limit the minimum velocity of.
+     */
+    static void limitMinimumVelocity(Entity& entity);
+
+    /**
+     * @brief Handles jumping for the entity.
+     *
+     * @param entity The entity to handle jumping for.
+     */
+    static void handleJumping(Entity& entity);
+
+    /**
+     * @brief Adds force to the entity in specified amounts along x and y axes.
+     *
+     * @param entity The entity to add force to.
+     * @param amountX The amount of force along the x-axis.
+     * @param amountY The amount of force along the y-axis.
+     */
+    static void addForce(Entity& entity, float amountX, float amountY);
+
+    /**
+     * @brief Updates the physics for the entity.
+     *
+     * @param entity The entity to update physics for.
+     */
+    static void update(Entity& entity);
 };
 
