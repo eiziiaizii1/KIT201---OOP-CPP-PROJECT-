@@ -4,8 +4,6 @@
 
 void World::initVariables()
 {
-	//this->player.setPosition(1280.f/2,0.f);
-
 	if (!this->bulletTexture.loadFromFile("Textures/LaserBullet.png"))
 		std::cout << "failed to load the bullet texture" << std::endl;
 }
@@ -31,6 +29,8 @@ void World::initEntities()
 				entities.push_back(std::make_unique<Player>());
 				indexOfPlayer = entityCount;
 				entities[entityCount++]->setPosition(spawnPosX, spawnPosY);
+
+				playerStartPosition = sf::Vector2f(spawnPosX, spawnPosY);
 			}
 
 			else if (tileMapVector[i][j] == ENEMY_A)
@@ -65,6 +65,11 @@ void World::updateEntities()
 	{
 		entity->update();
 	}
+
+	if (entities[0]->getHealth() <= 0)
+	{
+		dynamic_cast<Player*>(entities[0].get())->revive(playerStartPosition);
+	}
 }
 
 void World::renderEntities(sf::RenderTarget& target)
@@ -78,6 +83,7 @@ void World::renderEntities(sf::RenderTarget& target)
 void World::shootBullets()
 {
 	// Only player can shoot so we need to cast it to player
+
 	Player* playerEntity = dynamic_cast<Player*>(entities[0].get());
 
 	// Makes sure that it is player and then it checks canShoot

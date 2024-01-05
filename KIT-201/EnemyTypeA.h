@@ -6,6 +6,7 @@ class EnemyTypeA :
 {
 private:
     short turnBackCounter;
+    bool turnBackBoolean;
 
     void initVariables() override;
     void initTexture() override;

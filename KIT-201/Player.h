@@ -6,6 +6,7 @@ class Player : public Entity {
 private:
 
     float lookDirection;
+    sf::Vector2f startPosition;
 
     // it would be better if we move shooting variables to some kind of ShooterEntity class which is subclass of Entity
     bool canShoot;
@@ -27,6 +28,8 @@ public:
 
     const bool getCanShoot();
     const float getLookDirection();
+
+    void revive(sf::Vector2f& startPos);
 
     const bool isEnemy() override;
 

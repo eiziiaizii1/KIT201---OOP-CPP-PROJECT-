@@ -109,6 +109,13 @@ const float Player::getLookDirection()
 	return this->lookDirection;
 }
 
+void Player::revive(sf::Vector2f& startPos)
+{
+	setPosition(startPos.x, startPos.y);
+	health = maxHealth;
+	std::cout << "Revived\n";
+}
+
 const bool Player::isEnemy()
 {
 	return false;

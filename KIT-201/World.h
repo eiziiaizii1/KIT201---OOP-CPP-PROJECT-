@@ -14,12 +14,9 @@ class World
 private:
 	Camera camera;
 	
-	//Entities
-	//Enemy enemy;
-
-
 	// index 0 represents player, other indices represent enemies
 	std::vector<std::unique_ptr<Entity>> entities;
+	sf::Vector2f playerStartPosition;
 
 	//Bullet
 	std::vector<std::unique_ptr<Bullet>> bullets;

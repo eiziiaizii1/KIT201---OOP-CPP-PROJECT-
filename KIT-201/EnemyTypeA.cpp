@@ -9,6 +9,7 @@ void EnemyTypeA::initVariables()
 	damage = 10;
 	animationState = ANIMATION_STATES::IDLE;
 	turnBackCounter = 0;
+	turnBackBoolean = false;
 }
 
 void EnemyTypeA::initTexture()
@@ -39,8 +40,18 @@ void EnemyTypeA::updateAnimations()
 	}
 	if (turnBackCounter >= 100) {
 		// Flip the sprite horizontally
-		sprite.setScale(-sprite.getScale().x, sprite.getScale().y);
-		this->sprite.setOrigin(sprite.getGlobalBounds().width / 6.f , 0.f);
+		if (!turnBackBoolean)
+		{
+			sprite.setScale(-sprite.getScale().x, sprite.getScale().y);
+			this->sprite.setOrigin(sprite.getGlobalBounds().width / 2.f, 0.f);
+			turnBackBoolean = true;
+		}
+		else 
+		{
+			sprite.setScale(-sprite.getScale().x, sprite.getScale().y);
+			this->sprite.setOrigin(0.f, 0.f);
+			turnBackBoolean = false;
+		}
 		// Reset the counter
 		turnBackCounter = 0;
 	}
