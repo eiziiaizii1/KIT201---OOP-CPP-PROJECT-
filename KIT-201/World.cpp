@@ -66,7 +66,8 @@ void World::updateEntities()
 		entity->update();
 	}
 
-	if (entities[0]->getHealth() <= 0)
+	if (entities[0]->getHealth() <= 0 || 
+		entities[0]->getPosition().y > tileMap.getMapVector().size() * tileMap.getTileGlobalBounds().width)
 	{
 		dynamic_cast<Player*>(entities[0].get())->revive(playerStartPosition);
 	}

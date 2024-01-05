@@ -20,10 +20,6 @@ void PhysicsManager::applyDrag(Entity& entity)
 	entity.setVelocity(currentVelocity.x * entity.getDrag().x, currentVelocity.y + entity.getDrag().y);
 }
 
-void PhysicsManager::applyGravity(Entity& entity)
-{
-}
-
 // limits the maximum amount of velocity
 void PhysicsManager::limitVelocity(Entity& entity)
 {
@@ -54,7 +50,6 @@ void PhysicsManager::limitMinimumVelocity(Entity& entity)
 	}
 	if (std::abs(entity.getVelocity().y) < entity.getVelocityMin().y)
 	{
-		//std::cout << "in if\n";
 		entity.setVelocity(entity.getVelocity().x, 0.f);
 	}
 }

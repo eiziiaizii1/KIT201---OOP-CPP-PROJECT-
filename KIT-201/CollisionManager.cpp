@@ -96,8 +96,6 @@ void CollisionManager::handleRightCollisions(
 	// Lower right side collision
 	if (tileMap[rightBottomY - 1][rightBottomX] == GROUND)
 	{
-		//std::cout << "right lower\n";
-		std::cout << entity.getVelocity().x<<"\n";
 		entity.setPosition
 		(
 			tileBounds.width * rightTopX - entity.getGlobalBounds().width -1.f,
@@ -108,8 +106,6 @@ void CollisionManager::handleRightCollisions(
 	// Upper right side collision
 	else if (tileMap[rightTopY][rightTopX] == GROUND)
 	{
-		//std::cout << "right upper\n";
-		std::cout << entity.getVelocity().x << "\n";
 		entity.setPosition
 		(
 			tileBounds.width * rightTopX - entity.getGlobalBounds().width - 1.f,
@@ -164,11 +160,6 @@ void CollisionManager::handleCollisions(Entity& entity, TileMap& tileMap)
 			handleRightCollisions(entity, tileMapVector, rightTopX, rightTopY, rightBottomX, rightBottomY);
 		}
 	}
-
-	if (!entity.isEnemy() && entity.getPosition().y > tileMapVector.size() * tileBounds.height)
-	{
-		entity.setPosition(100.f, 100.f);
-	}
 }
 
 void CollisionManager::handleCollisions(std::vector<std::unique_ptr<Bullet>>& bullets, std::vector<std::unique_ptr<Entity>>& entities) {
@@ -194,7 +185,7 @@ void CollisionManager::handleCollisions(std::vector<std::unique_ptr<Bullet>>& bu
 						PhysicsManager::addForce(*entities[i], 2.f, -10.f) : PhysicsManager::addForce(*entities[i], -2.f, -10.f);
 					bullets.erase(bullets.begin() + k);
 
-					std::cout << "Enemy health:" << entities[i]->getHealth() << std::endl;
+					std::cout << "Enemy health:" << entities[i]->getHealth() << "/" << entities[i]->getMaxHealth() << std::endl;
 					if (entities[i]->getHealth()<=0)
 					{
 						entities[i]->setDead();

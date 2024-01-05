@@ -12,7 +12,6 @@ public:
 
 	static void applyAcceleration(Entity& entity);
 	static void applyDrag(Entity& entity);
-	static void applyGravity(Entity& entity);
 	static void limitVelocity(Entity& entity);
 	static void limitMinimumVelocity(Entity& entity);
 	static void handleJumping(Entity& entity);

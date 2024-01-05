@@ -18,8 +18,6 @@ private:
 public:
     EnemyTypeB();
 
-    //void dealDamage(int damage, Bullet& player) override;
-
     void update();
 };
 
