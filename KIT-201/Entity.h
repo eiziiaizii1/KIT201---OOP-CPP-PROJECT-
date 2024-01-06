@@ -43,7 +43,7 @@ protected:
 public:
     virtual ~Entity() {}
 
-    virtual const sf::FloatRect& getGlobalBounds();
+    virtual const sf::FloatRect getGlobalBounds();
     virtual const sf::Vector2f& getPosition();
     virtual const sf::Vector2f& getVelocity();
     virtual const sf::Vector2f& getVelocityMax();

@@ -2,6 +2,7 @@
 
 // TODO-1: Initial bullet position adjustment
 
+// Spawns the bullet based on the position of player's position, rotation, and velocityMax
 Bullet::Bullet(sf::Texture& texture, Player& player)
 {
 	this->sprite.setTexture(texture);
@@ -58,6 +59,7 @@ void Bullet::setToBeDestroyed(bool destroyStatus)
 	this->toBeDestroyed = destroyStatus;
 }
 
+// Updates the bullet's sprite position based on its speed
 void Bullet::update()
 {
 	this->sprite.move(this->movementSpeed, 0.f);

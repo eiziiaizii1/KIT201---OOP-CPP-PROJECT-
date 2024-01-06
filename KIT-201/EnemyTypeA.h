@@ -9,8 +9,8 @@ class EnemyTypeA :
     public Enemy
 {
 private:
-    short turnBackCounter; /**< Counter for turning back. */
-    bool turnBackBoolean; /**< Boolean for turning back. */
+    short turnBackCounter; /**< Counter for turning back (rotating enemy 180 degrees). */
+    bool turnBackBoolean; /**< Boolean for turning back. Changes to false or true when enemy is turned the other side */
 
     /**
      * @brief Initializes specific variables for EnemyTypeA.

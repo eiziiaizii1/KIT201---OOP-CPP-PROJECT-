@@ -8,8 +8,8 @@ void World::initVariables()
 		std::cout << "failed to load the bullet texture" << std::endl;
 }
 
-// adds entities to the entities vector then spawns them accorindg to their equivalent tile map locations
-// !! IF THERE IS NO PLAYER CAUSES ERROR (probably about other classes, which asumes that player is at *entities[0])
+// Adds entities to the entities vector then spawns them based on their equivalent tile map locations
+// Player is at index o of the entities vector
 void World::initEntities()
 {
 	// Assign singular tile size to float variable (all tiles are square, so width = height)
@@ -18,8 +18,8 @@ void World::initEntities()
 	int entityCount = 0;
 	int indexOfPlayer = 0;
 
-	for (int i = 0; i < tileMapVector.size(); ++i) {
-		for (int j = 0; j < tileMapVector[i].size(); ++j) {
+	for (size_t i = 0; i < tileMapVector.size(); ++i) {
+		for (size_t j = 0; j < tileMapVector[i].size(); ++j) {
 
 			if (tileMapVector[i][j] == PLAYER)
 			{
@@ -61,11 +61,13 @@ void World::initEntities()
 
 void World::updateEntities()
 {
+	// updates each entity
 	for (auto& entity: entities)
 	{
 		entity->update();
 	}
 
+	// if player is dead revives it at the start position
 	if (entities[0]->getHealth() <= 0 || 
 		entities[0]->getPosition().y > tileMap.getMapVector().size() * tileMap.getTileGlobalBounds().width)
 	{
@@ -75,6 +77,7 @@ void World::updateEntities()
 
 void World::renderEntities(sf::RenderTarget& target)
 {
+	// renders each entity
 	for (auto& entity : entities)
 	{
 		entity->render(target);
@@ -84,18 +87,21 @@ void World::renderEntities(sf::RenderTarget& target)
 void World::shootBullets()
 {
 	// Only player can shoot so we need to cast it to player
-
-	Player* playerEntity = dynamic_cast<Player*>(entities[0].get());
-
-	// Makes sure that it is player and then it checks canShoot
-	if (playerEntity && playerEntity->getCanShoot()) {
-		std::unique_ptr<Bullet> newBullet = std::make_unique<Bullet>(this->bulletTexture, *playerEntity);
-		this->bullets.push_back(std::move(newBullet));
+	if (Player* playerEntity = dynamic_cast<Player*>(entities[0].get()))
+	{
+		// creates the bullet
+		if (playerEntity->getCanShoot()) {
+			std::unique_ptr<Bullet> newBullet = std::make_unique<Bullet>(this->bulletTexture, *playerEntity);
+			this->bullets.push_back(std::move(newBullet));
+		}
 	}
 }
 
+// updates (moves) each bullet in bullets vector
 void World::updateBullets()
 {
+	// calculate map bounds as pixels and add offset
+	const static int tileMapBound = tileMap.getMapVector()[0].size() * tileMap.getTileGlobalBounds().width + 500.f;
 	// Use remove_if with a lambda function to erase elements matching the condition
 	this->bullets.erase(
 		std::remove_if(this->bullets.begin(), this->bullets.end(),
@@ -104,7 +110,7 @@ void World::updateBullets()
 			// Update and check for bullet culling
 			bullet->update();
 			return (bullet->getGlobalBounds().left + bullet->getGlobalBounds().width) < 0.f ||
-				   (bullet->getGlobalBounds().left > 6400.f); // Hard coded value for now
+				   (bullet->getGlobalBounds().left > tileMapBound); // Hard coded value for now
 		}), this->bullets.end());
 }
 
@@ -124,6 +130,7 @@ World::World()
 
 void World::updateCollisions()
 {
+	// Handles all of the collisions
 	for (auto& entity : entities)
 	{
 		CollisionManager::handleCollisions(*entity, this->tileMap);

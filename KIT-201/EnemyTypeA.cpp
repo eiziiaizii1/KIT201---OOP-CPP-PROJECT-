@@ -22,9 +22,11 @@ void EnemyTypeA::initSprite()
 {
 	sprite.setTexture(textureIdle);
 	spriteFrame = sf::IntRect(0, 0, this->sprite.getGlobalBounds().width / 7.f, this->sprite.getGlobalBounds().height / 1.f);
+	sprite.setTextureRect(spriteFrame);
 	sprite.setScale(2.f, 2.f);
 }
 
+// this enemy has only idle animation and rotates 180 degrees after counter reaches 100
 void EnemyTypeA::updateAnimations()
 {
 	if (animationClock.getElapsedTime().asSeconds() > 0.2f) {

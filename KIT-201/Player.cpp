@@ -32,6 +32,7 @@ void Player::initSprite()
 	this->sprite.setScale(2.f, 2.f);
 }
 
+// Changes related variables about animation, physics and movement based on the keyboard input
 void Player::updateMovement()
 {
 	this->animationState = ANIMATION_STATES::IDLE;
@@ -63,6 +64,7 @@ void Player::updateMovement()
 	this->sprite.move(this->velocity);
 }
 
+// Sets canShoot variable to true whenever Player shootClock exceed some amount of time (basically shootCooldown)
 void Player::updateShootStatus()
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && shootClock.getElapsedTime().asSeconds() > 0.4f)

@@ -6,7 +6,7 @@ const bool Enemy::isEnemy()
 	return true;
 }
 
-const bool Enemy::getDamage()
+const int Enemy::getDamage()
 {
 	return damage;
 }

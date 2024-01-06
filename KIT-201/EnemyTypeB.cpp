@@ -26,9 +26,11 @@ void EnemyTypeB::initSprite()
 	sprite.setTexture(textureIdle);
 	spriteFrame = sf::IntRect(0, 0, this->sprite.getGlobalBounds().width / 6.f, this->sprite.getGlobalBounds().height / 1.f);
 	spriteFrameRun = sf::IntRect(0, 0, this->textureRun.getSize().x / 7.f, this->textureRun.getSize().y / 1.f);
+	sprite.setTextureRect(spriteFrame);
 	sprite.setScale(2.f, 2.f);
 }
 
+// As we didn't have time for implementing AnimationManager class, we handle animations in this class
 void EnemyTypeB::updateAnimations()
 {
 	if (this->animationState == ANIMATION_STATES::IDLE)
@@ -36,7 +38,7 @@ void EnemyTypeB::updateAnimations()
 		// sprite is set to next frame after 0.2 seconds
 		if (this->animationClock.getElapsedTime().asSeconds() > 0.2f)
 		{
-			// there are 2 frames in idle each first frame start is (0, 0), 2nd's start  (0, 44)
+			// there are 7 frames in idle each first frame start is (0, 0), 7nd frames start is (0, 150)
 			// we should start from beginning, if sprite is set to last frame
 			if (this->spriteFrame.left > 150.f)
 			{
@@ -79,7 +81,8 @@ void EnemyTypeB::updateAnimations()
 			this->sprite.setTextureRect(spriteFrameRun);
 			this->spriteFrameRun.left += this->spriteFrameRun.width;
 		}
-		// if we scale by minus we got mirror effect, our character is not symmetrical
+		// if we scale by minus we got mirror effect,
+		// we shuold also adjust origin, because its origin changes when we scale it by minus
 		this->sprite.setScale(-2.f, 2.f);
 		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 2.f, 0.f);
 	}
@@ -87,36 +90,37 @@ void EnemyTypeB::updateAnimations()
 
 void EnemyTypeB::updateMovement()
 {
+	// Not enemy is not moving animation is idle
 	this->animationState = ANIMATION_STATES::IDLE;
 	this->moveDirection = sf::Vector2f(0.f, 1.f);
 
 	float elapsedTime = moveClock.getElapsedTime().asSeconds();
-	const float totalTime = 4.f; // Total time for one cycle (2s + 2s + 2s)
+	const float totalTime = 4.f; // Total time for one cycle (1s + 1s + 1s + 1s)
 
+	//move right for 1 second
 	if (elapsedTime <= 1.f) {
 		this->moveDirection.x = 1.f;
 		this->animationState = ANIMATION_STATES::MOVING_RIGHT;
 	}
+	//stop for 1 second
 	else if (elapsedTime <= 2.f) {
 		this->moveDirection.x = 0.f;
 		this->animationState = ANIMATION_STATES::IDLE;
 	}
+	//move left for 1 second
 	else if (elapsedTime <= 3.f) {
 		this->moveDirection.x = -1.f;
 		setVelocity(getVelocity().x, getVelocity().y);
 		this->animationState = ANIMATION_STATES::MOVING_LEFT;
 	}
+	//stop for 1 second and reset the clock
 	else {
-		// Reset the clock and wait for 2 seconds
 		if (elapsedTime >= totalTime) {
 			this->moveDirection.x = 0.f;
 			this->animationState = ANIMATION_STATES::IDLE;
 			moveClock.restart();
 		}
 	}
-
-
-
 	// moves the sprite based on the velocity (it literally moves, changes the sprites position on window)
 	sprite.move(velocity);
 }

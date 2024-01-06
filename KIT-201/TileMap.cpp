@@ -12,10 +12,11 @@ void TileMap::initSprites()
 	this->blockSprite.setTexture(this->blockTexture);
 }
 
+// parses and initializes map with specified indexed map in txt. ()
 void TileMap::initDefaultMap()
 {
 	TileMapParser parser("Levels/TileMaps.txt");
-	tileMap = parser.parseTileMap(2);
+	tileMap = parser.parseTileMap(1);
 }
 
 TileMap::TileMap()
@@ -35,6 +36,7 @@ TileMap::~TileMap()
 {
 }
 
+// return singular block's bounds
 const sf::FloatRect& TileMap::getTileGlobalBounds() const
 {
 	return this->blockSprite.getGlobalBounds();
@@ -55,8 +57,9 @@ void TileMap::render(sf::RenderTarget& target)
 	// Our tile(block) sprite is a square so each edge is equal
 	float tileSize = this->blockSprite.getGlobalBounds().height;
 
-	for (int i = 0; i < this->tileMap.size(); ++i) {
-		for (int j = 0; j < this->tileMap[i].size(); ++j) {
+	// instead of using multiple block sprites, we move the single sprite and draw it
+	for (size_t i = 0; i < this->tileMap.size(); ++i) {
+		for (size_t j = 0; j < this->tileMap[i].size(); ++j) {
 			if (tileMap[i][j] == GROUND)
 			{
 				float renderPosY = i * tileSize;

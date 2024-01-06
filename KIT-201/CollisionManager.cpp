@@ -164,15 +164,13 @@ void CollisionManager::handleCollisions(Entity& entity, TileMap& tileMap)
 
 void CollisionManager::handleCollisions(std::vector<std::unique_ptr<Bullet>>& bullets, std::vector<std::unique_ptr<Entity>>& entities) {
 	
-	for (int i = 1; i < entities.size(); i++)
+	// start from 
+	for (size_t i = 1; i < entities.size(); i++)
 	{
-		for (int k = 0; k < bullets.size(); k++)
+		for (size_t k = 0; k < bullets.size(); k++)
 		{
-			// SFML::Intersects() function returns unexpected value, so I had to calculate intersection manually
-			if (bullets[k]->getGlobalBounds().left < entities[i]->getGlobalBounds().left + entities[i]->getGlobalBounds().width &&
-				bullets[k]->getGlobalBounds().left + bullets[k]->getGlobalBounds().width > entities[i]->getGlobalBounds().left &&
-				bullets[k]->getGlobalBounds().top < entities[i]->getGlobalBounds().top + entities[i]->getGlobalBounds().height &&
-				bullets[k]->getGlobalBounds().top + bullets[k]->getGlobalBounds().height > entities[i]->getGlobalBounds().top)
+			// If bullet and enemy entity intersects it will destroy the bullet
+			if (bullets[k]->getGlobalBounds().intersects(entities[i]->getGlobalBounds()))
 			{
 				// Makes sure that entity is enemy and enemy is not dead
 				// Then deals damage to enemy, if its healt reaches to 0 destroyes it
@@ -180,6 +178,7 @@ void CollisionManager::handleCollisions(std::vector<std::unique_ptr<Bullet>>& bu
 				{
 					entities[i]->takeDamage(bullets[k]->getDamage());
 					entities[i]->setIsHit(true);
+
 					// Add small force when bullets hit
 					bullets[k]->getPosition().x <= entities[i]->getPosition().x ?
 						PhysicsManager::addForce(*entities[i], 2.f, -10.f) : PhysicsManager::addForce(*entities[i], -2.f, -10.f);
@@ -201,22 +200,22 @@ void CollisionManager::handleCollisions(std::vector<std::unique_ptr<Bullet>>& bu
 
 void CollisionManager::handleCollisions(std::vector<std::unique_ptr<Entity>>& entities)
 {
-	for (int i = 1; i< entities.size(); i++)
+	// as index 0 is player, we start from 1 
+	for (size_t i = 1; i< entities.size(); i++)
 	{
 		if (entities[0]->isEnemy() == false && entities[i]->isEnemy() == true &&
-			entities[0]->getGlobalBounds().left < entities[i]->getGlobalBounds().left + entities[i]->getGlobalBounds().width &&
-			entities[0]->getGlobalBounds().left + entities[0]->getGlobalBounds().width > entities[i]->getGlobalBounds().left &&
-			entities[0]->getGlobalBounds().top < entities[i]->getGlobalBounds().top + entities[i]->getGlobalBounds().height &&
-			entities[0]->getGlobalBounds().top + entities[0]->getGlobalBounds().height > entities[i]->getGlobalBounds().top)
+			entities[0]->getGlobalBounds().intersects(entities[i]->getGlobalBounds()))
 		{
+			// Check whether casting is succesful
+			if (Enemy* enemy = dynamic_cast<Enemy*>(entities[i].get())) 
+			{
+				entities[0]->getPosition().x <= enemy->getPosition().x ?
+					PhysicsManager::addForce(*entities[0], (enemy->getVelocity().x - 10.f), 0.f) :
+					PhysicsManager::addForce(*entities[0], (enemy->getVelocity().x + 10.f), 0.f);
 
-
-			entities[0]->getPosition().x <= entities[i]->getPosition().x ?
-				PhysicsManager::addForce(*entities[0], (entities[i]->getVelocity().x - 10.f), 0.f)
-			  : PhysicsManager::addForce(*entities[0], (entities[i]->getVelocity().x +10.f), 0.f);
-
-			entities[0]->takeDamage(10);
-			std::cout << "Player health: "<< entities[0]->getHealth() << "/" << entities[0]->getMaxHealth() << "\n";
+				entities[0]->takeDamage(enemy->getDamage());
+				std::cout << "Player health: " << entities[0]->getHealth() << "/" << entities[0]->getMaxHealth() << "\n";
+			}
 		}
 	}
 }

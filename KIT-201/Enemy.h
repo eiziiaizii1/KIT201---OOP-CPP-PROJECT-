@@ -25,7 +25,7 @@ public:
      *
      * @return The damage value.
      */
-    virtual const bool getDamage();
+    virtual const int getDamage();
 };
 
 
