@@ -15,7 +15,7 @@ private:
 	static void handleBottomCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap, short leftTopY, short leftBottomY);
 
 	static void handleTopCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap, bool& topCollided,
-							 short leftTopX, short leftTopY, short rightTopX, short rightTopY, short midTopX, short midTopY);
+							 short leftTopX, short leftTopY, short rightTopX, short rightTopY);
 	
 	static void handleLeftCollisions(Entity& entity, std::vector<std::vector<short>>& tileMap, short leftBottomX, short leftBottomY, short leftTopX, short leftTopY);
 	

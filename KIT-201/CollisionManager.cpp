@@ -44,9 +44,12 @@ void CollisionManager::handleBottomCollisions(Entity& entity, std::vector<std::v
 }
 
 void CollisionManager::handleTopCollisions(
-	Entity& entity, std::vector<std::vector<short>>& tileMap, bool& topCollided,
-	short leftTopX, short leftTopY, short rightTopX, short rightTopY, short midTopX, short midTopY)
+	Entity& entity, std::vector<std::vector<short>>& tileMap, bool& topCollided, short leftTopX, short leftTopY, short rightTopX, short rightTopY)
 {
+	short midTopX = static_cast<short>(floor((entity.getGlobalBounds().left + entity.getGlobalBounds().width + entity.getGlobalBounds().left) / 2.f / tileBounds.width));
+	short midTopY = static_cast<short>(floor(entity.getGlobalBounds().top / tileBounds.height));
+
+
 	if (entity.getVelocity().y < 0 &&
 		(tileMap[leftTopY][leftTopX] == GROUND ||
 			tileMap[rightTopY][rightTopX] == GROUND ||
@@ -133,9 +136,6 @@ void CollisionManager::handleCollisions(Entity& entity, TileMap& tileMap)
 	short rightBottomX = rightTopX;
 	short rightBottomY = static_cast<short>(floor((entity.getGlobalBounds().top + entity.getGlobalBounds().height) / tileBounds.height));
 
-	short midTopX = static_cast<short>(floor((entity.getGlobalBounds().left + entity.getGlobalBounds().width+ entity.getGlobalBounds().left) / 2.f / tileBounds.width));
-	short midTopY = static_cast<short>(floor(entity.getGlobalBounds().top / tileBounds.height));
-
 	short midBottomX = static_cast<short>(floor((entity.getGlobalBounds().left + entity.getGlobalBounds().width + entity.getGlobalBounds().left) / 2.f / tileBounds.width));
 	short midBottomY = static_cast<short>(floor((entity.getGlobalBounds().top + entity.getGlobalBounds().height) / tileBounds.height));
 
@@ -151,7 +151,7 @@ void CollisionManager::handleCollisions(Entity& entity, TileMap& tileMap)
 
 		handleBottomCollisions(entity, tileMapVector,  leftTopY, leftBottomY);
 
-		handleTopCollisions(entity, tileMapVector, topCollided, leftTopX, leftTopY, rightTopX, rightTopY, midTopX, midTopY);
+		handleTopCollisions(entity, tileMapVector, topCollided, leftTopX, leftTopY, rightTopX, rightTopY);
 
 		if (topCollided == false) 
 		{
@@ -172,7 +172,7 @@ void CollisionManager::handleCollisions(std::vector<std::unique_ptr<Bullet>>& bu
 			// If bullet and enemy entity intersects it will destroy the bullet
 			if (bullets[k]->getGlobalBounds().intersects(entities[i]->getGlobalBounds()))
 			{
-				// Makes sure that entity is enemy and enemy is not dead
+				// Makes sure that entity is enemy and enemy is not dead 
 				// Then deals damage to enemy, if its healt reaches to 0 destroyes it
 				if (entities[i]->isEnemy() && entities[i]->getIsDead() == false)
 				{

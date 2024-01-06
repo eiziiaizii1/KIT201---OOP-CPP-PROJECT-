@@ -130,6 +130,7 @@ void SoundManager::updateSoundEffect(StateManager& stageManager) {
 		if (stageManager.getWorld().getPlayer().getCanShoot()) {
 			
 			this->soundEffect.setBuffer(bufferShoot);
+			this->soundEffect.setVolume(25);
 			this->soundEffect.play();
 		}
 		if (this->checkAllIfHit(stageManager.getWorld().getEntities())) {
