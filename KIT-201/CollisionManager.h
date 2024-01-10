@@ -8,7 +8,7 @@
 #include "PhysicsManager.h"
 
 /**
- * @brief Represents the collision manager responsible for handling collisions between entities and the environment.
+ * @brief Handles the collisions for the game.
  */
 const sf::FloatRect tileBounds = sf::FloatRect(0.f, 0.f, 64.f, 64.f);
 

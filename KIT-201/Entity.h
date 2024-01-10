@@ -12,7 +12,7 @@ enum class ANIMATION_STATES {
 };
 
 /**
- * Represents the base class for entities.
+ * @Represents the base class for entities.
  */
 class Entity {
 protected:
