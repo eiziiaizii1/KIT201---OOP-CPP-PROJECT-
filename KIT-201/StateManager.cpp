@@ -27,10 +27,10 @@ void StateManager::render(sf::RenderWindow& window) {
         sf::Vector2u windowSize = target.getSize();
 
         // Opaque rectangle that covers screen
-        sf::RectangleShape pauseOverlay(sf::Vector2f(windowSize.x, windowSize.y));
-        pauseOverlay.setFillColor(sf::Color(25, 0, 5, 255)); // Adjust the opacity here (0-255)
-        pauseOverlay.setPosition(viewCenter - sf::Vector2f(windowSize.x / 2.0f, windowSize.y / 2.0f));
-        target.draw(pauseOverlay);
+        sf::RectangleShape menuOverlay(sf::Vector2f(windowSize.x, windowSize.y));
+        menuOverlay.setFillColor(sf::Color(25, 0, 5, 255)); // Adjust the opacity here (0-255)
+        menuOverlay.setPosition(viewCenter - sf::Vector2f(windowSize.x / 2.0f, windowSize.y / 2.0f));
+        target.draw(menuOverlay);
 
         // Loads the Font
         sf::Font font;
@@ -45,9 +45,9 @@ void StateManager::render(sf::RenderWindow& window) {
         TitleText.setStyle(sf::Text::Bold);
 
         // Centers the overlay and text using the local bounds currently displayed on the screen
-        sf::FloatRect textRect = TitleText.getLocalBounds();
-        TitleText.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
-        TitleText.setPosition(viewCenter.x + textRect.left, viewCenter.y - textRect.height / 2.0f + textRect.top);
+        sf::FloatRect titleTextRect = TitleText.getLocalBounds();
+        TitleText.setOrigin(titleTextRect.left + titleTextRect.width / 2.0f, titleTextRect.top + titleTextRect.height / 2.0f);
+        TitleText.setPosition(viewCenter.x + titleTextRect.left, viewCenter.y - titleTextRect.height / 2.0f + titleTextRect.top);
 
         target.draw(TitleText);
 
@@ -64,7 +64,7 @@ void StateManager::render(sf::RenderWindow& window) {
         pressToPlayText.setOrigin(pressToPlayTextRect.left + pressToPlayTextRect.width / 2.0f,
             pressToPlayTextRect.top + pressToPlayTextRect.height / 2.0f);
         pressToPlayText.setPosition(viewCenter.x  + pressToPlayTextRect.left,
-            viewCenter.y + textRect.height + pressToPlayTextRect.top + 10.0f);
+            viewCenter.y + titleTextRect.height + pressToPlayTextRect.top + 10.0f);
 
         target.draw(pressToPlayText);
     }
