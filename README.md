@@ -1,6 +1,6 @@
 # KIT-201
 
-A 2d platformer SFML/C++ game project created by Aziz Önder(22050141021), Uğur Kuş(22050111002), and Emin Salih Açıkgöz(22050111032).
+A 2D platformer SFML/C++ game project created by Aziz Önder(22050141021), Uğur Kuş(22050111002), and Emin Salih Açıkgöz(22050111032).
 
 ## Contributions
 
@@ -11,13 +11,15 @@ A 2d platformer SFML/C++ game project created by Aziz Önder(22050141021), Uğur
 
 **Uğur Kuş:**
 - Camera and SoundManager classes 
-- Small updates to Player,World,Game and StateManager classes
+- Small updates to Player, World, Game, and StateManager classes
 - Level Design
+- Doxygen setup
 
 **Emin Salih Açıkgöz:**
-- 
-- 
-- 
+- StateManager and TileMapParser classes
+- Revised Game and Camera classes
+- Text display within StateManager, using a font file
+- Documentation for header files
 
 ## How to run?
 ### Running from the .exe
