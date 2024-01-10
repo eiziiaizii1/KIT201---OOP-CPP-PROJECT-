@@ -10,9 +10,9 @@ A 2d platformer SFML/C++ game project created by Aziz Önder(22050141021), Uğur
 - Environment(GitHub repository) and library setup
 
 **Uğur Kuş:**
-- 
-- 
-- 
+- Camera and SoundManager classes 
+- Small updates to Player,World,Game and StateManager classes
+- Level Design
 
 **Emin Salih Açıkgöz:**
 - 
