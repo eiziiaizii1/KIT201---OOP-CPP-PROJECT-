@@ -34,7 +34,7 @@ Bullet::~Bullet()
 {
 }
 
-const sf::FloatRect& Bullet::getGlobalBounds()
+const sf::FloatRect Bullet::getGlobalBounds()
 {
 	return this->sprite.getGlobalBounds();
 }
