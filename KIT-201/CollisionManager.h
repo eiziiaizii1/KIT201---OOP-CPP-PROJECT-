@@ -7,11 +7,13 @@
 #include "Enemy.h"
 #include "PhysicsManager.h"
 
+
+const sf::FloatRect tileBounds = sf::FloatRect(0.f, 0.f, 64.f, 64.f);
+
+
 /**
  * @brief Handles the collisions for the game.
  */
-const sf::FloatRect tileBounds = sf::FloatRect(0.f, 0.f, 64.f, 64.f);
-
 class CollisionManager
 {
 private:

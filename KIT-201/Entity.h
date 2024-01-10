@@ -2,8 +2,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+
 /**
- * Enumerates the animation states for entities.
+ * @brief Enumarates the animation states for enemies.
  */
 enum class ANIMATION_STATES {
     IDLE = 0, /**< Represents the idle animation state. */
@@ -12,7 +13,7 @@ enum class ANIMATION_STATES {
 };
 
 /**
- * @Represents the base class for entities.
+ * @brief Represents the base class for entities.
  */
 class Entity {
 protected:
