@@ -66,20 +66,3 @@ void printTileMap(const std::vector<std::vector<short>>& tileMap) {
         std::cout << std::endl;
     }
 }
-
-/*
-int main() {
-    TileMapParser parser("C:/EMIN SALIH/Programming/C++ Projects/TileMapParser/TileMapParser/test.txt");
-
-    try {
-        std::vector<std::vector<short>> tileMap = parser.parseTileMap(1);
-        printTileMap(tileMap);
-        std::cout << "Bruh";
-    }
-    catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-    }
-
-    return 12;
-}
-*/
