@@ -6,7 +6,7 @@ A 2d platformer SFML/C++ game project created by Aziz Önder(22050141021), Uğur
 
 **Aziz Önder:**
 - Bullet, CollisionManager, PhysicsManager, Entity, Player, Enemy, EnemyTypeA, EnemyTypeB, TileMap, World, and Game classes
-- Animations and asset management-modifications(assets were pre-made)
+- Animations and texture asset management-modifications(assets were pre-made)
 - Environment(GitHub repository) and library setup
 
 **Uğur Kuş:**
